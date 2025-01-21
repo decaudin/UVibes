@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/context/theme.js", "src/utils/function/handleChange/index.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/context/theme.js", "src/utils/function/getUvMessageAndIcon/index.js"],
   "exclude": ["node_modules"]
 }

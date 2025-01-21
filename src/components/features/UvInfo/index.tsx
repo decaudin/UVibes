@@ -1,26 +1,28 @@
 import { UvApiResponse } from "@/types/UvApiResponse";
 import { getUvMessageAndIcon } from "@/utils/function/getUvMessageAndIcon";
+import { SafeExposureDuration } from "../SafeExposureDuration";
+import { roundToHundredths } from "@/utils/function/roundToHundredths";
+import { formatTime } from "@/utils/function/formatTime";
 
 interface UvInfoProps {
     uvData: UvApiResponse;
+    filteredExposureTime?: number;
 }
 
-export function UvInfo ({ uvData }: UvInfoProps ) {
+export function UvInfo({ uvData, filteredExposureTime }: UvInfoProps ) {
 
     const uvLevel = uvData?.result?.uv_max || 0;
-    const { message, icon } = getUvMessageAndIcon(uvLevel);
+    const { message, image } = getUvMessageAndIcon(uvLevel);
 
     return (
         <div className="flex flex-col items-center my-16">
-            <h1 className="text-lg mb-8 text-yellow-500">UV Radar: Track the Sun’s Power</h1>
-            <h2>{message}</h2>
-            <div className="mt-4">{icon}</div>    
-            <p className="my-4">Current UV Index: {uvData.result.uv}</p>
-            <p>Max UV of the Day: {uvData.result.uv_max}</p>
-            <p className="my-4">Ozone Level : {uvData.result.ozone}</p>
-            <p>Heure UV : {uvData.result.uv_time}</p>
-            <p className="my-4">Time of Peak UV : {uvData.result.uv_max_time}</p>
-            <p>Heure Ozone : {uvData.result.ozone_time}</p>
+            <h1 className="text-lg text-yellow-500">UV Radar: Track the Sun’s Power</h1>
+            <h2 className="my-8">{message}</h2>
+            <div className="mb-4">{image}</div>    
+            <p className="mt-4 mb-6">Current UV Index : {roundToHundredths(uvData.result.uv)} ({formatTime(uvData.result.uv_time)})</p>
+            <p>Max UV of the Day : {roundToHundredths(uvData.result.uv_max)} ({formatTime(uvData.result.uv_max_time)})</p>
+            <SafeExposureDuration filteredExposureTime={filteredExposureTime} safeExposureTime={uvData.result.safe_exposure_time}/>
+            <p className="my-6">Ozone Level : {uvData.result.ozone} du</p>
         </div>
     )
 }

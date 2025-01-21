@@ -11,7 +11,7 @@ export default function Header() {
       <Link href="/" className={pathname === "/" ? "text-white font-bold" : "text-blue-500"}>Home</Link>
       <Link href="/about" className={`mx-5 ${pathname === "/about" ? "text-white font-bold" : "text-blue-500"}`}>About</Link>
       <Link href="/uv-check" className={pathname === "/uv-check" ? "text-white font-bold" : "text-blue-500"}>Uv-check</Link>
-      <Link href="/contact" className={`mx-5 ${pathname === "/contact" ? "text-white font-bold" : "text-blue-500"}`}>Contact</Link>
+      <Link href="/contact" className={`ml-5 ${pathname === "/contact" ? "text-white font-bold" : "text-blue-500"}`}>Contact</Link>
     </nav>
   );
 };

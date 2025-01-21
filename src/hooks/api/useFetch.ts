@@ -1,5 +1,4 @@
 import { useState } from "react";
-import headers from "@/utils/headers";
 
 interface FetchResult<T> {
   fetchData: (url: string) => Promise<T | undefined>;
@@ -19,7 +18,6 @@ export const useFetch = <T>(): FetchResult<T> => {
       try {
         const response = await fetch(url, {
           method: "GET",
-          headers: headers,
         });
         if (!response.ok) {
           throw new Error(`Erreur HTTP : ${response.status}`);

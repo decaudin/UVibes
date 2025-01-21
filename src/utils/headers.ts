@@ -1,5 +1,11 @@
+const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+
+if (!apiKey) {
+    throw new Error('API_KEY is not defined');
+  }
+
 const headers = new Headers();
-headers.append("x-access-token", "openuv-1ik7qrm52hujbm-io");
+headers.append("x-access-token", apiKey);
 headers.append("Content-Type", "application/json");
 
 export default headers;
