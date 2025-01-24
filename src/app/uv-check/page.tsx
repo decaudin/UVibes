@@ -50,7 +50,7 @@ export default function UvCheck() {
                     <SkinTypeForm setSelectedSkinType={setSelectedSkinType} />
                     <InputSubmit value="Get UV Data" isFormValid={isFormValid} />
                     {isLoading && <div className="w-0 h-0 border-6 border-blue-500 border-b-transparent rounded-full animate-rotate p-2 mx-auto"></div>}
-                    {error && <p className="text-red-500">Une erreur est survenue lors de la récupération des données</p>}
+                    {error && <p className="text-red-500 text-center mt-8 font-bold">Une erreur est survenue lors de la récupération des données</p>}
                 </form>
             ) : (
                 <UvInfo uvData={uvData} filteredExposureTime={filteredExposureTime} />

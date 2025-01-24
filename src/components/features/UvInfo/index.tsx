@@ -11,7 +11,7 @@ interface UvInfoProps {
 
 export function UvInfo({ uvData, filteredExposureTime }: UvInfoProps ) {
 
-    const uvLevel = uvData?.result?.uv_max || 0;
+    const uvLevel = uvData?.result?.uv || 0;
     const { message, image } = getUvMessageAndIcon(uvLevel);
 
     return (
