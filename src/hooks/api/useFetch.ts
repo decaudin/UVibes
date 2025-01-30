@@ -8,7 +8,7 @@ interface FetchResult<T> {
 
 export const useFetch = <T>(): FetchResult<T> => {
 
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     const fetchData = async (url: string): Promise<T | undefined> => {

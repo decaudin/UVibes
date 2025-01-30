@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "@/styles/globals.css";
+import { ThemeProvider } from "@/context/theme";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
-import { ThemeProvider } from "@/context/theme";
+import "@/styles/globals.css";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -36,3 +36,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
         </html>
     );
 }
+
+// Faire page sign-up/login
+// Voir pour les boutons radios pour pouvoir en sélectionner plusieurs
+// Faire connexion avec BDD MongoDb Atlas, définir modèle user, points enregistrés, caractéristique peau
+// Implémenter dashbord pour enregistrer des points en favoris (nom, latitude, longitude) et caractéristique peau pour récupérer les données ensuite sans re-entrer ces infos
+// Résoudre pb nodemailer

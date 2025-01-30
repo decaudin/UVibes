@@ -22,7 +22,6 @@ export async function POST(req: NextRequest) {
 
         const mailOptions = {
             from: process.env.NEUF_USER,
-            // replyTo: email,
             to: process.env.NEUF_USER,
             subject: 'Nouveau message de contact',
             text: `

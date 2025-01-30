@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import headers from '@/utils/headers';
+import headers from '@/config/openUvHeaders';
 
 export async function GET(req: Request) {
 
