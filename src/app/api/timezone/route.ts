@@ -16,7 +16,8 @@ export async function GET(request: Request) {
 
         const response = await fetch(url);
         const data = await response.json();
-        if (data) {
+        console.log("Réponse de l'API:", data);
+        if (data.status === "OK") {
             const timeZone = data.zoneName || null;
             const localTime = data.formatted || null;
         
