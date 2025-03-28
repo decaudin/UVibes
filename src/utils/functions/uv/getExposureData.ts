@@ -7,4 +7,4 @@ export const getExposureData = (exposureTime: number | null) => {
     } else {
         return timeConverter(exposureTime);
     }
-};
+}

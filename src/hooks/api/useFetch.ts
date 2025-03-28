@@ -37,4 +37,4 @@ export const useFetch = <T>(): FetchResult<T> => {
     };
 
     return { fetchData, isLoading, error };
-};
+}

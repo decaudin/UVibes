@@ -6,4 +6,4 @@ export const convertUtcToLocal = (utcTime: string, timeZone: string | null) => {
         return format(zonedTime, 'yyyy-MM-dd HH:mm:ssXXX', { timeZone });
     }
     return utcTime;
-};
+}

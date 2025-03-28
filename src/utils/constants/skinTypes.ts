@@ -5,4 +5,4 @@ export const skinTypes = [
     { key: 'st4', label: 'Olive' },
     { key: 'st5', label: 'Brown' },
     { key: 'st6', label: 'Very Dark' },
-];
+]

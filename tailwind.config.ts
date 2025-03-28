@@ -22,6 +22,7 @@ export default {
         },
       },
       screens: {
+        'xxs': '350px',
         'xs': '500px',
       },
     },

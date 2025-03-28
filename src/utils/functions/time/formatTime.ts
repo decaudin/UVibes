@@ -9,4 +9,4 @@ export const formatTime = (isoDate: string): string => {
     const formattedMinutes = minutes.padStart(2, '0');
 
     return minutes === "00" ? `${formattedHours}h` : `${formattedHours}h${formattedMinutes}min`;
-};
+}

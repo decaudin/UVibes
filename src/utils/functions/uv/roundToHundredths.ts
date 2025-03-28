@@ -1,1 +1,1 @@
-export const roundToHundredths = (num: number): number => Math.round(num * 100) / 100;
+export const roundToHundredths = (num: number): number => Math.round(num * 100) / 100

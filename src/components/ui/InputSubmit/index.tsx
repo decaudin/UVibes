@@ -13,5 +13,4 @@ export default function InputSubmit({ value, isFormValid, className = "" }: Inpu
             value={value}
         />
     );
-};
-  
+}

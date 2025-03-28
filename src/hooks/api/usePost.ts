@@ -8,7 +8,7 @@ interface FormData {
     message: string;
 }
 
-export function usePost() {
+export const usePost = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);

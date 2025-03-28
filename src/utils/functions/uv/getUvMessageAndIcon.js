@@ -31,7 +31,7 @@ export const getUvMessageAndIcon = (uvLevel) => {
             image: renderImage("/uv-0-3.jpg", "Low UV", "border-gray-300"),
         };
     }
-};
+}
 
 // CODE TYPESCRIPT NON FONCTIONNEL
 

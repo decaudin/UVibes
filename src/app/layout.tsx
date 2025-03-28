@@ -37,8 +37,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
     );
 }
 
-// Faire page sign-up/login
-// Voir pour les boutons radios pour pouvoir en sélectionner plusieurs
-// Faire connexion avec BDD MongoDb Atlas, définir modèle user, points enregistrés, caractéristique peau
-// Implémenter dashbord pour enregistrer des points en favoris (nom, latitude, longitude) et caractéristique peau pour récupérer les données ensuite sans re-entrer ces infos
-// Résoudre pb nodemailer
+// Dans header gérer sign out 
+// 1 - Faire page erreur
+// 2 - Faire page sign-up
+// 3 - Voir pour les boutons radios pour pouvoir en sélectionner plusieurs
+// 4 - Faire connexion avec BDD MongoDb Atlas, définir modèle user, points enregistrés, caractéristique peau
+// 5 - Implémenter dashbord pour enregistrer des points en favoris (nom, latitude, longitude) et caractéristique peau pour récupérer les données ensuite sans re-entrer ces infos

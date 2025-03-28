@@ -1,5 +1,5 @@
 "use client";
-import { useTheme } from "@/hooks/context/useContext";
+import { useTheme } from "@/hooks/context";
 
 export default function Footer() {
 
