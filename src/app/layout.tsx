@@ -37,9 +37,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
     );
 }
 
-// Dans header gérer sign out 
-// 1 - Faire page erreur
-// 2 - Faire page sign-up
-// 3 - Voir pour les boutons radios pour pouvoir en sélectionner plusieurs
-// 4 - Faire connexion avec BDD MongoDb Atlas, définir modèle user, points enregistrés, caractéristique peau
-// 5 - Implémenter dashbord pour enregistrer des points en favoris (nom, latitude, longitude) et caractéristique peau pour récupérer les données ensuite sans re-entrer ces infos
+// 1 - Envoie mail ( Brevo)
+// 1 bis - Dans header gérer sign out
+// 2 - Gérer footer (doit toujours être en bas) 
+// 3 - Faire page erreur
+// 4 - Voir pour les boutons radios pour pouvoir en sélectionner plusieurs
+// 5 - Faire connexion avec BDD MongoDb Atlas, définir modèle user, points enregistrés, caractéristique peau
+// 6 - Implémenter dashbord pour enregistrer des points en favoris (nom, latitude, longitude) et caractéristique peau pour récupérer les données ensuite sans re-entrer ces infos
