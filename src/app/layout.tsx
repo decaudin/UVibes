@@ -27,9 +27,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
     return (
         <html lang="en">
             <ThemeProvider>
-                <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-sky-100 bg-opacity-50 h-screen`}>
+                <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-sky-100 bg-opacity-50 min-h-screen flex flex-col`}>
                     <Header />
-                    {children}
+                    <main className="flex-grow flex justify-center">
+                        {children}
+                    </main>
                     <Footer />
                 </body>
             </ThemeProvider>
@@ -39,7 +41,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
 // 1 - Envoie mail ( Brevo)
 // 2 - Dans header gérer sign out
-// 3 - Gérer footer (doit toujours être en bas) 
-// 4 - Voir pour les boutons radios pour pouvoir en sélectionner plusieurs
-// 5 - Faire connexion avec BDD MongoDb Atlas, définir modèle user, points enregistrés, caractéristique peau
-// 6 - Implémenter dashbord pour enregistrer des points en favoris (nom, latitude, longitude) et caractéristique peau pour récupérer les données ensuite sans re-entrer ces infos
+// 3 - Voir pour les boutons radios pour pouvoir en sélectionner plusieurs
+// 4 - Faire connexion avec BDD MongoDb Atlas, définir modèle user, points enregistrés, caractéristique peau
+// 5 - Implémenter dashbord pour enregistrer des points en favoris (nom, latitude, longitude) et caractéristique peau pour récupérer les données ensuite sans re-entrer ces infos
+// 6 - Burger Menu ?

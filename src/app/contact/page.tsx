@@ -27,7 +27,7 @@ export default function Contact() {
     };
 
     return (
-        <div>
+        <div className="flex flex-col w-full">
             <h1 className="text-center my-16 text-lg">Got questions, suggestions, or feedback? Contact us easily here!</h1>
             {isLoading && <p className="text-blue-500 text-center mb-4">Sending your message, please wait...</p>}
             <form onSubmit={handleSubmit} className="flex flex-col items-center mx-auto mb-16 py-8 w-full text-black bg-amber-100 bg-opacity-70 rounded-lg shadow xs:w-4/5 sm:w-3/5">
