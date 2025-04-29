@@ -1,5 +1,5 @@
 interface FormProps {
-    onSubmit: (e: React.FormEvent) => void;
+    onSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
     title: string;
     children: React.ReactNode;
 }

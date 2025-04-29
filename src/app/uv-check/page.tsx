@@ -4,7 +4,7 @@ import { UvApiResponse } from "@/types/UvApiResponse";
 import { useFetch } from "@/hooks/api/useFetch";
 import { handleTextChange } from "@/utils/functions/input/handleTextChange";
 import Input from "@/components/ui/Input";
-import InputSubmit from "@/components/ui/InputSubmit";
+import ButtonSubmit from "@/components/ui/ButtonSubmit";
 import { UvInfo } from "@/components/features/UvInfo";
 import { SkinTypeForm } from "@/components/features/SkinTypeForm";
 
@@ -72,7 +72,7 @@ export default function UvCheck() {
                     <Input wrapperClassName={wrapperStyles} inputClassName={inputStyles} id="longitude" label="Longitude :" type="text" name="longitude" value={formData.longitude} onChange={handleTextChange(setFormData)} />
                     <Input wrapperClassName={wrapperStyles} inputClassName={inputStyles} id="altitude" label="Altitude (optional) :" type="text" name="altitude" value={formData.altitude} onChange={handleTextChange(setFormData)} />
                     <SkinTypeForm setSelectedSkinType={setSelectedSkinType} />
-                    <InputSubmit value="Get UV Data" isFormValid={isFormValid} />
+                    <ButtonSubmit isFormValid={isFormValid}>Get UV Data</ButtonSubmit>
                     {isLoading && <div className="text-blue-500 text-center mt-8">Loading in progress...</div>}
                     {error && <p className="text-red-500 text-center mt-8 font-bold">An error occurred while fetching the data.</p>}
                 </form>
