@@ -1,18 +1,40 @@
 import { NextResponse } from 'next/server';
 import headers from '@/config/openUvHeaders';
+import { UvCheckSchema } from '@/lib/schemas/uvCheckSchema';
 
 export async function GET(req: Request) {
 
     const { searchParams } = new URL(req.url);
-    const latitude = searchParams.get('latitude');
-    const longitude = searchParams.get('longitude');
-    const altitude = searchParams.get('altitude');
 
-    if (!latitude || !longitude) {
-        return NextResponse.json({ error: 'Latitude and Longitude are required' }, { status: 400 });
+    const lat = searchParams.get('latitude');
+    const long = searchParams.get('longitude');
+    const alt = searchParams.get('altitude');
+    const skinT = searchParams.get('skinType');
+
+    if (lat == null || long == null) {
+        return NextResponse.json({ error: 'Latitude and longitude are required.' }, { status: 400 });
     }
 
-    const apiUrl = `https://api.openuv.io/api/v1/uv?lat=${latitude}&lng=${longitude}&alt=${altitude || ''}`;
+    const data = {
+        latitude: Number(lat),
+        longitude: Number(long),
+        altitude: alt ? Number(alt) : null,
+        skinType: typeof skinT === 'string' && /^[1-6]$/.test(skinT) ? Number(skinT) : undefined,
+    };
+
+    const parsed = UvCheckSchema.safeParse(data);
+
+    if (!parsed.success) {
+        return NextResponse.json(
+            { error: 'Invalid query parameters', details: parsed.error.format() },
+            { status: 400 }
+        );
+    }
+
+    const { latitude, longitude, altitude } = parsed.data;
+
+    let apiUrl = `https://api.openuv.io/api/v1/uv?lat=${latitude}&lng=${longitude}`;
+    if (altitude != null) apiUrl += `&altitude=${altitude}`;
 
     try {
         const response = await fetch(apiUrl, {

@@ -1,12 +1,12 @@
 import { UseFormRegister } from "react-hook-form";
-import { FormData } from "@/app/(auth)/sign-up/page";
+import { SignUpFormData } from "@/lib/schemas/authSchema";
 import { usePasswordToggle } from "@/hooks/passwordToggle";
 import Input from "../../Input";
 import EyeToggle from "@/components/ui/Auth/EyeToggle";
 
 interface PasswordInputProps {
     autoComplete: string;
-    register: UseFormRegister<FormData>;
+    register: UseFormRegister<SignUpFormData>;
     errorMessage?: string | null;
 }
 

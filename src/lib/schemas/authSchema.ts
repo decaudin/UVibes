@@ -25,3 +25,6 @@ export const signInSchema = z.object({
     email: emailSchema,
     password: passwordSchema,
 });
+
+export type SignUpFormData = z.infer<typeof signUpSchema>;
+export type SignInFormData = z.infer<typeof signInSchema>;

@@ -42,7 +42,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 }
 
 // 1 - Envoie mail ( Brevo)
-// 1(bis) - Faire 2 pages pour uv-check (results) avec ?latitude longitude et altitude optionnel dans url (useParams pour récup) et enlever ternaire
+// 1(bis) - Sign In
 // 2 - Dans header gérer sign out
 // 3 - Voir pour les boutons radios pour pouvoir en sélectionner plusieurs
 // 4 - définir modèle user, points enregistrés, caractéristique peau

@@ -1,11 +1,11 @@
-type ButtonSubmitProps = {
+type SubmitButtonProps = {
     children: React.ReactNode;
     isFormValid: boolean;
     isLoading?: boolean;
     className?: string;
 };
 
-export default function ButtonSubmit({ children, isFormValid, isLoading, className = "" }: ButtonSubmitProps) {
+export default function SubmitButton({ children, isFormValid, isLoading, className = "" }: SubmitButtonProps) {
 
     return (
         <button

@@ -3,7 +3,7 @@ import { useState } from "react"
 import { handleTextChange } from "@/utils/functions/input/handleTextChange";
 import { usePost } from "@/hooks/api/usePost";
 import Input from "@/components/ui/Input"
-import ButtonSubmit from "@/components/ui/ButtonSubmit";
+import SubmitButton from "@/components/ui/SubmitButton";
 
 export default function Contact() {
 
@@ -35,7 +35,7 @@ export default function Contact() {
                 <Input wrapperClassName={wrapperStyles} inputClassName={inputStyles} labelClassName="sr-only" id="lastName" label="Last Name" placeholder="Last Name" type="text" name="lastName" value={formData.lastName} onChange={handleTextChange(setFormData)} />
                 <Input wrapperClassName={wrapperStyles} inputClassName={inputStyles} labelClassName="sr-only" id="email" label="Email" placeholder="E-mail" type="text" name="email" value={formData.email} onChange={handleTextChange(setFormData)} />
                 <textarea className="h-48 my-4 pl-2 pt-2 w-[90%] shadow xs:w-4/5 sm:w-[300px]" id="message" placeholder="Enter your message here ..." name="message" value={formData.message} onChange={handleTextChange(setFormData)} />
-                <ButtonSubmit isFormValid={isFormValid} className="px-8 my-4">{isLoading ? "Sending..." : "Send"}</ButtonSubmit>
+                <SubmitButton isFormValid={isFormValid} className="px-8 my-4">{isLoading ? "Sending..." : "Send"}</SubmitButton>
             </form>
             {error && <p className="text-red-500 text-center font-bold">Error: {error}</p>}
             {data && <p className="text-green-500 text-center">Message sent successfully!</p>}

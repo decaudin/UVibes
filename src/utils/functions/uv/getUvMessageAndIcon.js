@@ -18,7 +18,7 @@ export const getUvMessageAndIcon = (uvLevel) => {
     } else if (uvLevel >= 5) {
         return {
             message: "🔶 High UV level, wear sunscreen and protective gear. 🔶",
-            image: renderImage("/uv-7-9.jpg", "High UV", "border-orange-500"),
+            image: renderImage("/uv-5-7.jpg", "High UV", "border-orange-500"),
         };
     } else if (uvLevel >= 3) {
         return {

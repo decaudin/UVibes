@@ -4,25 +4,22 @@ import { useRouter } from "next/navigation";
 import { toast } from 'sonner';
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { signUpSchema } from "@/schemas/authschema";
+import { SignUpFormData, signUpSchema } from "@/lib/schemas/authSchema";
 import Form from "@/components/ui/Auth/Form";
 import Input from "@/components/ui/Input";
 import PasswordInput from "@/components/ui/Auth/PasswordInput";
-import ButtonSubmit from "@/components/ui/ButtonSubmit";
+import SubmitButton from "@/components/ui/SubmitButton";
 import { Loader } from "@/components/ui/Loader";
 
-export type FormData = {
-    name: string;
-    email: string;
-    password: string;
-};
+const wrapperStyles = "flex flex-col w-64 mb-10";
+const inputStyles = "h-8 rounded-lg shadow mt-1 pl-2";
 
 export default function SignUp() {
 
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
-
-    const { register, handleSubmit, formState: { errors }, setError, watch } = useForm<FormData>({
+    
+    const { register, handleSubmit, formState: { errors }, setError, watch } = useForm<SignUpFormData>({
         resolver: zodResolver(signUpSchema),
         mode: "onBlur",
         shouldFocusError: false,
@@ -43,7 +40,7 @@ export default function SignUp() {
         /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=.]).{8,}$/.test(formValues.password)
     );
 
-    const onSubmit = async (data: FormData) => {
+    const onSubmit = async (data: SignUpFormData) => {
         setIsLoading(true); 
         try {
             const res = await fetch('/api/signup', {
@@ -64,7 +61,7 @@ export default function SignUp() {
                 throw new Error(responseData.message || 'Something went wrong');
             }
 
-            toast.success("Account created! Taking you to the Sign In page...");
+            toast.success("Account created ! Taking you to the Sign In page ...");
             await new Promise(resolve => setTimeout(resolve, 2000));
             router.push("/sign-in");
 
@@ -84,16 +81,16 @@ export default function SignUp() {
                 <Form title="Sign Up" onSubmit={handleSubmit(onSubmit)}>
                     <Input 
                         id="name" type="text" label="Name :" placeholder="Enter your name" autoComplete="name" errorMessage={errors.name?.message} 
-                        wrapperClassName="flex flex-col w-64 mb-10" inputClassName="h-8 rounded-lg shadow mt-1 pl-2"
+                        wrapperClassName={wrapperStyles} inputClassName={inputStyles} 
                         {...register('name')}
                     />
                     <Input 
                         id="email" type="email" label="Email :" placeholder="Enter your email" autoComplete="email" errorMessage={errors.email?.message}
-                        wrapperClassName="flex flex-col w-64 mb-10" inputClassName="h-8 rounded-lg shadow mt-1 pl-2"
+                        wrapperClassName={wrapperStyles} inputClassName={inputStyles}
                         {...register('email')}
                     />
                     <PasswordInput autoComplete="new-password" errorMessage={errors.password?.message} register={register} />
-                    <ButtonSubmit isFormValid={isValid} isLoading={isLoading} className="my-8">Sign Up</ButtonSubmit>
+                    <SubmitButton isFormValid={isValid} isLoading={isLoading} className="my-8">Sign Up</SubmitButton>
                 </Form> 
             ) : (   
                 <Loader />

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
-import { signUpSchema } from '@/schemas/authschema';
+import { signUpSchema } from '@/lib/schemas/authSchema';
 import User from '@/models/User';
 import bcrypt from 'bcryptjs';
 
