@@ -1,5 +1,13 @@
+import { generateMetadata } from "@/lib/metadata";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata = generateMetadata({
+    title: "About",
+    description: "Discover UVibes, a non-profit platform that offers accurate UV index data using the OpenUV API. Learn how we help you plan safe sun exposure with reliable, open-source information.",
+    keywords: ["about UVibes", "UV API", "open source UV data", "how UVibes works", "UV data source"],
+    url: "https://u-vibes.vercel.app/about"
+});
 
 export default function About() {
 

@@ -10,8 +10,7 @@ interface SafeExposureDurationProps {
 export function SafeExposureDuration({ filteredExposureTime, safeExposureTime }: SafeExposureDurationProps) {
 
     return (
-
-        <div>
+        <>
             {filteredExposureTime !== undefined ? (
                 <>
                     <h3 className="my-6 text-center">Safe Exposure Duration for Your Skin Type:</h3>
@@ -31,6 +30,6 @@ export function SafeExposureDuration({ filteredExposureTime, safeExposureTime }:
                     </ul>
                 </>
             )}
-        </div>
-    );
+        </>
+    )
 }

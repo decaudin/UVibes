@@ -17,8 +17,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "UVibes",
-    description: "UV Index and Sun Exposure Calculator",
+    title: "UVibes - UV Index and Sun Exposure Calculator",
+    description: "Check UV index and optimize your sun exposure for better health.",
+    keywords: ["UV index", "sun exposure", "vitamin D", "UVibes"],
+    authors: [{ name: "Decaudin Xavier" }],
+    openGraph: {
+        title: "UVibes - UV Index and Sun Exposure Calculator",
+        description: "Check UV index and optimize your sun exposure for better health.",
+        url: "https://u-vibes.vercel.app/",
+        siteName: "UVibes",
+        images: ["https://u-vibes.vercel.app/sun-1.png"],
+        locale: "en_US",
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "UVibes - UV Index and Sun Exposure Calculator",
+        description: "Check UV index and optimize your sun exposure for better health.",
+        images: ["https://u-vibes.vercel.app/sun-1.png"]
+    }
 };
 
 type RootLayoutProps = { children: React.ReactNode };
@@ -29,23 +46,27 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <html lang="en">
             <ThemeProvider>
                 <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-sky-100 bg-opacity-50 min-h-screen flex flex-col`}>
-                    <Header />
+                    <header>
+                        <Header />
+                    </header>
                     <main className="flex-grow flex justify-center">
                         <Toaster richColors position="top-right" />
                         {children}                        
                     </main>
-                    <Footer />
+                    <footer>
+                        <Footer />
+                    </footer>
                 </body>
             </ThemeProvider>
         </html>
-    );
+    )
 }
 
-// 1 - Envoie mail ( Brevo)
+// 1 - Envoie mail ( Brevo ou Resent(?))
 // 1(bis) - Sign In
 // 2 - Dans header gérer sign out
 // 3 - Voir pour les boutons radios pour pouvoir en sélectionner plusieurs
 // 4 - définir modèle user, points enregistrés, caractéristique peau
 // 5 - Implémenter dashbord pour enregistrer des points en favoris (nom, latitude, longitude) et caractéristique peau pour récupérer les données ensuite sans re-entrer ces infos
 // 6 - Burger Menu ?
-// 7 - Medatata à chaque page ( SEO ) --> ajouter layout pour chaque page (server components)
+// 7 - Possibilité recherche ville via input (--> suggestion API) et récup via autre API (lat, lon et alt correspondantes)

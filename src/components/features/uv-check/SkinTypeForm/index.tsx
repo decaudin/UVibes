@@ -47,5 +47,5 @@ export function SkinTypeForm({ register }: SkinTypeExposureProps) {
                 />
             </div>
         </div>
-    );
+    )
 }

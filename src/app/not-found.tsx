@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
+import { generateMetadata } from "@/lib/metadata";
 import Link from "next/link";
+
+export const metadata: Metadata = generateMetadata({
+    title: "404 - Page Not Found",
+    description: "This page doesn't exist. Find UV index information, sun exposure tips, and UVibes tools on our homepage.",
+    robots: "noindex, nofollow",
+})
 
 export default function NotFound() {
 

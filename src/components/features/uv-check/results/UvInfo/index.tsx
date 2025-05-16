@@ -1,7 +1,7 @@
 import { UvApiResponse } from "@/types/UvApiResponse";
 import { getUvMessageAndIcon } from "@/utils/functions/uv/getUvMessageAndIcon";
 import { roundToHundredths } from "@/utils/functions/uv/roundToHundredths";
-import { SafeExposureDuration } from "../SafeExposureDuration";
+import { SafeExposureDuration } from "./SafeExposureDuration";
 
 interface UvInfoProps {
     uvData: UvApiResponse;
