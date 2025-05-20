@@ -46,16 +46,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <html lang="en">
             <ThemeProvider>
                 <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-sky-100 bg-opacity-50 min-h-screen flex flex-col`}>
-                    <header>
-                        <Header />
-                    </header>
+                    <Header />
                     <main className="flex-grow flex justify-center">
                         <Toaster richColors position="top-right" />
                         {children}                        
                     </main>
-                    <footer>
-                        <Footer />
-                    </footer>
+                    <Footer />
                 </body>
             </ThemeProvider>
         </html>
@@ -68,5 +64,4 @@ export default function RootLayout({ children }: RootLayoutProps) {
 // 3 - Voir pour les boutons radios pour pouvoir en sélectionner plusieurs
 // 4 - définir modèle user, points enregistrés, caractéristique peau
 // 5 - Implémenter dashbord pour enregistrer des points en favoris (nom, latitude, longitude) et caractéristique peau pour récupérer les données ensuite sans re-entrer ces infos
-// 6 - Burger Menu ?
 // 7 - Possibilité recherche ville via input (--> suggestion API) et récup via autre API (lat, lon et alt correspondantes)
