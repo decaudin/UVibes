@@ -24,6 +24,7 @@ export const signUpSchema = z.object({
 export const signInSchema = z.object({
     email: emailSchema,
     password: passwordSchema,
+    isRememberMe: z.boolean().optional()
 });
 
 export type SignUpFormData = z.infer<typeof signUpSchema>;

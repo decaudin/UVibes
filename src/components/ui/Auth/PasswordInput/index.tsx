@@ -1,16 +1,16 @@
-import { UseFormRegister } from "react-hook-form";
-import { SignUpFormData } from "@/lib/schemas/authSchema";
+import { FieldValues, UseFormRegister, Path } from "react-hook-form";
 import { usePasswordToggle } from "@/hooks/passwordToggle";
 import Input from "../../Input";
 import EyeToggle from "@/components/ui/Auth/EyeToggle";
+import { wrapperStyles, inputStyles } from "@/styles/classNames";
 
-interface PasswordInputProps {
+interface PasswordInputProps<T extends FieldValues> {
     autoComplete: string;
-    register: UseFormRegister<SignUpFormData>;
+    register: UseFormRegister<T>;
     errorMessage?: string | null;
 }
 
-export default function PasswordInput({ autoComplete, errorMessage, register }: PasswordInputProps) {
+export default function PasswordInput<T extends FieldValues>({ autoComplete, errorMessage, register }: PasswordInputProps<T>) {
 
     const { isPasswordVisible, togglePasswordVisibility } = usePasswordToggle();
 
@@ -19,8 +19,8 @@ export default function PasswordInput({ autoComplete, errorMessage, register }: 
             <Input 
                 id="password" type={isPasswordVisible ? "text" : "password"} label="Password :" 
                 placeholder="Enter your password" autoComplete={autoComplete} errorMessage={errorMessage} 
-                wrapperClassName="flex flex-col w-64 mb-10" inputClassName="h-8 rounded-lg shadow mt-1 pl-2" 
-                {...register('password')}
+                wrapperClassName={wrapperStyles} inputClassName={inputStyles} 
+                {...register('password' as Path<T>)}
             />
             <EyeToggle isVisible={isPasswordVisible} onToggle={togglePasswordVisibility} />
         </div>

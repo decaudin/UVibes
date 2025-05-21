@@ -7,7 +7,7 @@ export default function Footer() {
 
     return (
         <footer className="h-16 bg-black flex items-center justify-center mt-6">
-            <p className="text-white m-auto"><span className="cursor-pointer" onClick={() => toggleTheme()}>{theme === 'light' ? '☀️' : '🌙'}</span> Stay chill under the sun’s thrill!</p>
+            <p className="text-white m-auto"><span className="cursor-pointer" onClick={() => toggleTheme()}>{theme === 'light' ? '☀️' : '🌙'}</span> Stay chill under the sun&#39;s thrill!</p>
         </footer>
     )
 }

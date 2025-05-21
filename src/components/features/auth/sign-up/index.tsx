@@ -10,9 +10,7 @@ import Input from "@/components/ui/Input";
 import PasswordInput from "@/components/ui/Auth/PasswordInput";
 import SubmitButton from "@/components/ui/SubmitButton";
 import { Loader } from "@/components/ui/Loader";
-
-const wrapperStyles = "flex flex-col w-64 mb-10";
-const inputStyles = "h-8 rounded-lg shadow mt-1 pl-2";
+import { wrapperStyles, inputStyles } from "@/styles/classNames";
 
 export default function SignUpForm() {
 
@@ -82,12 +80,12 @@ export default function SignUpForm() {
                     <Input 
                         id="name" type="text" label="Name :" placeholder="Enter your name" autoComplete="name" errorMessage={errors.name?.message} 
                         wrapperClassName={wrapperStyles} inputClassName={inputStyles} 
-                        {...register('name')}
+                        {...register("name")}
                     />
                     <Input 
                         id="email" type="email" label="Email :" placeholder="Enter your email" autoComplete="email" errorMessage={errors.email?.message}
                         wrapperClassName={wrapperStyles} inputClassName={inputStyles}
-                        {...register('email')}
+                        {...register("email")}
                     />
                     <PasswordInput autoComplete="new-password" errorMessage={errors.password?.message} register={register} />
                     <SubmitButton isFormValid={isValid} isLoading={isLoading} className="my-8">Sign Up</SubmitButton>

@@ -18,7 +18,7 @@ export default function Input({ id, label, type, name, value, onChange, errorMes
             <label htmlFor={id} className={labelClassName}>
                 {label}
             </label>
-            <input id={id} name={name} type={type} value={value} onChange={onChange} /*className={inputClassName}*/ className={`${inputClassName} ${errorMessage && 'border-2 border-red-500 focus:border-red-500'}`} {...props} />
+            <input id={id} name={name} type={type} value={value} onChange={onChange} className={`${inputClassName} ${errorMessage && 'border-2 border-red-500 focus:border-red-500'}`} {...props} />
             {errorMessage && <p className="text-sm text-red-500 mt-2">{errorMessage}</p>}
         </div>
     );
