@@ -59,7 +59,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 }
 
 // 1 - Envoie mail ( Brevo ou Resent(?))
-// 1(bis) - Sign In
+// 1(bis) - Sign In (via google)
 // 2 - Dans header gérer sign out
 // 3 - Voir pour les boutons radios pour pouvoir en sélectionner plusieurs
 // 4 - définir modèle user, points enregistrés, caractéristique peau
