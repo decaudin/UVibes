@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from 'sonner';
 import { ThemeProvider } from "@/context/theme";
+import SessionGate from "@/components/ui/SessionGate";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import "@/styles/globals.scss";
@@ -46,12 +47,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <html lang="en">
             <ThemeProvider>
                 <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-sky-100 bg-opacity-50 min-h-screen flex flex-col`}>
-                    <Header />
-                    <main className="flex-grow flex justify-center">
-                        <Toaster richColors position="top-right" />
-                        {children}                        
-                    </main>
-                    <Footer />
+                    <SessionGate>
+                        <Header />
+                        <main className="flex-grow flex justify-center">
+                            <Toaster richColors position="top-right" />
+                            {children}                        
+                        </main>
+                        <Footer />
+                    </SessionGate>
                 </body>
             </ThemeProvider>
         </html>
@@ -59,9 +62,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
 }
 
 // 1 - Envoie mail ( Brevo ou Resent(?))
-// 1(bis) - Sign In (via google)
-// 2 - Dans header gérer sign out
+// 2 - Sign In (via google)
 // 3 - Voir pour les boutons radios pour pouvoir en sélectionner plusieurs
 // 4 - définir modèle user, points enregistrés, caractéristique peau
-// 5 - Implémenter dashbord pour enregistrer des points en favoris (nom, latitude, longitude) et caractéristique peau pour récupérer les données ensuite sans re-entrer ces infos
-// 7 - Possibilité recherche ville via input (--> suggestion API) et récup via autre API (lat, lon et alt correspondantes)
+// 5 - Implémenter dashbord pour enregistrer, modifier, supprimer des points en favoris (nom, latitude, longitude) et caractéristique peau pour récupérer les données ensuite sans re-entrer ces infos
+// 6 - Possibilité recherche ville via input (--> suggestion API) et récup via autre API (lat, lon et alt correspondantes)
+// 7 Langue Fr/En

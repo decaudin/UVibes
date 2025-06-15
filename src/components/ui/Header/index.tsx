@@ -1,29 +1,24 @@
 "use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { navLinks } from "@/utils/constants/navLinks";
+import { useNavigationItems } from "@/hooks/navigation";
+import { useUserStore } from "@/stores/userStore";
+import NavList from "./NavList";
 import BurgerMenu from "./BurgerMenu";
 
 export default function Header() {
 
-    const pathname = usePathname();
+    const { pathname, navList } = useNavigationItems();
+    const user = useUserStore((state) => state.user);
+
+    const navWidth = user ? "w-[374px]" : "w-[335px]";
 
     return (
         <header className="bg-black h-16 flex justify-center items-center">
-            <nav className="hidden md:flex">
-                {navLinks.map(({ href, label, isActive, className = "" }) => (
-                    <Link
-                        key={href}
-                        href={href}
-                        className={`text-sm xxs:text-base ${className} ${isActive(pathname) ? "text-white font-bold" : "text-blue-500"}`}
-                    >
-                        {label}
-                    </Link>
-                ))}
+            <nav className={`hidden md:flex gap-4 justify-between ${navWidth}`}>
+                <NavList navList={navList} pathname={pathname} variant="header" />
             </nav>
             <div className="md:hidden">
                 <BurgerMenu />
             </div>
         </header>
-    );
+    )
 }

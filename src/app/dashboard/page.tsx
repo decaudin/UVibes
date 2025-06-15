@@ -1,9 +1,13 @@
-export default function Dashboard() {
+import { Metadata } from "next";
+import { generateMetadata } from "@/lib/metadata";
+import DashboardClient from "@/components/features/dashboard";
 
-    return (
-        <div className="flex flex-col items-center justify-center">
-            <h1 className="text-4xl">Welcome !</h1>
-            <p className="my-8">In Progress ..</p>
-        </div>
-    )
+export const metadata: Metadata = generateMetadata({
+    title: "Dashboard",
+    description: "Manage your saved locations and view real-time UV index data tailored to your spots.",
+    robots: "noindex, nofollow"
+});
+
+export default function Dashboard() {
+    return <DashboardClient />
 }

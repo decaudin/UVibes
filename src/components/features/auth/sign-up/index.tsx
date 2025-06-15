@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignUpFormData, signUpSchema } from "@/lib/schemas/authSchema";
-import Form from "@/components/ui/Auth/Form";
+import FormWrapper from "@/components/ui/Auth/FormWrapper";
 import Input from "@/components/ui/Input";
 import PasswordInput from "@/components/ui/Auth/PasswordInput";
 import SubmitButton from "@/components/ui/SubmitButton";
@@ -60,7 +60,6 @@ export default function SignUpForm() {
             }
 
             toast.success("Account created ! Taking you to the Sign In page ...");
-            await new Promise(resolve => setTimeout(resolve, 2000));
             router.push("/sign-in");
 
         } catch (error: unknown) {
@@ -76,20 +75,22 @@ export default function SignUpForm() {
     return (
         <>
             {!isLoading ? ( 
-                <Form title="Sign Up" onSubmit={handleSubmit(onSubmit)}>
-                    <Input 
-                        id="name" type="text" label="Name :" placeholder="Enter your name" autoComplete="name" errorMessage={errors.name?.message} 
-                        wrapperClassName={wrapperStyles} inputClassName={inputStyles} 
-                        {...register("name")}
-                    />
-                    <Input 
-                        id="email" type="email" label="Email :" placeholder="Enter your email" autoComplete="email" errorMessage={errors.email?.message}
-                        wrapperClassName={wrapperStyles} inputClassName={inputStyles}
-                        {...register("email")}
-                    />
-                    <PasswordInput autoComplete="new-password" errorMessage={errors.password?.message} register={register} />
-                    <SubmitButton isFormValid={isValid} isLoading={isLoading} className="my-8">Sign Up</SubmitButton>
-                </Form> 
+                <FormWrapper title="Sign Up" content="Already have an account ? " href="/sign-in" link="Sign In">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <Input 
+                            id="name" type="text" label="Name :" placeholder="Enter your name" autoComplete="name" errorMessage={errors.name?.message} 
+                            wrapperClassName={wrapperStyles} inputClassName={inputStyles} 
+                            {...register("name")}
+                        />
+                        <Input 
+                            id="email" type="email" label="Email :" placeholder="Enter your email" autoComplete="email" errorMessage={errors.email?.message}
+                            wrapperClassName={wrapperStyles} inputClassName={inputStyles}
+                            {...register("email")}
+                        />
+                        <PasswordInput autoComplete="new-password" errorMessage={errors.password?.message} register={register} />
+                        <SubmitButton isFormValid={isValid} isLoading={isLoading} className="my-8">Sign Up</SubmitButton>
+                    </form>
+                </FormWrapper>
             ) : (   
                 <Loader />
             )}

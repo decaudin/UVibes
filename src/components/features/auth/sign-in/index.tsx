@@ -2,22 +2,23 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from 'sonner';
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 // import { signIn } from 'next-auth/react';
 import { SignInFormData, signInSchema } from "@/lib/schemas/authSchema";
+import { useUserStore } from '@/stores/userStore';
+import FormWrapper from "@/components/ui/Auth/FormWrapper";
 import Input from "@/components/ui/Input";
 import PasswordInput from "@/components/ui/Auth/PasswordInput";
 import SubmitButton from "@/components/ui/SubmitButton";
 import { Loader } from "@/components/ui/Loader";
 import { inputStyles, wrapperStyles } from "@/styles/classNames";
 
-
 export default function SignInForm() {
 
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+    const setUser = useUserStore(state => state.setUser);
 
     const { register, handleSubmit, formState: { errors }, setError, watch } = useForm<SignInFormData>({
         resolver: zodResolver(signInSchema),
@@ -37,49 +38,49 @@ export default function SignInForm() {
     );
 
     const onSubmit = async (data: SignInFormData) => {
-        setIsLoading(true); 
+        setIsLoading(true);
         try {
             const res = await fetch('/api/signin', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
                 body: JSON.stringify(data),
             });
 
-            const responseData = await res.json();
-
             if (!res.ok) {
+                const responseData = await res.json();
                 if (responseData.message === 'Invalid credentials') {
                     setError('email', { type: 'manual', message: 'Invalid email or password' });
                     setError('password', { type: 'manual', message: 'Invalid email or password' });
                 }
-    
                 throw new Error(responseData.message || 'Something went wrong');
             }
 
-            toast.success("You're in ! Redirecting to your Dashboard ...");
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            const userRes = await fetch("/api/user/me", { credentials: "include" });
+            if (!userRes.ok) throw new Error("Error while retrieving the user");
+
+            const userData = await userRes.json();
+
+            setUser(userData.user);
+            toast.success("You're in! Taking you to your Dashboard...");
             router.push("/dashboard");
 
         } catch (error: unknown) {
+            setIsLoading(false);
             if (error instanceof Error) {
                 toast.error("Signin failed");
+                console.error(error.message);
             } else {
                 toast.error('Unknown signin error');
             }
-            setIsLoading(false);
         }
     };
 
     return (
         <>
             {!isLoading ? (
-                <div className="flex flex-col items-center w-full xs:w-3/5 mx-auto border-2 border-gray-400 my-12 rounded-lg shadow-md">
-                    <h1 className="text-4xl mt-12 mb-6 font-bold">Sign In</h1>
-                    <p className="mb-8">Don&#39;t have an account ? <Link className="text-red-500" href="/sign-up">Sign Up</Link></p>
-
-                    <form onSubmit={handleSubmit(onSubmit)} className="">
+                <FormWrapper title="Sign In" content="Don&#39;t have an account ? " href="/sign-up" link="Sign Up">
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <Input  
                             id="email" type="text" label="Email :" placeholder="Enter your email" autoComplete="email" errorMessage={errors.email?.message} 
                             wrapperClassName={wrapperStyles} inputClassName={inputStyles}
@@ -102,7 +103,7 @@ export default function SignInForm() {
 
                     <button
                         // onClick={() => signIn('google')}
-                        onClick={() => alert('This feature is under development and will be available soon ..')}
+                        onClick={() => alert('This feature is under development and will be available soon.')}
                         className="flex items-center justify-center gap-3 px-6 py-2 mt-8 mb-12 rounded-md bg-white border border-gray-300 shadow-md hover:shadow-lg transition duration-200"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="w-6 h-6">
@@ -114,7 +115,7 @@ export default function SignInForm() {
                         </svg>
                         <span className="text-sm text-gray-700">Sign in with Google</span>
                     </button>
-                </div>
+                </FormWrapper>
             ) : (
                 <Loader />
             )}

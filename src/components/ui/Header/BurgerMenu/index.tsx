@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { X, Menu } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { navLinks } from "@/utils/constants/navLinks";
+import { useNavigationItems } from "@/hooks/navigation";
+import NavList from "../NavList";
 
 export default function BurgerMenu() {
     
     const [isOpen, setIsOpen] = useState(false);
-    const pathname = usePathname();
     const iconClass = "w-6 h-6 text-black"
+
+    const { pathname, navList } = useNavigationItems();
 
     const toggleMenu = () => setIsOpen(prev => !prev);
     const closeMenu = () => setIsOpen(false);
@@ -44,18 +44,8 @@ export default function BurgerMenu() {
                         >
 
                             <h2 className="sr-only">Menu</h2>
-                            <ul className="space-y-4 mt-12">
-                                {navLinks.map(({ href, label, isActive }) => (
-                                    <li key={href}>
-                                        <Link
-                                            href={href}
-                                            onClick={closeMenu}
-                                            className={`block text-base ${isActive(pathname) ? "text-black font-bold" : "text-blue-500"}`}
-                                        >
-                                            {label}
-                                        </Link>
-                                    </li>
-                                ))}
+                            <ul className="space-y-4 mt-12 flex flex-col">
+                                <NavList navList={navList} pathname={pathname} variant="burger" onItemClick={closeMenu} />
                             </ul>
                         </motion.div>
                     </>

@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
 
         const { email, password, isRememberMe } = parsed.data;
 
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email }).select('+password');
 
         if (!user) {
             return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
