@@ -18,10 +18,10 @@ export function useNavigationItems() {
             if (!res.ok) throw new Error("Sign out failed");
 
             clearUser();
-            toast.success("Signed out successfully! Taking you to Home...");
+            toast.success("Signed out successfully! Taking you to Home...", { className: "sonner-toast" });
             router.push("/");
         } catch (error) {
-            toast.error("Sign out failed, please try again.");
+            toast.error("Sign out failed, please try again.", { className: "sonner-toast" });
             console.error(error);
         }
     };

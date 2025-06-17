@@ -6,6 +6,7 @@ import { UvCheckSchema, FormData } from "@/lib/schemas/uvCheckSchema";
 import Input from "@/components/ui/Input";
 import { SkinTypeForm } from "@/components/features/uv-check/SkinTypeForm";
 import SubmitButton from "@/components/ui/SubmitButton";
+import { errorMessageStyles } from "@/styles/classNames";
 
 const wrapperStyles = "flex flex-col w-36 mb-10 mx-auto";
 const inputStyles = "h-8 rounded-lg shadow mt-2 pl-2";
@@ -61,17 +62,17 @@ export default function UvCheckForm() {
         >
             <Input
                 id="latitude" label="Latitude :" type="number" step="any" errorMessage={errors.latitude?.message}
-                wrapperClassName={wrapperStyles} inputClassName={inputStyles}
+                wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
                 {...register("latitude")}
             />
             <Input 
                 id="longitude" label="Longitude :" type="number" step="any" errorMessage={errors.longitude?.message}
-                wrapperClassName={wrapperStyles} inputClassName={inputStyles}
+                wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
                 {...register("longitude")}
              />
             <Input
                 id="altitude" label="Altitude (optional) :" type="number" step="any" errorMessage={errors.altitude?.message}
-                wrapperClassName={wrapperStyles} inputClassName={inputStyles}
+                wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
                 {...register("altitude")}
             />
             <SkinTypeForm register={register} />

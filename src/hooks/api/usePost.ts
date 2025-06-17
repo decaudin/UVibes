@@ -1,6 +1,3 @@
-"use client";
-import { useState } from "react";
-
 interface FormData {
     firstName: string;
     lastName: string;
@@ -10,44 +7,35 @@ interface FormData {
 
 export const usePost = () => {
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const [data, setData] = useState(null);
-
     async function postData(url: string, payload: FormData) {
-        
-        setIsLoading(true);
-        setError(null);
-
         try {
             const response = await fetch(url, {
                 method: "POST",
-                headers: {
-                "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
             });
 
+            const contentType = response.headers.get("Content-Type") || "";
+
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || "Something went wrong");
+                if (contentType.includes("application/json")) {
+                    const errorData = await response.json();
+                    throw new Error(errorData?.error ?? "Something went wrong");
+                } else {
+                    throw new Error("Server returned an unexpected response.");
+                }
             }
 
-            const result = await response.json();
-            setData(result);
-            return result;
-        } catch (err: unknown) {
-            if (err instanceof Error) {
-                setError(err.message);
-                console.error("Error posting data:", err);
-            } else {
-                console.error("Unexpected error:", err);
-                setError("An unexpected error occurred");
+            return await response.json();
+
+        } catch (error) {
+            if (error instanceof TypeError) {
+                throw new Error("Network error. Please check your connection.");
             }
-        } finally {
-            setIsLoading(false);
+
+            throw error instanceof Error ? error : new Error("An unknown error occurred");
         }
     }
 
-    return { isLoading, error, data, postData };
-}
+    return { postData };
+};

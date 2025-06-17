@@ -1,4 +1,5 @@
 @import './loader-animation.scss';
+@import './toaster-progess-bar.scss';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -29,4 +30,11 @@ html.dark body {
 html:not(.uv-check).dark body {
     color: #ededed;
     background-color: #1a202c;
+}
+
+ol[data-sonner-toaster] li[data-sonner-toast] > button[data-close-button="true"] {
+    position: absolute;
+    right: -0.8rem;
+    top: 0;
+    left: auto;
 }

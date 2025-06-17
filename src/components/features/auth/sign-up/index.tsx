@@ -10,7 +10,7 @@ import Input from "@/components/ui/Input";
 import PasswordInput from "@/components/ui/Auth/PasswordInput";
 import SubmitButton from "@/components/ui/SubmitButton";
 import { Loader } from "@/components/ui/Loader";
-import { wrapperStyles, inputStyles } from "@/styles/classNames";
+import { wrapperStyles, inputStyles, errorMessageStyles } from "@/styles/classNames";
 
 export default function SignUpForm() {
 
@@ -59,14 +59,14 @@ export default function SignUpForm() {
                 throw new Error(responseData.message || 'Something went wrong');
             }
 
-            toast.success("Account created ! Taking you to the Sign In page ...");
+            toast.success("Account created ! Taking you to the Sign In page ...", { className: "sonner-toast" });
             router.push("/sign-in");
 
         } catch (error: unknown) {
             if (error instanceof Error) {
-                toast.error("Signup failed");
+                toast.error("Signup failed", { className: "sonner-toast" });
             } else {
-                toast.error('Unknown signup error');
+                toast.error("Unknown signup error", { className: "sonner-toast" });
             }
             setIsLoading(false);
         }
@@ -79,12 +79,12 @@ export default function SignUpForm() {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Input 
                             id="name" type="text" label="Name :" placeholder="Enter your name" autoComplete="name" errorMessage={errors.name?.message} 
-                            wrapperClassName={wrapperStyles} inputClassName={inputStyles} 
+                            wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
                             {...register("name")}
                         />
                         <Input 
                             id="email" type="email" label="Email :" placeholder="Enter your email" autoComplete="email" errorMessage={errors.email?.message}
-                            wrapperClassName={wrapperStyles} inputClassName={inputStyles}
+                            wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
                             {...register("email")}
                         />
                         <PasswordInput autoComplete="new-password" errorMessage={errors.password?.message} register={register} />

@@ -50,7 +50,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                     <SessionGate>
                         <Header />
                         <main className="flex-grow flex justify-center">
-                            <Toaster richColors position="top-right" />
+                            <Toaster richColors position="top-right" closeButton />
                             {children}                        
                         </main>
                         <Footer />
@@ -61,10 +61,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
     )
 }
 
-// 1 - Envoie mail ( Brevo ou Resent(?))
-// 2 - Sign In (via google)
-// 3 - Voir pour les boutons radios pour pouvoir en sélectionner plusieurs
-// 4 - définir modèle user, points enregistrés, caractéristique peau
-// 5 - Implémenter dashbord pour enregistrer, modifier, supprimer des points en favoris (nom, latitude, longitude) et caractéristique peau pour récupérer les données ensuite sans re-entrer ces infos
-// 6 - Possibilité recherche ville via input (--> suggestion API) et récup via autre API (lat, lon et alt correspondantes)
-// 7 Langue Fr/En
+// 1 - Sign In (via google)
+// 2 - Voir pour les boutons radios pour pouvoir en sélectionner plusieurs
+// 3 - définir modèle user, points enregistrés, caractéristique peau
+// 4 - Implémenter dashbord pour enregistrer, modifier, supprimer des points en favoris (nom, latitude, longitude) et caractéristique peau pour récupérer les données ensuite sans re-entrer ces infos
+// 5 - Possibilité recherche ville via input (--> suggestion API) et récup via autre API (lat, lon et alt correspondantes)
+// 6 - Langue Fr/En
+// 7 - Image affichées dans uv-check/results : améliorer le design

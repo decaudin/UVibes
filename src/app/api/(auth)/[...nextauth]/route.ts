@@ -6,7 +6,7 @@ import { User, Session } from "next-auth";
 
 import clientPromise from "@/lib/mongoClient";
 
-export const authOptions = {
+const authOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID!,

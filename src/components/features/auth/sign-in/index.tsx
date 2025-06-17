@@ -12,7 +12,7 @@ import Input from "@/components/ui/Input";
 import PasswordInput from "@/components/ui/Auth/PasswordInput";
 import SubmitButton from "@/components/ui/SubmitButton";
 import { Loader } from "@/components/ui/Loader";
-import { inputStyles, wrapperStyles } from "@/styles/classNames";
+import { inputStyles, wrapperStyles, errorMessageStyles } from "@/styles/classNames";
 
 export default function SignInForm() {
 
@@ -62,16 +62,16 @@ export default function SignInForm() {
             const userData = await userRes.json();
 
             setUser(userData.user);
-            toast.success("You're in! Taking you to your Dashboard...");
+            toast.success("You're in! Taking you to your Dashboard...", { className: "sonner-toast" });
             router.push("/dashboard");
 
         } catch (error: unknown) {
             setIsLoading(false);
             if (error instanceof Error) {
-                toast.error("Signin failed");
+                toast.error("Signin failed", { className: "sonner-toast" });
                 console.error(error.message);
             } else {
-                toast.error('Unknown signin error');
+                toast.error("Unknown signin error", { className: "sonner-toast" });
             }
         }
     };
@@ -83,7 +83,7 @@ export default function SignInForm() {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Input  
                             id="email" type="text" label="Email :" placeholder="Enter your email" autoComplete="email" errorMessage={errors.email?.message} 
-                            wrapperClassName={wrapperStyles} inputClassName={inputStyles}
+                            wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
                             {...register('email')}
                         />
                         <PasswordInput autoComplete="current-password" errorMessage={errors.password?.message} register={register} />
