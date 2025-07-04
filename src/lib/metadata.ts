@@ -6,7 +6,7 @@ type MetadataInput = {
     robots?: string;
 }
 
-export function generateMetadata({ title, description, keywords, url, robots }: MetadataInput) {
+export const generateMetadata = ({ title, description, keywords, url, robots }: MetadataInput) => {
     const fullTitle = `${title} | UVibes - UV Index and Sun Exposure Calculator`
     return {
         title: fullTitle,

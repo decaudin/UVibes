@@ -1,12 +1,14 @@
 "use client"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from 'sonner';
 import { useForm } from "react-hook-form";
+import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 // import { signIn } from 'next-auth/react';
-import { SignInFormData, signInSchema } from "@/lib/schemas/authSchema";
+import { useI18n } from "@/locales/client";
 import { useUserStore } from '@/stores/userStore';
+import { useZodErrorMessage } from "@/hooks/zod";
+import { SignInFormData, signInSchema } from "@/lib/schemas/authSchema";
 import FormWrapper from "@/components/ui/Auth/FormWrapper";
 import Input from "@/components/ui/Input";
 import PasswordInput from "@/components/ui/Auth/PasswordInput";
@@ -17,9 +19,12 @@ import { inputStyles, wrapperStyles, errorMessageStyles } from "@/styles/classNa
 export default function SignInForm() {
 
     const router = useRouter();
-    const [isLoading, setIsLoading] = useState(false);
+    const t = useI18n();
     const setUser = useUserStore(state => state.setUser);
+    const getZodErrorMessage = useZodErrorMessage();
 
+    const [isLoading, setIsLoading] = useState(false);
+    
     const { register, handleSubmit, formState: { errors }, setError, watch } = useForm<SignInFormData>({
         resolver: zodResolver(signInSchema),
         mode: "onBlur",
@@ -49,9 +54,9 @@ export default function SignInForm() {
 
             if (!res.ok) {
                 const responseData = await res.json();
-                if (responseData.message === 'Invalid credentials') {
-                    setError('email', { type: 'manual', message: 'Invalid email or password' });
-                    setError('password', { type: 'manual', message: 'Invalid email or password' });
+                if (responseData.message === "Invalid credentials") {
+                    setError("email", { type: "manual", message: t("signInError") });
+                    setError("password", { type: "manual", message: t("signInError") });
                 }
                 throw new Error(responseData.message || 'Something went wrong');
             }
@@ -62,16 +67,16 @@ export default function SignInForm() {
             const userData = await userRes.json();
 
             setUser(userData.user);
-            toast.success("You're in! Taking you to your Dashboard...", { className: "sonner-toast" });
+            toast.success(t("signInSuccessToast"), { className: "sonner-toast" });
             router.push("/dashboard");
 
         } catch (error: unknown) {
             setIsLoading(false);
             if (error instanceof Error) {
-                toast.error("Signin failed", { className: "sonner-toast" });
+                toast.error(t("signInErrorToast"), { className: "sonner-toast" });
                 console.error(error.message);
             } else {
-                toast.error("Unknown signin error", { className: "sonner-toast" });
+                toast.error(t("signInUnknownErrorToast"), { className: "sonner-toast" });
             }
         }
     };
@@ -79,25 +84,25 @@ export default function SignInForm() {
     return (
         <>
             {!isLoading ? (
-                <FormWrapper title="Sign In" content="Don&#39;t have an account ? " href="/sign-up" link="Sign Up">
+                <FormWrapper title={t("signIn")} content={t("signInPrompt")} href="/sign-up" link={t("signUp")}>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Input  
-                            id="email" type="text" label="Email :" placeholder="Enter your email" autoComplete="email" errorMessage={errors.email?.message} 
+                            id="email" type="text" label={t("label.email")} placeholder={t("authPlaceholders.email")} autoComplete="email" errorMessage={getZodErrorMessage(errors.email)} 
                             wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
                             {...register('email')}
                         />
-                        <PasswordInput autoComplete="current-password" errorMessage={errors.password?.message} register={register} />
+                        <PasswordInput autoComplete="current-password" error={errors.password} register={register} />
                         <Input
-                            id="isRememberMe" type="checkbox" label="Remember me"
+                            id="isRememberMe" type="checkbox" label={t("label.checkbox")}
                             wrapperClassName="flex justify-center flex-row-reverse" inputClassName="mr-1 cursor-pointer"
                             {...register("isRememberMe")}
                         />  
-                        <SubmitButton isFormValid={isValid} isLoading={isLoading} className="my-8" >Sign In</SubmitButton>
+                        <SubmitButton isFormValid={isValid} isLoading={isLoading} className="my-8" >{t("signIn")}</SubmitButton>
                     </form>
 
                     <div className="flex items-center w-64 mt-2">
                         <div className="border-gray-200 w-full border-t-2 border-solid"></div>
-                        <span className="mx-4">or</span>
+                        <span className="mx-4">{t("or")}</span>
                         <div className="border-gray-200 w-full border-t-2 border-solid"></div>
                     </div>
 
@@ -113,7 +118,7 @@ export default function SignInForm() {
                             <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
                             <path fill="none" d="M0 0h48v48H0z" />
                         </svg>
-                        <span className="text-sm text-gray-700">Sign in with Google</span>
+                        <span className="text-sm text-gray-700">{t("signInGoogle")}</span>
                     </button>
                 </FormWrapper>
             ) : (

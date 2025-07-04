@@ -1,0 +1,27 @@
+export default {
+    signIn: "Sign In",
+    signUp: "Sign Up",
+    signInPrompt: "Don't have an account ? ",
+    signUpPrompt: "Already have an account ? ",
+    label: {
+        password: "Password :",
+        name: "Name :",
+        email: "E-mail :",
+        checkbox: "Remember me",
+    },
+    authPlaceholders: {
+        email: "Enter your email",
+        password: "Enter your password",
+        name: "Enter your name",
+    },
+    or: "or",
+    signInGoogle: "Sign In with Google",
+    signInError: "Invalid email or password",
+    signInSuccessToast: "You're in! Taking you to your Dashboard...",
+    signInErrorToast: "Signin failed",
+    signInUnknownErrorToast: "Unknown signin error",
+    signUpErrorUserExists: "User already exists. Please use a different email.",
+    signUpSuccessToast: "Account created ! Taking you to the Sign In page ...",
+    signUpErrorToast: "Signup failed",
+    signUpUnknownErrorToast: "Unknown signup error",
+} as const

@@ -1,13 +1,13 @@
 import { z } from "zod";
-import { createNameSchema, emailSchema } from "./commonUserchemas";
+import { createIdentitySchema, emailSchema } from "./commonUserchemas";
 
 export const contactSchema = z.object({
-    firstName: createNameSchema("First Name"),
-    lastName: createNameSchema("Last Name"),
+    firstName: createIdentitySchema("firstName"),
+    lastName: createIdentitySchema("lastName"),
     email: emailSchema,
     message: z.string()
-        .min(10, "Message must be at least 10 characters")
-        .max(1000, "Message is too long"),
+        .min(10, "messageTooShort")
+        .max(1000, "messageTooLong"),
 });
 
 export type ContactFormData = z.infer<typeof contactSchema>;

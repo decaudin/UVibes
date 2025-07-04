@@ -2,14 +2,22 @@ import { z } from 'zod';
 
 const nameRegex = /^[a-zA-ZÀ-ÿ]+([\- '][a-zA-ZÀ-ÿ]+)*$/;
 
-export const createNameSchema = (fieldName: string) =>
+const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=.]).{8,}$/;
+
+export const createIdentitySchema = (fieldKey: string) =>
     z.string()
-        .min(1, `${fieldName} is required`)
-        .min(2, `${fieldName} must be at least 2 characters`)
-        .max(50, `${fieldName} must be at most 50 characters`)
-        .regex(nameRegex, `${fieldName} can only contain letters, spaces, hyphens or apostrophes`);
+        .min(1, `${fieldKey}Required`)
+        .min(2, `${fieldKey}TooShort`)
+        .max(50, `${fieldKey}TooLong`)
+        .regex(nameRegex, `${fieldKey}Invalid`);
+
+export const passwordSchema = z.string()
+    .min(1, 'passwordRequired')
+    .min(8, 'passwordTooShort')
+    .max(64, 'passwordTooLong')
+    .regex(passwordRegex, 'passwordInvalid');
 
 export const emailSchema = z.string()
-    .min(1, 'Email is required')
-    .max(254, 'Email must be at most 254 characters')
-    .email('Invalid email address');
+    .min(1, 'emailRequired')
+    .max(254, 'emailTooLong')
+    .email('emailInvalid');

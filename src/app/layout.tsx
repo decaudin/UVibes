@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Toaster } from 'sonner';
 import { ThemeProvider } from "@/context/theme";
 import SessionGate from "@/components/ui/SessionGate";
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
 import "@/styles/globals.scss";
 
 const geistSans = Geist({
@@ -45,18 +42,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
     return (
         <html lang="en">
-            <ThemeProvider>
-                <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-sky-100 bg-opacity-50 min-h-screen flex flex-col`}>
+            <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-sky-100 bg-opacity-50 min-h-screen flex flex-col`}>
+                <ThemeProvider>
                     <SessionGate>
-                        <Header />
-                        <main className="flex-grow flex justify-center">
-                            <Toaster richColors position="top-right" closeButton />
-                            {children}                        
-                        </main>
-                        <Footer />
+                        {children}                        
                     </SessionGate>
-                </body>
-            </ThemeProvider>
+                </ThemeProvider>
+            </body>
         </html>
     )
 }
@@ -66,5 +58,5 @@ export default function RootLayout({ children }: RootLayoutProps) {
 // 3 - définir modèle user, points enregistrés, caractéristique peau
 // 4 - Implémenter dashbord pour enregistrer, modifier, supprimer des points en favoris (nom, latitude, longitude) et caractéristique peau pour récupérer les données ensuite sans re-entrer ces infos
 // 5 - Possibilité recherche ville via input (--> suggestion API) et récup via autre API (lat, lon et alt correspondantes)
-// 6 - Langue Fr/En
-// 7 - Image affichées dans uv-check/results : améliorer le design
+// 6 - Image affichées dans uv-check/results : améliorer le design
+// 7 - (SEO) : Ajouter dans page About bouton pour accès à article et faire qqes articles, titre sous titre dans uv-checks et metadata en --> fr

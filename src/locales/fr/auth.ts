@@ -1,0 +1,27 @@
+export default {
+    signIn: "Se connecter",
+    signUp: "S'inscrire",
+    signInPrompt: "Vous n'avez pas de compte ? ",
+    signUpPrompt: "Vous avez déjà un compte ? ",
+    label: {
+        password: "Mot de passe :",
+        name: "Nom :",
+        email: "E-mail :",
+        checkbox: "Se souvenir de moi",
+    },
+    authPlaceholders: {
+        email: "Entrez votre email",
+        password: "Entrez votre mot de passe",
+        name: "Entrez votre nom",
+    },
+    or: "ou",
+    signInGoogle: "Se connecter avec Google",
+    signInError: "Email ou mot de passe invalide",
+    signInSuccessToast: "Bienvenue ! Nous vous redirigeons vers votre tableau de bord...",
+    signInErrorToast: " Échec lors de la connexion",
+    signInUnknownErrorToast: "Erreur inconnue lors de la connexion",
+    signUpErrorUserExists: "Cet utilisateur existe déjà. Veuillez utiliser une autre adresse email.",
+    signUpSuccessToast: "Compte créé ! Nous vous redirigeons vers la page de connexion...",
+    signUpErrorToast: "Échec lors de l'inscription",
+    signUpUnknownErrorToast: "Erreur inconnue lors de l'inscription",
+} as const

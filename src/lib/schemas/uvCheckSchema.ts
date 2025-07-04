@@ -2,24 +2,24 @@ import { z } from "zod";
 
 export const UvCheckSchema = z.object({
     latitude: z.coerce.number()
-        .min(-90, { message: "Latitude must be ≥ -90" })
-        .max(90, { message: "Latitude must be ≤ 90" }),
+        .min(-90, "latitudeTooLow")
+        .max(90, "latitudeTooHigh"),
 
     longitude: z.coerce.number()
-        .min(-180, { message: "Longitude must be ≥ -180" })
-        .max(180, { message: "Longitude must be ≤ 180" }),
+        .min(-180, "longitudeTooLow")
+        .max(180, "longitudeTooHigh"),
 
     altitude: z.coerce.number()
-        .min(0, { message: "Altitude must be ≥ 0" })
-        .max(10000, { message: "Altitude must be ≤ 10,000" })
+        .min(0, "altitudeTooLow")
+        .max(10000, "altitudeTooHigh")
         .optional(),
 
     skinType: z.coerce.number()
-        .int()
-        .min(1, { message: "Skin type must be between 1 and 6" })
-        .max(6, { message: "Skin type must be between 1 and 6" })
+        .int("skinTypeInteger")
+        .min(1, "skinTypeRange")
+        .max(6, "skinTypeRange")
         .optional()
         .nullable(),
-});  
+});
 
 export type FormData = z.infer<typeof UvCheckSchema>;

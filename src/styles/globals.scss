@@ -1,5 +1,5 @@
-@import './loader-animation.scss';
-@import './toaster-progess-bar.scss';
+@use './loader-animation.scss';
+@use './toaster-progess-bar.scss';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

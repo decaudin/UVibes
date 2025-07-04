@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { toast } from 'sonner';
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useI18n } from "@/locales/client";
+import { useZodErrorMessage } from "@/hooks/zod";
 import { SignUpFormData, signUpSchema } from "@/lib/schemas/authSchema";
 import FormWrapper from "@/components/ui/Auth/FormWrapper";
 import Input from "@/components/ui/Input";
@@ -15,6 +17,9 @@ import { wrapperStyles, inputStyles, errorMessageStyles } from "@/styles/classNa
 export default function SignUpForm() {
 
     const router = useRouter();
+    const t = useI18n();
+    const getZodErrorMessage = useZodErrorMessage();
+
     const [isLoading, setIsLoading] = useState(false);
     
     const { register, handleSubmit, formState: { errors }, setError, watch } = useForm<SignUpFormData>({
@@ -53,20 +58,20 @@ export default function SignUpForm() {
 
             if (!res.ok) {
                 if (responseData.message === 'User already exists. Please use a different email.') {
-                    setError('email', { type: 'manual', message: responseData.message });
+                    setError('email', { type: 'manual', message: t("signUpErrorUserExists") });
                 }
     
                 throw new Error(responseData.message || 'Something went wrong');
             }
 
-            toast.success("Account created ! Taking you to the Sign In page ...", { className: "sonner-toast" });
+            toast.success(t("signUpSuccessToast"), { className: "sonner-toast" });
             router.push("/sign-in");
 
         } catch (error: unknown) {
             if (error instanceof Error) {
-                toast.error("Signup failed", { className: "sonner-toast" });
+                toast.error(t("signUpErrorToast"), { className: "sonner-toast" });
             } else {
-                toast.error("Unknown signup error", { className: "sonner-toast" });
+                toast.error(t("signUpUnknownErrorToast"), { className: "sonner-toast" });
             }
             setIsLoading(false);
         }
@@ -75,20 +80,20 @@ export default function SignUpForm() {
     return (
         <>
             {!isLoading ? ( 
-                <FormWrapper title="Sign Up" content="Already have an account ? " href="/sign-in" link="Sign In">
+                <FormWrapper title={t("signUp")} content={t("signUpPrompt")} href="/sign-in" link={t("signIn")}>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Input 
-                            id="name" type="text" label="Name :" placeholder="Enter your name" autoComplete="name" errorMessage={errors.name?.message} 
+                            id="name" type="text" label={t("label.name")} placeholder={t("authPlaceholders.name")} autoComplete="name" errorMessage={getZodErrorMessage(errors.name)}
                             wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
                             {...register("name")}
                         />
                         <Input 
-                            id="email" type="email" label="Email :" placeholder="Enter your email" autoComplete="email" errorMessage={errors.email?.message}
+                            id="email" type="email" label={t("label.email")} placeholder={t("authPlaceholders.email")} autoComplete="email" errorMessage={getZodErrorMessage(errors.email)}
                             wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
                             {...register("email")}
                         />
-                        <PasswordInput autoComplete="new-password" errorMessage={errors.password?.message} register={register} />
-                        <SubmitButton isFormValid={isValid} isLoading={isLoading} className="my-8">Sign Up</SubmitButton>
+                        <PasswordInput autoComplete="new-password" error={errors.password} register={register} />
+                        <SubmitButton isFormValid={isValid} isLoading={isLoading} className="my-8">{t("signUp")}</SubmitButton>
                     </form>
                 </FormWrapper>
             ) : (   

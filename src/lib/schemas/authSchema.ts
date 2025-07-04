@@ -1,16 +1,8 @@
 import { z } from 'zod';
-import { createNameSchema, emailSchema } from './commonUserchemas';
-
-const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=.]).{8,}$/;
-
-const passwordSchema = z.string()
-    .min(1, 'Password is required')
-    .min(8, 'Password must be at least 8 characters')
-    .max(64, 'Password must be at most 64 characters')
-    .regex(passwordRegex, 'Password must include an uppercase letter, a number, and a special character');
+import { createIdentitySchema, emailSchema, passwordSchema } from './commonUserchemas';
 
 export const signUpSchema = z.object({
-    name: createNameSchema("Name"),
+    name: createIdentitySchema("name"),
     email: emailSchema,
     password: passwordSchema,
 });

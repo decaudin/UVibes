@@ -3,7 +3,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
     type: string;
     name: string;
-    value?: string;
+    value?: string | number;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     errorMessage?: string | null;
     wrapperClassName?: string;
