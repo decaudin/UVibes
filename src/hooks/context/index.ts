@@ -3,7 +3,11 @@ import { ThemeContext } from '@/context/theme';
 
 export const useTheme = () => {
 
-    const { theme, toggleTheme } = useContext(ThemeContext)
-    
-    return { theme, toggleTheme }
+    const context = useContext(ThemeContext);
+
+    if (!context) throw new Error("useTheme() must be called within a <ThemeProvider>.");
+
+    const { theme, toggleTheme } = context;
+
+    return { theme, toggleTheme };
 }
