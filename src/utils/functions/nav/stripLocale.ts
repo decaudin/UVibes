@@ -1,3 +1,3 @@
 export function stripLocaleFromPath(pathname: string): string {
-    return pathname.replace(/^\/(fr|en)(\/|$)/, '/');
+    return pathname.replace(/^\/(fr|en)(?=\/|$)/, '').replace(/^\/?/, '/');
 }

@@ -15,7 +15,7 @@ export default function BurgerMenu() {
     const closeMenu = () => setIsOpen(false);
 
     return (
-        <>
+        <div className="md:hidden">
             <button
                 onClick={toggleMenu}
                 className="fixed -translate-y-1/2 right-4 z-[100] p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition"
@@ -51,6 +51,6 @@ export default function BurgerMenu() {
                     </>
                 )}
             </AnimatePresence>
-        </>
+        </div>
     );
 }

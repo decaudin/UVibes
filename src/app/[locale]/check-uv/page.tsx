@@ -6,7 +6,7 @@ export const metadata: Metadata = generateMetadata({
     title: "UV Check - Get UV Information",
     description: "Enter your location details (latitude, longitude, altitude) to get the UV index and other relevant UV information for that area.",
     keywords: ["UV check", "UV index", "location UV", "geolocation", "latitude", "longitude", "altitude"],
-    url: "https://u-vibes.vercel.app/uv-check"
+    url: "https://u-vibes.vercel.app/check-uv"
 });
 
 export default function CheckUV() {

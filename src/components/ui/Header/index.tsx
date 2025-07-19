@@ -20,9 +20,7 @@ export default function Header() {
             <nav className={`hidden md:flex gap-4 justify-between ${navWidth}`}>
                 <NavList navList={navList} pathname={pathname} variant="header" />
             </nav>
-            <div className="md:hidden">
-                <BurgerMenu />
-            </div>
+            <BurgerMenu />
         </header>
     )
 }

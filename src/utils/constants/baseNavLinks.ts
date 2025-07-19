@@ -1,20 +1,20 @@
 import { TFunction } from "@/types/i18n";
 import { NavItems } from "@/types/nav";
 
-export const baseNavLinks = (t: TFunction): NavItems[] => [
+export const baseNavLinks = (t: TFunction, locale: string): NavItems[] => [
     {
         label: t("navAbout", {}),
-        href: "/about",
+        href: `/${locale}/about`,
         isActive: (pathname) => pathname === "/about",
     },
     {
         label: t("navCheckUv", {}),
-        href: "/check-uv",
+        href: `/${locale}/check-uv`,
         isActive: (pathname) => pathname.startsWith("/check-uv"),
     },
     {
         label: t("navContact", {}),
-        href: "/contact",
+        href: `/${locale}/contact`,
         isActive: (pathname) => pathname === "/contact",
-    }
-]
+    },
+];

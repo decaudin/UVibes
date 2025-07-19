@@ -6,22 +6,23 @@ type GetNavListParams = {
     isLoggedIn: boolean;
     pathname: string;
     t: TFunction;
+    locale: string;
     onSignOut?: () => void;
 };
 
-export const getNavList = ({ isLoggedIn, pathname, t, onSignOut }: GetNavListParams) => {
+export const getNavList = ({ isLoggedIn, pathname, t, locale, onSignOut }: GetNavListParams) => {
 
     const cleanPath = stripLocaleFromPath(pathname);
 
     const mainLink = isLoggedIn 
         ?   {
                 label: t("navDashboard", {}),
-                href: "/dashboard",
+                href: `/${locale}/dashboard`,
                 isActive: () => cleanPath === "/dashboard",
             }
         :   {
                 label: t("navHome", {}),
-                href: "/",
+                href: `/${locale}/`,
                 isActive: () => cleanPath === "/",
             };
 
@@ -34,13 +35,13 @@ export const getNavList = ({ isLoggedIn, pathname, t, onSignOut }: GetNavListPar
             }
         :   {
                 label: t("navAccount", {}),
-                href: "/sign-in",
+                href: `/${locale}/sign-in`,
                 isActive: () => ["/sign-in", "/sign-up"].includes(cleanPath),
             };
 
     return [
         mainLink, 
-        ...baseNavLinks(t).map((link) => ({ ...link, isActive: (p: string) => link.isActive(stripLocaleFromPath(p)) })),
+        ...baseNavLinks(t, locale).map((link) => ({ ...link, isActive: (p: string) => link.isActive(stripLocaleFromPath(p)) })),
         authLink,
     ]
 }
