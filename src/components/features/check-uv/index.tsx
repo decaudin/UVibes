@@ -3,12 +3,13 @@ import { useRouter } from 'next/navigation';
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useI18n } from "@/locales/client";
+import { useLocale } from '@/hooks/locales/urlLocale';
 import { useZodErrorMessage } from "@/hooks/zod";
 import { useSkinTypeLabels } from "@/hooks/locales/skinTypeLabels";
 import { UvCheckSchema, FormData } from "@/lib/schemas/uvCheckSchema";
-import Input from "@/components/ui/Input";
-import { SkinTypeForm } from "@/components/features/check-uv/SkinTypeForm";
+import { Input } from "@/components/ui/Input";
 import SubmitButton from "@/components/ui/SubmitButton";
+import { SkinTypeForm } from "@/components/features/check-uv/SkinTypeForm";
 import { errorMessageStyles } from "@/styles/classNames";
 
 const wrapperStyles = "flex flex-col w-40 mb-10 mx-auto";
@@ -17,11 +18,13 @@ const inputStyles = "h-8 rounded-lg shadow mt-2 pl-2";
 export default function CheckUVForm() {
 
     const router = useRouter();
+
     const t = useI18n();
+    
+    const { locale } = useLocale();
+
     const getZodErrorMessage = useZodErrorMessage();
     const skinTypeLabels = useSkinTypeLabels();
-
-    const radioTitle = t("radioTitle");
 
     const { register, handleSubmit, formState: { errors }, watch } = useForm<FormData>({
         resolver: zodResolver(UvCheckSchema),
@@ -38,6 +41,8 @@ export default function CheckUVForm() {
         formValues.longitude && !isNaN(Number(formValues.longitude)) &&
         Number(formValues.longitude) >= -180 && Number(formValues.longitude) <= 180
     );
+
+    const radioTitle = t("radioTitle");
       
     const onSubmit = (data: FormData) => {
 
@@ -57,7 +62,7 @@ export default function CheckUVForm() {
                 ...(skinType != null && { skinType: String(skinType) }),
             });         
 
-            router.push(`/uv-check/results?${query.toString()}`);
+            router.push(`/${locale}/check-uv/results?${query.toString()}`);
         } catch (err) {
             console.error("An error has occured : ", err);
         }

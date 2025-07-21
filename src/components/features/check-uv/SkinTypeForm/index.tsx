@@ -1,6 +1,6 @@
 import { UseFormRegister } from "react-hook-form";
 import { FormData } from "@/lib/schemas/uvCheckSchema";
-import Input from "@/components/ui/Input";
+import { Input } from "@/components/ui/Input";
 
 interface SkinTypeExposureProps {
     register: UseFormRegister<FormData>;

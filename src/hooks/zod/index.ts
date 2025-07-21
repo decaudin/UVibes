@@ -1,3 +1,4 @@
+"use client";
 import type { FieldError } from "react-hook-form";
 import { useI18n } from "@/locales/client";
 import { formatZodErrorKey } from "@/utils/functions/zod/formatZodErrorKey";

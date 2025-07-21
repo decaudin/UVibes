@@ -7,7 +7,9 @@ import { useI18n } from "@/locales/client";
 import { useZodErrorMessage } from "@/hooks/zod";
 import { usePost } from "@/hooks/api/usePost";
 import { ContactFormData, contactSchema } from "@/lib/schemas/contactSchema";
-import Input from "@/components/ui/Input"
+import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";
+import { handleEmailTrimOnBlur } from "@/utils/functions/input/handleEmailTrimOnBlur";
+import { Input } from "@/components/ui/Input"
 import SubmitButton from "@/components/ui/SubmitButton";
 
 const wrapperContactStyles = "flex flex-col justify-center items-center my-4 h-16px w-[100%]";
@@ -22,10 +24,16 @@ export default function ContactForm() {
 
     const { postData } = usePost();
 
-    const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<ContactFormData>({
+    const { register, setValue, handleSubmit, formState: { errors }, watch, reset } = useForm<ContactFormData>({
         resolver: zodResolver(contactSchema),
         mode: "onBlur",
         shouldFocusError: false,
+    });
+
+    const blurHandlers = createBlurHandlers<ContactFormData>({
+        fieldNames: ["firstName", "lastName", "email", "message"],
+        watch,
+        setValue,
     });
 
     const [isLoading, setIsLoading] = useState(false);
@@ -65,29 +73,39 @@ export default function ContactForm() {
         }
     };
 
+    const { ref: firstNameRef, onBlur: firstNameOnBlurRHF, ...firstNameRest } = register("firstName");
+    const { ref: lastNameRef, onBlur: lastNameOnBlurRHF, ...lastNameRest } = register("lastName");
+    const { ref: emailRef, onBlur: emailOnBlurRHF, ...emailRest } = register("email");
+    const { ref: messageRef, onBlur: messageOnBlurRHF, ...messageRest } = register("message");
+
+    const onEmailBlur = handleEmailTrimOnBlur({ setValue, onBlurRHF: emailOnBlurRHF, fieldName: "email" });
+
     return (
         <>
             {isLoading && <p className="text-blue-500 text-center mb-4">{t("sendingMessage")}</p>}
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center mx-auto mb-16 py-8 w-full text-black bg-amber-100 bg-opacity-70 rounded-lg shadow xs:w-4/5 sm:w-3/5">
                 <Input 
-                    id="firstName" type="text" label="First Name" placeholder={t("contactPlaceholders.firstName")} autoComplete="given-name" errorMessage={getZodErrorMessage(errors.firstName)}
+                    id="firstName" type="text" label="First Name" placeholder={t("contactPlaceholders.firstName")} autoComplete="given-name" 
+                    onBlur={(e) => { blurHandlers.firstName(); firstNameOnBlurRHF(e) }} errorMessage={getZodErrorMessage(errors.firstName)}
                     wrapperClassName={wrapperContactStyles} labelClassName="sr-only" inputClassName={inputContactStyles} errorMessageClassName={errorMessageContactStyles}
-                    {...register('firstName')}  
+                    ref={firstNameRef} {...firstNameRest}
                 />
                 <Input 
-                    id="lastName" type="text" label="Last Name" placeholder={t("contactPlaceholders.lastName")} autoComplete="family-name" errorMessage={getZodErrorMessage(errors.lastName)}
+                    id="lastName" type="text" label="Last Name" placeholder={t("contactPlaceholders.lastName")} autoComplete="family-name" 
+                    onBlur={(e) => { blurHandlers.lastName(); lastNameOnBlurRHF(e) }} errorMessage={getZodErrorMessage(errors.lastName)}
                     wrapperClassName={wrapperContactStyles} labelClassName="sr-only" inputClassName={inputContactStyles} errorMessageClassName={errorMessageContactStyles}
-                    {...register('lastName')}
+                    ref={lastNameRef} {...lastNameRest}
                 />
                 <Input 
-                    id="email" type="text" label="Email" placeholder={t("contactPlaceholders.email")} autoComplete="email" errorMessage={getZodErrorMessage(errors.email)}
+                    id="email" type="text" label="Email" placeholder={t("contactPlaceholders.email")} autoComplete="email"
+                    onBlur={onEmailBlur} errorMessage={getZodErrorMessage(errors.email)}
                     wrapperClassName={wrapperContactStyles} labelClassName="sr-only" inputClassName={inputContactStyles} errorMessageClassName={errorMessageContactStyles}
-                    {...register('email')}
+                    ref={emailRef} {...emailRest}
                 />
                 <textarea 
-                    id="message" placeholder={t("contactPlaceholders.message")} 
+                    id="message" placeholder={t("contactPlaceholders.message")} onBlur={(e) => { blurHandlers.message(); messageOnBlurRHF(e) }}
                     className={`h-48 mt-4 pl-2 pt-2 w-[90%] shadow xs:w-4/5 sm:w-[300px] ${errors.message && 'border-2 border-red-500'}`}
-                    {...register('message')}
+                    ref={messageRef} {...messageRest} 
                 />
                 {errors.message && (<p className={errorMessageContactStyles}>{getZodErrorMessage(errors.message)}</p>)}
                 <SubmitButton isFormValid={isValid} className="px-8 mt-8 mb-4">{isLoading ? t("contactButton.sending") : t("contactButton.send")}</SubmitButton>

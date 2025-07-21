@@ -10,7 +10,7 @@ export const metadata = generateMetadata({
     url: "https://u-vibes.vercel.app/about"
 });
 
-export default async function About() {
+export default async function About({ params }: { params: { locale: string } }) {
 
     const t = await getI18n();
 
@@ -18,7 +18,7 @@ export default async function About() {
         <div className="flex flex-col items-center justify-center w-4/5 mx-auto my-20 sm:w-3/5">
             <Image src="/uv.jpg" alt="sun-uv" width={249} height={100} className="mb-20 h-auto w-auto shadow-md"/>
             <p className="leading-relaxed mb-16">{t("aboutDescription")}</p>
-            <Link href="/uv-check" className="px-6 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition">{t("aboutButton")}</Link>
+            <Link href={`/${params.locale}/check-uv`} className="px-6 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition">{t("aboutButton")}</Link>
         </div>
     )
 }

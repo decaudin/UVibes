@@ -6,6 +6,7 @@ export const contactSchema = z.object({
     lastName: createIdentitySchema("lastName"),
     email: emailSchema,
     message: z.string()
+        .trim()
         .min(10, "messageTooShort")
         .max(1000, "messageTooLong"),
 });

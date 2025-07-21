@@ -27,11 +27,6 @@ html.dark body {
     background-color: #1a202c;
 }
 
-html:not(.uv-check).dark body {
-    color: #ededed;
-    background-color: #1a202c;
-}
-
 ol[data-sonner-toaster] li[data-sonner-toast] > button[data-close-button="true"] {
     position: absolute;
     right: -0.8rem;

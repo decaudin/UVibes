@@ -6,11 +6,14 @@ import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 // import { signIn } from 'next-auth/react';
 import { useI18n } from "@/locales/client";
+import { useLocale } from "@/hooks/locales/urlLocale";
 import { useUserStore } from '@/stores/userStore';
 import { useZodErrorMessage } from "@/hooks/zod";
 import { SignInFormData, signInSchema } from "@/lib/schemas/authSchema";
+import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";
+import { handleEmailTrimOnBlur } from "@/utils/functions/input/handleEmailTrimOnBlur";
 import FormWrapper from "@/components/ui/Auth/FormWrapper";
-import Input from "@/components/ui/Input";
+import { Input } from "@/components/ui/Input";
 import PasswordInput from "@/components/ui/Auth/PasswordInput";
 import SubmitButton from "@/components/ui/SubmitButton";
 import { Loader } from "@/components/ui/Loader";
@@ -18,17 +21,27 @@ import { inputStyles, wrapperStyles, errorMessageStyles } from "@/styles/classNa
 
 export default function SignInForm() {
 
-    const router = useRouter();
-    const t = useI18n();
-    const setUser = useUserStore(state => state.setUser);
-    const getZodErrorMessage = useZodErrorMessage();
-
     const [isLoading, setIsLoading] = useState(false);
+
+    const router = useRouter();
+
+    const t = useI18n();
+
+    const { locale } = useLocale();
+    const setUser = useUserStore(state => state.setUser);
+
+    const getZodErrorMessage = useZodErrorMessage();
     
-    const { register, handleSubmit, formState: { errors }, setError, watch } = useForm<SignInFormData>({
+    const { register, setValue, handleSubmit, formState: { errors }, setError, watch } = useForm<SignInFormData>({
         resolver: zodResolver(signInSchema),
         mode: "onBlur",
         shouldFocusError: false,
+    });
+
+    const blurHandlers = createBlurHandlers<SignInFormData>({
+        fieldNames: ["email", "password"],
+        watch,
+        setValue,
     });
 
     const formValues = watch();
@@ -81,17 +94,22 @@ export default function SignInForm() {
         }
     };
 
+    const { ref: emailRef, onBlur: emailOnBlurRHF, ...emailRest } = register("email");
+
+    const onEmailBlur = handleEmailTrimOnBlur({ setValue, onBlurRHF: emailOnBlurRHF, fieldName: "email" });
+
     return (
         <>
             {!isLoading ? (
-                <FormWrapper title={t("signIn")} content={t("signInPrompt")} href="/sign-up" link={t("signUp")}>
+                <FormWrapper title={t("signIn")} content={t("signInPrompt")} href={`/${locale}/sign-up`} link={t("signUp")}>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Input  
-                            id="email" type="text" label={t("label.email")} placeholder={t("authPlaceholders.email")} autoComplete="email" errorMessage={getZodErrorMessage(errors.email)} 
+                            id="email" type="email" label={t("label.email")} placeholder={t("authPlaceholders.email")} autoComplete="email"
+                            onBlur={onEmailBlur} errorMessage={getZodErrorMessage(errors.email)}
                             wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
-                            {...register('email')}
+                            ref={emailRef} {...emailRest}
                         />
-                        <PasswordInput autoComplete="current-password" error={errors.password} register={register} />
+                        <PasswordInput autoComplete="current-password" error={errors.password} register={register} onBlur={blurHandlers.password} />
                         <Input
                             id="isRememberMe" type="checkbox" label={t("label.checkbox")}
                             wrapperClassName="flex justify-center flex-row-reverse" inputClassName="mr-1 cursor-pointer"

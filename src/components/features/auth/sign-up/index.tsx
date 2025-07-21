@@ -5,10 +5,13 @@ import { toast } from 'sonner';
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useI18n } from "@/locales/client";
+import { useLocale } from "@/hooks/locales/urlLocale";
 import { useZodErrorMessage } from "@/hooks/zod";
 import { SignUpFormData, signUpSchema } from "@/lib/schemas/authSchema";
+import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";
+import { handleEmailTrimOnBlur } from "@/utils/functions/input/handleEmailTrimOnBlur";
 import FormWrapper from "@/components/ui/Auth/FormWrapper";
-import Input from "@/components/ui/Input";
+import { Input } from "@/components/ui/Input";
 import PasswordInput from "@/components/ui/Auth/PasswordInput";
 import SubmitButton from "@/components/ui/SubmitButton";
 import { Loader } from "@/components/ui/Loader";
@@ -16,16 +19,26 @@ import { wrapperStyles, inputStyles, errorMessageStyles } from "@/styles/classNa
 
 export default function SignUpForm() {
 
-    const router = useRouter();
-    const t = useI18n();
-    const getZodErrorMessage = useZodErrorMessage();
-
     const [isLoading, setIsLoading] = useState(false);
+
+    const router = useRouter();
+
+    const t = useI18n();
+
+    const { locale } = useLocale();
     
-    const { register, handleSubmit, formState: { errors }, setError, watch } = useForm<SignUpFormData>({
+    const getZodErrorMessage = useZodErrorMessage();
+    
+    const { register, setValue, handleSubmit, formState: { errors }, setError, watch } = useForm<SignUpFormData>({
         resolver: zodResolver(signUpSchema),
         mode: "onBlur",
         shouldFocusError: false,
+    });
+
+    const blurHandlers = createBlurHandlers<SignUpFormData>({
+        fieldNames: ["name", "email", "password"],
+        watch,
+        setValue,
     });
 
     const formValues = watch();
@@ -77,22 +90,29 @@ export default function SignUpForm() {
         }
     };
 
+    const { ref: nameRef, onBlur: nameOnBlurRHF, ...nameRest } = register("name");
+    const { ref: emailRef, onBlur: emailOnBlurRHF, ...emailRest } = register("email");
+
+    const onEmailBlur = handleEmailTrimOnBlur({ setValue, onBlurRHF: emailOnBlurRHF, fieldName: "email" });
+
     return (
         <>
             {!isLoading ? ( 
-                <FormWrapper title={t("signUp")} content={t("signUpPrompt")} href="/sign-in" link={t("signIn")}>
+                <FormWrapper title={t("signUp")} content={t("signUpPrompt")} href={`/${locale}/sign-in`} link={t("signIn")}>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Input 
-                            id="name" type="text" label={t("label.name")} placeholder={t("authPlaceholders.name")} autoComplete="name" errorMessage={getZodErrorMessage(errors.name)}
+                            id="name" type="email" label={t("label.name")} placeholder={t("authPlaceholders.name")} autoComplete="name"
+                            onBlur={(e) => { blurHandlers.name(); nameOnBlurRHF(e) }} errorMessage={getZodErrorMessage(errors.name)}
                             wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
-                            {...register("name")}
+                            ref={nameRef} {...nameRest}
                         />
                         <Input 
-                            id="email" type="email" label={t("label.email")} placeholder={t("authPlaceholders.email")} autoComplete="email" errorMessage={getZodErrorMessage(errors.email)}
+                            id="email" type="email" label={t("label.email")} placeholder={t("authPlaceholders.email")} autoComplete="email"
+                            onBlur={onEmailBlur} errorMessage={getZodErrorMessage(errors.email)}
                             wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
-                            {...register("email")}
+                            ref={emailRef} {...emailRest}
                         />
-                        <PasswordInput autoComplete="new-password" error={errors.password} register={register} />
+                        <PasswordInput autoComplete="new-password" error={errors.password} register={register} onBlur={blurHandlers.password} />
                         <SubmitButton isFormValid={isValid} isLoading={isLoading} className="my-8">{t("signUp")}</SubmitButton>
                     </form>
                 </FormWrapper>
