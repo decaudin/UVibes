@@ -1,14 +1,14 @@
-import { Metadata } from "next";
+import type { Props } from "@/types/pageProps";
 import { Suspense } from "react";
-import { generateMetadata } from "@/lib/metadata";
+import { setStaticParamsLocale } from "next-international/server";
+import { generateMetadataForNonIndexedPage } from "@/lib/metadata/nonIndexed";
 import { Loader } from "@/components/ui/Loader";
 import UVResultsClient from "@/components/features/check-uv/results";
 
-export const metadata: Metadata = generateMetadata({
-    title: "UV Results for Your Location",
-    description: "Get the latest UV index, safe sun exposure time, and peak UV hours for your selected coordinates. Stay sun safe with personalized UV data.",
-    robots: "noindex, nofollow"
-});
+export const generateMetadata = async ({ params }: Props) => {
+    setStaticParamsLocale(params.locale);
+    return await generateMetadataForNonIndexedPage("results");
+};
 
 export default function UVResults() {
     return (

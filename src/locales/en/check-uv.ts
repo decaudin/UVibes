@@ -1,4 +1,8 @@
 export default {
+    checkUv: {
+        title: "Check the UV Index",
+        subtitle: "Get the current UV index and the recommended sun exposure time based on your skin type and the location of your choice."
+    },
     latLongRequired: "Latitude and Longitude are required!",
     labelLatitude: "Latitude :",
     labelLongitude: "Longitude :",

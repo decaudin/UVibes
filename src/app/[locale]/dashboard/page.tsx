@@ -1,12 +1,12 @@
-import { Metadata } from "next";
-import { generateMetadata } from "@/lib/metadata";
+import type { Props } from "@/types/pageProps";
+import { setStaticParamsLocale } from "next-international/server";
+import { generateMetadataForNonIndexedPage } from "@/lib/metadata/nonIndexed";
 import DashboardClient from "@/components/features/dashboard";
 
-export const metadata: Metadata = generateMetadata({
-    title: "Dashboard",
-    description: "Manage your saved locations and view real-time UV index data tailored to your spots.",
-    robots: "noindex, nofollow"
-});
+export const generateMetadata = async ({ params }: Props) => {
+    setStaticParamsLocale(params.locale);
+    return await generateMetadataForNonIndexedPage("dashboard");
+};
 
 export default function Dashboard() {
     return <DashboardClient />

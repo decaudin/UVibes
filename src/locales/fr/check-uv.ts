@@ -1,4 +1,8 @@
 export default {
+    checkUv: {
+        title: "Vérifier l'indice UV",
+        subtitle: "Obtenez l'indice UV actuel et la durée d'exposition recommandée selon votre type de peau et le lieu de votre choix."
+    },
     latLongRequired: "La latitude et la longitude sont obligatoires!",
     labelLatitude: "Latitude :",
     labelLongitude: "Longitude :",

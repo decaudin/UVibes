@@ -1,13 +1,17 @@
-type MetadataInput = {
+import type { Metadata } from "next";
+
+type MetadataProps = {
     title: string;
+    suffix: string;
     description: string;
     keywords?: string[];
-    url?: string;
     robots?: string;
+    type?: "website" | "article";
+    url?: string;
 }
 
-export const generateMetadata = ({ title, description, keywords, url, robots }: MetadataInput) => {
-    const fullTitle = `${title} | UVibes - UV Index and Sun Exposure Calculator`
+export const createMetadata = ({ title, suffix, description, keywords, robots, type, url }: MetadataProps): Metadata => {
+    const fullTitle = `${title} | UVibes - ${suffix}`
     return {
         title: fullTitle,
         description,
@@ -16,6 +20,7 @@ export const generateMetadata = ({ title, description, keywords, url, robots }: 
         openGraph: {
             title: fullTitle,
             description,
+            ...(type && { type }),
             ...(url && { url }),
         },
         twitter: {

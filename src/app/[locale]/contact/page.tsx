@@ -1,14 +1,13 @@
-import type { Metadata } from "next";
-import { generateMetadata } from "@/lib/metadata";
+import type { Props } from "@/types/pageProps";
+import { setStaticParamsLocale } from "next-international/server";
 import { getI18n } from "@/locales/server";
+import { generateMetadataForIndexedPage } from "@/lib/metadata/indexed";
 import ContactForm from "@/components/features/contact";
 
-export const metadata: Metadata = generateMetadata({
-    title: "Contact Us",
-    description: "Got questions, suggestions, or feedback? Reach out to us easily here and we'll get back to you.",
-    keywords: ["contact", "feedback", "questions", "suggestions", "support", "UVibes"],
-    url: "https://u-vibes.vercel.app/contact"
-});
+export const generateMetadata = async ({ params }: Props) => {
+    setStaticParamsLocale(params.locale);
+    return await generateMetadataForIndexedPage("contact");
+};
 
 export default async function Contact() {
 

@@ -5,7 +5,7 @@ export const baseNavLinks = (t: TFunction, locale: string): NavItems[] => [
     {
         label: t("navAbout", {}),
         href: `/${locale}/about`,
-        isActive: (pathname) => pathname === "/about",
+        isActive: (pathname) => pathname.startsWith("/about"),
     },
     {
         label: t("navCheckUv", {}),

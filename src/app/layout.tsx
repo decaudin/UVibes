@@ -24,7 +24,7 @@ export const metadata: Metadata = {
         description: "Check UV index and optimize your sun exposure for better health.",
         url: "https://u-vibes.vercel.app/",
         siteName: "UVibes",
-        images: ["https://u-vibes.vercel.app/sun-1.png"],
+        images: ["https://u-vibes.vercel.app/home-sun.png"],
         locale: "en_US",
         type: "website",
     },
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "UVibes - UV Index and Sun Exposure Calculator",
         description: "Check UV index and optimize your sun exposure for better health.",
-        images: ["https://u-vibes.vercel.app/sun-1.png"]
+        images: ["https://u-vibes.vercel.app/home-sun.png"]
     }
 };
 
@@ -58,5 +58,5 @@ export default function RootLayout({ children }: RootLayoutProps) {
 // 3 - définir modèle user, points enregistrés, caractéristique peau
 // 4 - Implémenter dashbord pour enregistrer, modifier, supprimer des points en favoris (nom, latitude, longitude) et caractéristique peau pour récupérer les données ensuite sans re-entrer ces infos
 // 5 - Possibilité recherche ville via input (--> suggestion API) et récup via autre API (lat, lon et alt correspondantes)
-// 6 - Image affichées dans uv-check/results : améliorer le design
-// 7 - (SEO) : Ajouter dans page About bouton pour accès à article et faire qqes articles, titre sous titre dans uv-checks et metadata en --> fr
+// 6 - UI: Essayer de rendre plus attrayant/convivial : Images affichées dans uv-check/results, articles de guides&tips, design/ui général etc ..
+// 7 - SEO/UX: Urls en EN/FR

@@ -3,6 +3,8 @@ import { I18nProviderClient } from "@/locales/client";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 
+export const generateStaticParams = () => { return [{ locale: "en" }, { locale: "fr" }] };
+
 export default async function LocaleLayout({ children, params }: { children: React.ReactNode, params: { locale: string }}) {
     
     return (
@@ -14,5 +16,5 @@ export default async function LocaleLayout({ children, params }: { children: Rea
             </main>
             <Footer />
         </I18nProviderClient>
-    );
+    )
 }

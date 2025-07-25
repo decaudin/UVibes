@@ -1,13 +1,12 @@
-import { Metadata } from "next";
-import { generateMetadata } from "@/lib/metadata";
+import type { Props } from "@/types/pageProps";
+import { setStaticParamsLocale } from "next-international/server";
+import { generateMetadataForIndexedPage } from "@/lib/metadata/indexed";
 import SignUpForm from "@/components/features/auth/sign-up";
 
-export const metadata: Metadata = generateMetadata({
-    title: "Sign Up",
-    description: "Create your account to start using our services.",
-    keywords: ["sign up", "register", "create account", "auth"],
-    url: "https://u-vibes.vercel.app/sign-up"
-});
+export const generateMetadata = async ({ params }: Props) => {
+    setStaticParamsLocale(params.locale);
+    return await generateMetadataForIndexedPage("signUp");
+};
 
 export default function SignUpPage() { 
     return <SignUpForm /> 
