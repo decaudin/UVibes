@@ -1,3 +1,3 @@
-type ParamsObject<T = unknown> = Record<string, T>;
+import { useTranslations } from "next-intl";
 
-export type TFunction = <Key extends string, Value = unknown>(key: Key, options: ParamsObject<Value>) => string;
+export type TFunctionType = ReturnType<typeof useTranslations>;

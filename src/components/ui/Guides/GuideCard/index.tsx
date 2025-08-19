@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getI18n } from "@/locales/server";
+import { getTranslations } from "next-intl/server";
 import { getTranslationKeyFromSlug } from "@/utils/functions/slug";
+
 
 type GuideCardProps = {
     slug: string;
@@ -12,7 +13,7 @@ type GuideCardProps = {
 
 export default async function GuideCard({ slug, image, locale }: GuideCardProps) {
 
-    const t = await getI18n();
+    const t = await getTranslations();
     const key = getTranslationKeyFromSlug(slug);
 
     if (!key) return notFound();

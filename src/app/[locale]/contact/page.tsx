@@ -1,17 +1,12 @@
-import type { Props } from "@/types/pageProps";
-import { setStaticParamsLocale } from "next-international/server";
-import { getI18n } from "@/locales/server";
+import { getTranslations } from "next-intl/server";
 import { generateMetadataForIndexedPage } from "@/lib/metadata/indexed";
 import ContactForm from "@/components/features/contact";
 
-export const generateMetadata = async ({ params }: Props) => {
-    setStaticParamsLocale(params.locale);
-    return await generateMetadataForIndexedPage("contact");
-};
+export async function generateMetadata() { return generateMetadataForIndexedPage("contact") }
 
 export default async function Contact() {
 
-    const t = await getI18n();
+    const t = await getTranslations();
 
     return (
         <div className="flex flex-col w-full">

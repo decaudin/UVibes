@@ -1,14 +1,14 @@
-"use client";
-import { usePathname, useRouter, useParams } from "next/navigation";
-import { toast } from "sonner";
+"use client"
 import { useCallback, useMemo } from "react";
-import { useI18n } from "@/locales/client";
+import { usePathname, useRouter, useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { useUserStore } from "@/stores/userStore";
 import { getNavList } from "@/utils/functions/nav/getNavList";
 
 export const useNavigationItems = () => {
     
-    const t = useI18n();
+    const t = useTranslations();
     const pathname = usePathname();
     const router = useRouter();
     const params = useParams();

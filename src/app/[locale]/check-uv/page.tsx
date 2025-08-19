@@ -1,17 +1,12 @@
-import type { Props } from "@/types/pageProps";
-import { setStaticParamsLocale } from "next-international/server";
+import { getTranslations } from "next-intl/server";
 import { generateMetadataForIndexedPage } from "@/lib/metadata/indexed";
-import { getI18n } from "@/locales/server";
 import CheckUVForm from "@/components/features/check-uv";
 
-export const generateMetadata = async ({ params }: Props) => {
-    setStaticParamsLocale(params.locale);
-    return await generateMetadataForIndexedPage("checkUv");
-};
+export async function generateMetadata() { return generateMetadataForIndexedPage("checkUv") }
 
 export default async function CheckUV() {
 
-    const t = await getI18n();
+    const t = await getTranslations();
 
     return (
         <div className="w-full my-20 ">

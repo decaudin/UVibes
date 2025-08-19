@@ -1,7 +1,7 @@
-import { TFunction } from "@/types/i18n";
+import type { TFunctionType } from "@/types/i18n";
 import { NavItems } from "@/types/nav";
 
-export const baseNavLinks = (t: TFunction, locale: string): NavItems[] => [
+export const baseNavLinks = (t: TFunctionType, locale: string): NavItems[] => [
     {
         label: t("navAbout", {}),
         href: `/${locale}/about`,

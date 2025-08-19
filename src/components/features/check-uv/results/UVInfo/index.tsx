@@ -1,5 +1,5 @@
+import type { UvApiResponse } from "@/types/UvApiResponse";
 import { JSX } from "react";
-import { UvApiResponse } from "@/types/UvApiResponse";
 import { roundToHundredths } from "@/utils/functions/uv/roundToHundredths";
 import { SafeExposureDuration } from "./SafeExposureDuration";
 
@@ -42,5 +42,5 @@ export function UVInfo({ labels, uvMessage, uvImage, uvData, localTime, maxUvTim
             />
             <p className="my-6">{labels.ozoneLabel}<strong>{uvData.result.ozone}{labels.ozoneUnit}</strong></p>
         </div>
-    );
+    )
 }

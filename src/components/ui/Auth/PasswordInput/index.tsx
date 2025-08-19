@@ -1,6 +1,6 @@
 "use client"
-import { FieldValues, UseFormRegister, FieldError, Path } from "react-hook-form";
-import { useI18n } from "@/locales/client";
+import type { FieldValues, UseFormRegister, FieldError, Path } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { useZodErrorMessage } from "@/hooks/zod";
 import { usePasswordToggle } from "@/hooks/passwordToggle";
 import { Input } from "../../Input";
@@ -16,7 +16,7 @@ interface PasswordInputProps<T extends FieldValues> {
 
 export default function PasswordInput<T extends FieldValues>({ autoComplete, register, error, onBlur }: PasswordInputProps<T>) {
 
-    const t = useI18n();
+    const t = useTranslations();
 
     const getErrorMessage = useZodErrorMessage();
 

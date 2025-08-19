@@ -1,20 +1,23 @@
+import type { LocaleLayoutProps } from "@/types/localeLayoutProps";
 import { Toaster } from "sonner";
-import { I18nProviderClient } from "@/locales/client";
+import { NextIntlClientProvider } from "next-intl";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 
 export const generateStaticParams = () => { return [{ locale: "en" }, { locale: "fr" }] };
 
-export default async function LocaleLayout({ children, params }: { children: React.ReactNode, params: { locale: string }}) {
+export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
+
+    const { locale } = await params;
     
     return (
-        <I18nProviderClient locale={params.locale}>
+        <NextIntlClientProvider locale={locale}>
             <Header />
             <main className="flex-grow flex justify-center">
                 <Toaster richColors position="top-right" closeButton />
                 {children}
             </main>
             <Footer />
-        </I18nProviderClient>
+        </NextIntlClientProvider>
     )
 }

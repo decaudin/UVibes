@@ -1,9 +1,9 @@
-"use client";
-import { useI18n } from "@/locales/client";
+"use client"
+import { useTranslations } from "next-intl";
 
 export const useSkinTypeLabels = () => {
     
-    const t = useI18n();
+    const t = useTranslations();
 
     return {
         1: t("skinType1"),

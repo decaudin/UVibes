@@ -1,18 +1,13 @@
-import type { Props } from "@/types/pageProps";
-import { setStaticParamsLocale } from "next-international/server";
-import { getI18n } from "@/locales/server";
+import { getTranslations } from "next-intl/server";
 import { generateMetadataForIndexedPage } from "@/lib/metadata/indexed";
 import GuideTitle from "@/components/ui/Guides/GuideTitle";
 import SimpleGuideSection from "@/components/ui/Guides/SimpleGuideSection";
 
-export const generateMetadata = async ({ params }: Props) => {
-    setStaticParamsLocale(params.locale);
-    return await generateMetadataForIndexedPage("chooseSunscreen");
-};
+export async function generateMetadata() { return generateMetadataForIndexedPage("chooseSunscreen") };
 
 export default async function ChooseSunscreen() {
 
-    const t = await getI18n();
+    const t = await getTranslations();
 
     return (
         <>

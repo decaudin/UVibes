@@ -1,9 +1,9 @@
-"use client";
+"use client"
 import { useState } from "react";
+import { useTranslations } from 'next-intl';
 import { useForm } from "react-hook-form";
-import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { useI18n } from "@/locales/client";
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useZodErrorMessage } from "@/hooks/zod";
 import { usePost } from "@/hooks/api/usePost";
 import { ContactFormData, contactSchema } from "@/lib/schemas/contactSchema";
@@ -18,7 +18,9 @@ const errorMessageContactStyles = "text-sm text-red-500 w-[90%] mt-2 xs:w-4/5 sm
 
 export default function ContactForm() {
 
-    const t = useI18n();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const t = useTranslations();
 
     const getZodErrorMessage = useZodErrorMessage();
 
@@ -36,7 +38,7 @@ export default function ContactForm() {
         setValue,
     });
 
-    const [isLoading, setIsLoading] = useState(false);
+    
 
     const formValues = watch();
 

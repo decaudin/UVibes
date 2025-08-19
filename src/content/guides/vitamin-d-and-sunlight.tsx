@@ -1,19 +1,14 @@
-import type { Props } from "@/types/pageProps";
-import { setStaticParamsLocale } from "next-international/server";
-import { getI18n } from "@/locales/server";
+import { getTranslations } from "next-intl/server";
 import { generateMetadataForIndexedPage } from "@/lib/metadata/indexed";
 import GuideTitle from "@/components/ui/Guides/GuideTitle";
 import SimpleGUideSection from "@/components/ui/Guides/SimpleGuideSection";
 import GuideSection from "@/components/ui/Guides/GuideSection";
 
-export const generateMetadata = async ({ params }: Props) => {
-    setStaticParamsLocale(params.locale);
-    return await generateMetadataForIndexedPage("vitaminDAndSunlight");
-};
+export async function generateMetadata() { return generateMetadataForIndexedPage("vitaminDAndSunlight") };
 
 export default async function VitaminDAndSunlight() {
 
-    const t = await getI18n();
+    const t = await getTranslations();
 
     return (
         <>

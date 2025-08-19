@@ -1,14 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useI18n } from "@/locales/client";
+import { useTranslations } from "next-intl";
 import { useLocale } from "@/hooks/locales/urlLocale";
 import { useTheme } from "@/hooks/context";
 
 export default function Footer() {
 
     const router = useRouter();
-    const t = useI18n();
+    const t = useTranslations();
 
     const { locale, pathname } = useLocale();
     const { theme, toggleTheme } = useTheme();

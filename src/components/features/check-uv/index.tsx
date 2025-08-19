@@ -1,8 +1,8 @@
-"use client";
+"use client"
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useI18n } from "@/locales/client";
 import { useLocale } from '@/hooks/locales/urlLocale';
 import { useZodErrorMessage } from "@/hooks/zod";
 import { useSkinTypeLabels } from "@/hooks/locales/skinTypeLabels";
@@ -19,7 +19,7 @@ export default function CheckUVForm() {
 
     const router = useRouter();
 
-    const t = useI18n();
+    const t = useTranslations();
     
     const { locale } = useLocale();
 

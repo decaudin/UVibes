@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
 import { JSX } from "react";
 import { notFound } from "next/navigation";
-import type { Metadata } from "next";
 
-const articleComponents: Record<string, () => Promise<{ default: () => Promise<JSX.Element>; generateMetadata?: (params: { params: { slug: string; locale: string } }) => Promise<Metadata> }>> = {
+type ArticleParams = { params: Promise<{ slug: string; locale: "en" | "fr" }> };
+
+const articleComponents: Record<string, () => Promise<{ default: () => Promise<JSX.Element>; generateMetadata?: (params: ArticleParams) => Promise<Metadata> }>> = {
     "understanding-uv-index": () => import("@/content/guides/understanding-uv-index"),
     "how-uv-index-is-calculated": () => import("@/content/guides/how-uv-index-is-calculated"),
     "safe-sun-exposure": () => import("@/content/guides/safe-sun-exposure"),
@@ -13,20 +15,23 @@ const articleComponents: Record<string, () => Promise<{ default: () => Promise<J
     "year-round-high-uv-zones": () => import("@/content/guides/year-round-high-uv-zones"),
 };
 
-export async function generateMetadata({ params }: { params: { slug: string; locale: string } }): Promise<Metadata> {
-    const importFn = articleComponents[params.slug];
+export async function generateMetadata({ params }: ArticleParams) {
+
+    const resolvedParams = await params;
+    const importFn = articleComponents[resolvedParams.slug];
+
     if (!importFn) return {};
 
     const mod = await importFn();
 
     if (mod.generateMetadata) return mod.generateMetadata({ params });
 
-    return { title: params.slug } 
+    return { title: resolvedParams.slug } 
 }
 
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
+export default async function ArticlePage({ params }: ArticleParams) {
 
-    const { slug } = params;
+    const { slug } = await params;
 
     const importFn = articleComponents[slug];
     if (!importFn) return notFound();

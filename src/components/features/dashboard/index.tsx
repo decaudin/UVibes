@@ -1,11 +1,11 @@
-'use client';
-import { useI18n } from "@/locales/client";
+"use client"
+import { useTranslations } from 'next-intl';
 import { useUserStore } from "@/stores/userStore";
 import { Loader } from "@/components/ui/Loader";
 
 export default function DashboardClient() {
 
-    const t = useI18n();
+    const t = useTranslations();
     
     const user = useUserStore((state) => state.user);
 
@@ -16,5 +16,5 @@ export default function DashboardClient() {
             <h1 className="text-4xl">{t("welcome")} {user?.name} !</h1>
             <p className="my-8">{t("inProgress")}</p>
         </div>
-    );
+    )
 }

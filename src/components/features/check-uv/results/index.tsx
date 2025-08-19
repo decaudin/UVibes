@@ -1,9 +1,9 @@
 "use client"
-import { useSearchParams } from "next/navigation";
+import type { UvApiResponse } from "@/types/UvApiResponse";
 import { useEffect, useState } from "react";
-import { useI18n } from "@/locales/client";
+import { useTranslations } from 'next-intl';
+import { useSearchParams } from "next/navigation";
 import { useSkinTypeLabels } from "@/hooks/locales/skinTypeLabels";
-import { UvApiResponse } from "@/types/UvApiResponse";
 import { useFetch } from "@/hooks/api/useFetch";
 import { formatTime } from "@/utils/functions/time/formatTime";
 import { convertUtcToLocal } from "@/utils/functions/time/convertUtcToLocal";
@@ -14,20 +14,20 @@ import { Loader } from "@/components/ui/Loader";
 
 export default function UVResultsClient() {
 
-    const t = useI18n();
-    const skinTypeLabels = useSkinTypeLabels();
-
-    const searchParams = useSearchParams();
-    const latitude = Number(searchParams.get("latitude"));
-    const longitude = Number(searchParams.get("longitude"));
-    const altitude = searchParams.get("altitude") ? Number(searchParams.get("altitude")) : undefined;
-    const skinType = searchParams.get("skinType") ? Number(searchParams.get("skinType")) : undefined;
-
-    const { fetchData, isLoading, error } = useFetch<UvApiResponse>();
     const [uvData, setUvData] = useState<UvApiResponse | null>(null);
     const [localTime, setLocalTime] = useState<string | null>(null);
     const [timeZone, setTimeZone] = useState<string | null>(null);
     const [filteredExposureTime, setFilteredExposureTime] = useState<number | undefined>(undefined);
+
+    const t = useTranslations();
+    const searchParams = useSearchParams();
+    const skinTypeLabels = useSkinTypeLabels();
+    const { fetchData, isLoading, error } = useFetch<UvApiResponse>();
+
+    const latitude = Number(searchParams.get("latitude"));
+    const longitude = Number(searchParams.get("longitude"));
+    const altitude = searchParams.get("altitude") ? Number(searchParams.get("altitude")) : undefined;
+    const skinType = searchParams.get("skinType") ? Number(searchParams.get("skinType")) : undefined; 
 
     useEffect(() => {
         const fetchAllData = async () => {

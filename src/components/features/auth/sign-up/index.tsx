@@ -1,10 +1,10 @@
 "use client"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useI18n } from "@/locales/client";
 import { useLocale } from "@/hooks/locales/urlLocale";
 import { useZodErrorMessage } from "@/hooks/zod";
 import { SignUpFormData, signUpSchema } from "@/lib/schemas/authSchema";
@@ -23,7 +23,7 @@ export default function SignUpForm() {
 
     const router = useRouter();
 
-    const t = useI18n();
+    const t = useTranslations();
 
     const { locale } = useLocale();
     

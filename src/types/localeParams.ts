@@ -1,0 +1,1 @@
+export type LocaleParams = { params: Promise<{ locale: "en" | "fr" }> }
