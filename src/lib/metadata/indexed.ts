@@ -1,9 +1,8 @@
+import type { SeoIndexedPageKey } from "@/types/seoKeys";
 import { getTranslations } from "next-intl/server";
 import { createMetadata } from "./createMetadata";
 
-type SeoIndexedPageKey = "home" | "about" | "guides" | "safeSunExposure" | "understandingUvIndex" | "chooseSunscreen" | "uvLongTermEffects" | "vitaminDAndSunlight" | "sunProtectionInWinter" | "yearRoundHighUvZones" | "howUvIndexIsCalculated" | "checkUv" | "signIn" | "signUp" | "contact";
-
-function parseOpenGraphType(value: string | undefined): "website" | "article" | undefined {
+const parseOpenGraphType = (value: string | undefined): "website" | "article" | undefined => {
     if (value === "website" || value === "article") return value
     return undefined
 }

@@ -1,9 +1,6 @@
 import { getTranslations } from "next-intl/server";
-import { generateMetadataForIndexedPage } from "@/lib/metadata/indexed";
 import GuideTitle from "@/components/ui/Guides/GuideTitle";
 import SimpleGuideSection from "@/components/ui/Guides/SimpleGuideSection";
-
-export async function generateMetadata() { return generateMetadataForIndexedPage("chooseSunscreen") };
 
 export default async function ChooseSunscreen() {
 

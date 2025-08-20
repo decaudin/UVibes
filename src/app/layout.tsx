@@ -60,3 +60,4 @@ export default function RootLayout({ children }: RootLayoutProps) {
 // 5 - Possibilité recherche ville via input (--> suggestion API) et récup via autre API (lat, lon et alt correspondantes)
 // 6 - UI: Essayer de rendre plus attrayant/convivial : Images affichées dans uv-check/results, articles de guides&tips, design/ui général etc ..
 // 7 - SEO/UX: Urls en EN/FR
+// 8 - Rendre custom page erreur fonctionnel (elle n'intercepte rien pour l'instant ..)

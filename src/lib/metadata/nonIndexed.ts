@@ -1,9 +1,8 @@
+import type { SeoNonIndexedPageKey } from "@/types/seoKeys";
 import { getTranslations } from "next-intl/server";
 import { createMetadata } from "./createMetadata";
 
-type SeoNonIndexedPageKey = "results" | "dashboard" | "notFound";
-
-export async function generateMetadataForNonIndexedPage(pageKey: SeoNonIndexedPageKey) {
+export const generateMetadataForNonIndexedPage = async (pageKey: SeoNonIndexedPageKey) => {
     
     const t = await getTranslations("seo");
 

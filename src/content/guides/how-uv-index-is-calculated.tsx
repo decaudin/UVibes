@@ -1,10 +1,7 @@
 import { getTranslations } from "next-intl/server";
-import { generateMetadataForIndexedPage } from "@/lib/metadata/indexed";
 import GuideTitle from "@/components/ui/Guides/GuideTitle";
 import SimpleGuideSection from "@/components/ui/Guides/SimpleGuideSection";
 import GuideSection from "@/components/ui/Guides/GuideSection";
-
-export async function generateMetadata() { return generateMetadataForIndexedPage("howUvIndexIsCalculated") };
 
 export default async function HowUvIndexIsCalculated() {
 
