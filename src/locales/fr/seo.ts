@@ -1,5 +1,10 @@
 export default {
     "seo": {
+        "layout":{
+            "title": "UVibes - Calculateur UV et Exposition au Soleil",
+            "description": "Consultez l'indice UV et optimisez votre exposition au soleil pour une meilleure santé.",
+            "keywords": "Indice UV, exposition au soleil, vitamine D, sécurité solaire, protection solaire, UVibes",
+        },
         "suffix": "Calculateur d'indice UV et d'exposition au soleil",
         "home": {
             "title": "Accueil",

@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/context/theme";
 import SessionGate from "@/components/ui/SessionGate";
@@ -14,34 +13,10 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-    title: "UVibes - UV Index and Sun Exposure Calculator",
-    description: "Check UV index and optimize your sun exposure for better health.",
-    keywords: ["UV index", "sun exposure", "vitamin D", "UVibes"],
-    authors: [{ name: "Decaudin Xavier" }],
-    openGraph: {
-        title: "UVibes - UV Index and Sun Exposure Calculator",
-        description: "Check UV index and optimize your sun exposure for better health.",
-        url: "https://u-vibes.vercel.app/",
-        siteName: "UVibes",
-        images: ["https://u-vibes.vercel.app/home-sun.png"],
-        locale: "en_US",
-        type: "website",
-    },
-    twitter: {
-        card: "summary_large_image",
-        title: "UVibes - UV Index and Sun Exposure Calculator",
-        description: "Check UV index and optimize your sun exposure for better health.",
-        images: ["https://u-vibes.vercel.app/home-sun.png"]
-    }
-};
-
-type RootLayoutProps = { children: React.ReactNode };
-
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
 
     return (
-        <html lang="en">
+        <html>
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-sky-100 bg-opacity-50 min-h-screen flex flex-col`}>
                 <ThemeProvider>
                     <SessionGate>
@@ -59,5 +34,5 @@ export default function RootLayout({ children }: RootLayoutProps) {
 // 4 - Implémenter dashbord pour enregistrer, modifier, supprimer des points en favoris (nom, latitude, longitude) et caractéristique peau pour récupérer les données ensuite sans re-entrer ces infos
 // 5 - Possibilité recherche ville via input (--> suggestion API) et récup via autre API (lat, lon et alt correspondantes)
 // 6 - UI: Essayer de rendre plus attrayant/convivial : Images affichées dans uv-check/results, articles de guides&tips, design/ui général etc ..
-// 7 - SEO/UX: Urls en EN/FR
+// 7 - SEO/UX: Urls en EN/FR (Hreflang, Canonicalisation .. ?), siteMap ?
 // 8 - Rendre custom page erreur fonctionnel (elle n'intercepte rien pour l'instant ..)

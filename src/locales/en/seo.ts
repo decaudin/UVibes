@@ -1,5 +1,10 @@
 export default {
     "seo": {
+        "layout":{
+            "title": "UVibes - UV Index and Sun Exposure Calculator",
+            "description": "Check UV index and optimize your sun exposure for better health.",
+            "keywords": "UV index, sun exposure, vitamin D, UV safety, sun protection, UVibes",
+        },
         "suffix": "UV Index and Sun Exposure Calculator",
         "home": {
             "title": "Home",
