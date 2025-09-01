@@ -85,7 +85,7 @@ export default {
             "title": "Se protéger du soleil même en hiver",
             "description": "Découvrez pourquoi il est essentiel de se protéger des UV même en hiver : rayonnement à travers les nuages, neige/altitude, et bons réflexes à adopter.",
             "keywords": "UV hiver, protection solaire hiver, UV neige altitude, continuer protection hiver, exposition au froid",
-
+            "type": "article",
             "url": "https://u-vibes.vercel.app/about/guides/sun-protection-in-winter"
         },
         "checkUv": {

@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { generateMetadataForNonIndexedPage } from "@/lib/metadata/nonIndexed";
-import { Loader } from "@/components/ui/Loader";
+import Loader from "@/components/ui/animations/Loader";
 import UVResultsClient from "@/components/features/check-uv/results";
 
 export async function generateMetadata() { return generateMetadataForNonIndexedPage("results") }

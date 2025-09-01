@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useZodErrorMessage } from "@/hooks/zod";
 import { usePasswordToggle } from "@/hooks/passwordToggle";
 import { Input } from "../../Input";
-import EyeToggle from "@/components/ui/Auth/EyeToggle";
+import EyeToggle from "@/components/ui/auth/EyeToggle";
 import { wrapperStyles, inputStyles, errorMessageStyles } from "@/styles/classNames";
 
 interface PasswordInputProps<T extends FieldValues> {

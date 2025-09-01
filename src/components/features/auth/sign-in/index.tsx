@@ -12,11 +12,11 @@ import { useZodErrorMessage } from "@/hooks/zod";
 import { SignInFormData, signInSchema } from "@/lib/schemas/authSchema";
 import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";
 import { handleEmailTrimOnBlur } from "@/utils/functions/input/handleEmailTrimOnBlur";
-import FormWrapper from "@/components/ui/Auth/FormWrapper";
+import FormWrapper from "@/components/ui/auth/FormWrapper";
 import { Input } from "@/components/ui/Input";
-import PasswordInput from "@/components/ui/Auth/PasswordInput";
+import PasswordInput from "@/components/ui/auth/PasswordInput";
 import SubmitButton from "@/components/ui/SubmitButton";
-import { Loader } from "@/components/ui/Loader";
+import Loader from "@/components/ui/animations/Loader";
 import { inputStyles, wrapperStyles, errorMessageStyles } from "@/styles/classNames";
 
 export default function SignInForm() {

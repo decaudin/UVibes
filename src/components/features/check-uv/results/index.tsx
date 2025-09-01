@@ -9,8 +9,8 @@ import { formatTime } from "@/utils/functions/time/formatTime";
 import { convertUtcToLocal } from "@/utils/functions/time/convertUtcToLocal";
 import { getUvImage } from "@/utils/functions/uv/getUvImage";
 import { getUvMessageKey } from "@/utils/functions/uv/getUvMessageKey";
-import { UVInfo } from "@/components/features/check-uv/results/UVInfo";
-import { Loader } from "@/components/ui/Loader";
+import UVInfo from "@/components/features/check-uv/results/UVInfo";
+import Loader from "@/components/ui/animations/Loader";
 
 export default function UVResultsClient() {
 

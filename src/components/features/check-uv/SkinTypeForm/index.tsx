@@ -11,7 +11,7 @@ interface SkinTypeExposureProps {
 const wrapperStyles = "flex flex-col mb-10 mx-auto";
 const inputStyles = "h-4 mt-1 cursor-pointer";
 
-export function SkinTypeForm({ register, radioTitle, labels }: SkinTypeExposureProps) {
+export default function SkinTypeForm({ register, radioTitle, labels }: SkinTypeExposureProps) {
 
     return (
         <div className="flex flex-col items-center">

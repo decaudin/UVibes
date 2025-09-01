@@ -2,7 +2,7 @@
 import { ReactNode, useState, useEffect } from "react";
 import { useUserStore } from "@/stores/userStore";
 import { useRouter, usePathname } from "next/navigation";
-import { Loader } from "../Loader";
+import Loader from "../animations/Loader";
 
 type Props = {
     children: ReactNode;

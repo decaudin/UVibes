@@ -9,7 +9,7 @@ import { useSkinTypeLabels } from "@/hooks/locales/skinTypeLabels";
 import { UvCheckSchema, FormData } from "@/lib/schemas/uvCheckSchema";
 import { Input } from "@/components/ui/Input";
 import SubmitButton from "@/components/ui/SubmitButton";
-import { SkinTypeForm } from "@/components/features/check-uv/SkinTypeForm";
+import SkinTypeForm from "@/components/features/check-uv/SkinTypeForm";
 import { errorMessageStyles } from "@/styles/classNames";
 
 const wrapperStyles = "flex flex-col w-40 mb-10 mx-auto";

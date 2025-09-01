@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
-import GuideTitle from "@/components/ui/Guides/GuideTitle";
-import SimpleGuideSection from "@/components/ui/Guides/SimpleGuideSection";
+import GuideTitle from "@/components/ui/guides/GuideTitle";
+import SimpleGuideSection from "@/components/ui/guides/SimpleGuideSection";
 
 export default async function ChooseSunscreen() {
 
@@ -8,15 +8,15 @@ export default async function ChooseSunscreen() {
 
     return (
         <>
-            <GuideTitle>{t("choose.title")}</GuideTitle>
+            <GuideTitle>🧴 {t("choose.title")}</GuideTitle>
 
-            <SimpleGuideSection title={t("choose.spfTitle")} content={t("choose.spfText")} />
+            <SimpleGuideSection title={`🔢 ${t("choose.spfTitle")}`} content={t("choose.spfText")} />
 
-            <SimpleGuideSection title={t("choose.filterTitle")} content={t("choose.filterText")} />
+            <SimpleGuideSection title={`⚗️ ${t("choose.filterTitle")} 🌿`} content={t("choose.filterText")} />
 
-            <SimpleGuideSection title={t("choose.reapplyTitle")} content={t("choose.reapplyText")} />
+            <SimpleGuideSection title={`🔄 ${t("choose.reapplyTitle")}`} content={t("choose.reapplyText")} />
 
-            <SimpleGuideSection title={t("choose.kidsTitle")} content={t("choose.kidsText")} />
+            <SimpleGuideSection title={`👶 ${t("choose.kidsTitle")}`} content={t("choose.kidsText")} />
         </>
     )
 }

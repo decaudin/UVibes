@@ -1,7 +1,8 @@
 import { getTranslations } from "next-intl/server";
-import GuideTitle from "@/components/ui/Guides/GuideTitle";
-import SimpleGuideSection from "@/components/ui/Guides/SimpleGuideSection";
-import GuideSection from "@/components/ui/Guides/GuideSection";
+import GuideTitle from "@/components/ui/guides/GuideTitle";
+import SimpleGuideSection from "@/components/ui/guides/SimpleGuideSection";
+import GuideSection from "@/components/ui/guides/GuideSection";
+import StaggeredFadeIn from "@/components/ui/animations/StaggeredFadeIn";
 
 export default async function UVLongTermEffects() {
 
@@ -9,19 +10,19 @@ export default async function UVLongTermEffects() {
 
     return (
         <>
-            <GuideTitle>{t("longTerm.title")}</GuideTitle>
+            <GuideTitle>👩‍⚕️ {t("longTerm.title")}</GuideTitle>
 
-            <SimpleGuideSection title={t("longTerm.diffTitle")} content={t("longTerm.diffText")} />
+            <SimpleGuideSection title={`↔️ ${t("longTerm.diffTitle")}`} content={t("longTerm.diffText")} />
 
-            <GuideSection title={t("longTerm.risksTitle")}>
-                <ul className="list-disc pl-6">
-                    <li>{t("longTerm.risksList.item1")}</li>
-                    <li>{t("longTerm.risksList.item2")}</li>
-                    <li>{t("longTerm.risksList.item3")}</li>
-                </ul>
+            <GuideSection title={`⚠️ ${t("longTerm.risksTitle")}`}>
+                <StaggeredFadeIn as="ul">
+                    {`🕰️ ${t("longTerm.risksList.item1")}`}
+                    {`⚫ ${t("longTerm.risksList.item2")}`}
+                    {`⚠️ ${t("longTerm.risksList.item3")}`}
+                </StaggeredFadeIn>
             </GuideSection>
 
-            <SimpleGuideSection title={t("longTerm.whyTitle")} content={t("longTerm.whyText")} />
+            <SimpleGuideSection title={`ℹ️ ${t("longTerm.whyTitle")}`} content={t("longTerm.whyText")} />
         </>
     )
 }

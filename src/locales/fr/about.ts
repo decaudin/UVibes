@@ -1,5 +1,5 @@
 export default {
-    aboutDescription: "Ce site web à but non lucratif fournit des données UV pour la zone géographique de votre choix. Il vous suffit d'entrer la latitude et la longitude (en degrés décimaux), ainsi que l'altitude (facultative, en mètres), pour accéder à ces informations. Vous pouvez facilement trouver votre latitude et longitude sur https://www.coordonnees-gps.fr, et vérifier votre altitude à l'aide de https://www.freemaptools.com/elevation-finder.htm. Les données sont récupérées via l'API open source https://www.openuv.io.",
+    aboutDescription: "Ce site web à but non lucratif fournit des données UV pour la zone géographique de votre choix. Il vous suffit d'entrer la latitude et la longitude (en degrés décimaux), ainsi que l'altitude (facultative, en mètres), pour accéder à ces informations. Vous pouvez facilement trouver votre latitude et longitude sur <gpsLink>Coordonnées GPS</gpsLink>, et vérifier votre altitude à l'aide de <elevationLink>FreeMapTools</elevationLink>. Les données sont récupérées via l'API open source <openuvLink>OpenUV</openuvLink>.",
     aboutCheckUvLink: "Consulter l'indice UV",
     aboutGuidesLink: "Guides & Conseils",
     aboutGuidesTitle: "Brillez intelligemment : Guides de protection UV",

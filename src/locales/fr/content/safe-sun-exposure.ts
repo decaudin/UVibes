@@ -8,26 +8,26 @@ export default {
         factorTitle: "Facteurs influençant la durée d'exposition sûre",
         factorList: {
             label1: "Indice UV :",
-            desc1: "Plus il est élevé, plus le temps d'exposition sans risque est court.",
+            desc1: " Plus il est élevé, plus le temps d'exposition sans risque est court.",
             label2: "Type de peau :",
-            desc2: "Les peaux claires brûlent plus rapidement que les peaux foncées.",
+            desc2: " Les peaux claires brûlent plus rapidement que les peaux foncées.",
             label3: "Altitude & réflexion :",
-            desc3: "La neige, l'eau et le sable augmentent l'intensité des UV.",
+            desc3: " La neige, l'eau et le sable augmentent l'intensité des UV.",
             label4: "Heure de la journée :",
-            desc4: "Les UV sont à leur maximum entre 10h et 16h."
+            desc4: " Les UV sont à leur maximum entre 10h et 16h."
         },
         
         skinTypeTitle: "Type de peau et temps d'exposition estimé",
         skinTypeText: "Voici une estimation du temps d'exposition sans protection sous un indice UV de 8 :",
         skinTypeList: {
             label1: "Type I (très clair) :",
-            desc1: "10 minutes ou moins",
+            desc1: " 10 minutes ou moins",
             label2: "Type II :",
-            desc2: "15 minutes",
+            desc2: " 15 minutes",
             label3: "Types III-IV :",
-            desc3: "20 à 30 minutes",
+            desc3: " 20 à 30 minutes",
             label4: "Types V-VI (peaux foncées) :",
-            desc4: "Jusqu'à 60 minutes"
+            desc4: " Jusqu'à 60 minutes"
         },
         skinTypeDisclaimer: "Ces valeurs sont approximatives. Il est toujours préférable de se protéger et de consulter les données en temps réel.",
         

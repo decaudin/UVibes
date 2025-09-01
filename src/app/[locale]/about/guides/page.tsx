@@ -2,7 +2,7 @@ import type { LocaleParams } from "@/types/localeParams";
 import { getTranslations } from "next-intl/server";
 import { generateMetadataForIndexedPage } from "@/lib/metadata/indexed";
 import { guides } from "@/data/guides";
-import GuideCard from "@/components/ui/Guides/GuideCard";
+import GuideCard from "@/components/ui/guides/GuideCard";
 
 export async function generateMetadata() { return generateMetadataForIndexedPage("guides") }
 

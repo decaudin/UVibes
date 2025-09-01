@@ -1,4 +1,4 @@
-export const timeConverter = (time: number): string => {
+export const timeConverter = (time: number) => {
     
     const hours = Math.floor(time / 60);
     const minutes = time % 60;

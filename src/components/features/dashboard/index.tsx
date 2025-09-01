@@ -1,7 +1,7 @@
 "use client"
 import { useTranslations } from 'next-intl';
 import { useUserStore } from "@/stores/userStore";
-import { Loader } from "@/components/ui/Loader";
+import Loader from "@/components/ui/animations/Loader";
 
 export default function DashboardClient() {
 

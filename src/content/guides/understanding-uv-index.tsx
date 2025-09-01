@@ -1,7 +1,8 @@
 import { getTranslations } from "next-intl/server";
-import GuideTitle from "@/components/ui/Guides/GuideTitle";
-import SimpleGuideSection from "@/components/ui/Guides/SimpleGuideSection";
-import GuideSection from "@/components/ui/Guides/GuideSection";
+import GuideTitle from "@/components/ui/guides/GuideTitle";
+import SimpleGuideSection from "@/components/ui/guides/SimpleGuideSection";
+import GuideSection from "@/components/ui/guides/GuideSection";
+import StaggeredFadeIn from "@/components/ui/animations/StaggeredFadeIn";
 
 export default async function UnderstandingUvIndex() {
 
@@ -9,29 +10,29 @@ export default async function UnderstandingUvIndex() {
 
     return (
         <>
-            <GuideTitle>{t("understand.title")}</GuideTitle>
+            <GuideTitle>🧠 {t("understand.title")}</GuideTitle>
 
-            <SimpleGuideSection title={t("understand.defTitle")} content={t("understand.defText")} />
+            <SimpleGuideSection title={`🔍 ${t("understand.defTitle")}`} content={t("understand.defText")} />
 
-            <GuideSection title={t("understand.scaleTitle")}>
-                <ul className="list-disc pl-6 space-y-2">
-                    <li><strong>{t("understand.scaleList.label1")}</strong>{t("understand.scaleList.desc1")}</li>
-                    <li><strong>{t("understand.scaleList.label2")}</strong>{t("understand.scaleList.desc2")}</li>
-                    <li><strong>{t("understand.scaleList.label3")}</strong>{t("understand.scaleList.desc3")}</li>
-                    <li><strong>{t("understand.scaleList.label4")}</strong>{t("understand.scaleList.desc4")}</li>
-                    <li><strong>{t("understand.scaleList.label5")}</strong>{t("understand.scaleList.desc5")}</li>
-                </ul>
+            <GuideSection title={`📈 ${t("understand.scaleTitle")}`}>
+                <StaggeredFadeIn as="ul">
+                    <span>🌿 <strong>{t("understand.scaleList.label1")}</strong>{t("understand.scaleList.desc1")}</span>
+                    <span>🟡 <strong>{t("understand.scaleList.label2")}</strong>{t("understand.scaleList.desc2")}</span>
+                    <span>🟠 <strong>{t("understand.scaleList.label3")}</strong>{t("understand.scaleList.desc3")}</span>
+                    <span>🔴 <strong>{t("understand.scaleList.label4")}</strong>{t("understand.scaleList.desc4")}</span>
+                    <span>☠️ <strong>{t("understand.scaleList.label5")}</strong>{t("understand.scaleList.desc5")}</span>
+                </StaggeredFadeIn>
             </GuideSection>
 
-            <SimpleGuideSection title={t("understand.whyTitle")} content={t("understand.whyText")} />
+            <SimpleGuideSection title={`🤔 ${t("understand.whyTitle")}`} content={t("understand.whyText")} />
 
-            <GuideSection title={t("understand.tipsTitle")}>
-                <ul className="list-disc pl-6">
-                    <li>{t("understand.tipsList.item1")}</li>
-                    <li>{t("understand.tipsList.item2")}</li>
-                    <li>{t("understand.tipsList.item3")}</li>
-                    <li>{t("understand.tipsList.item4")}</li>
-                </ul>
+            <GuideSection title={`💡 ${t("understand.tipsTitle")}`}>
+                <StaggeredFadeIn as="ul">
+                    {`🧴 ${t("understand.tipsList.item1")}`}
+                    {`🕶️ ${t("understand.tipsList.item2")}`}
+                    {`⛱️ {t("understand.tipsList.item3")}`}
+                    {`⚠️ {t("understand.tipsList.item4")}`}
+                </StaggeredFadeIn>
             </GuideSection>
         </>
     )

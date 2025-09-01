@@ -1,4 +1,4 @@
-export const formatTime = (isoDate: string): string => {
+export const formatTime = (isoDate: string) => {
 
     const timePart = isoDate.slice(11, 16);
     const [hours, minutes] = timePart.split(':');

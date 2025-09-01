@@ -11,23 +11,23 @@ interface SafeExposureDurationProps {
     filteredExposureTime?: number;
 }
 
-export function SafeExposureDuration({ titleForUserSkin, riskFreeMessage, titleForAllSkins, skinTypeLabels, safeExposureTime, filteredExposureTime }: SafeExposureDurationProps) {
+export default function SafeExposureDuration({ titleForUserSkin, riskFreeMessage, titleForAllSkins, skinTypeLabels, safeExposureTime, filteredExposureTime }: SafeExposureDurationProps) {
 
     return (
         <>
             {filteredExposureTime !== undefined ? (
                 <>
-                    <h3 className="my-6 text-center">{titleForUserSkin}</h3>
-                    <p className="text-center font-bold px-2">
+                    <h3 className="my-6">{titleForUserSkin}</h3>
+                    <p className="font-bold px-2">
                         {filteredExposureTime === null ? riskFreeMessage : timeConverter(filteredExposureTime)}
                     </p>
                 </>
             ) : (
                 <>
-                    <h3 className="my-6 text-center">{titleForAllSkins}</h3>
+                    <h3 className="my-6">{titleForAllSkins}</h3>
                     <ul>
                         {skinTypes.map((skinType) => (
-                            <li key={skinType.key} className="mt-2 px-2 text-center">
+                            <li key={skinType.key} className="mt-2 px-2">
                                 <strong>{skinTypeLabels[Number(skinType.key)]} :</strong> {getExposureData(safeExposureTime[skinType.key] ?? null )}
                             </li>
                         ))}

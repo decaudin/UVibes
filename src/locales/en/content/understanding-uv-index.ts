@@ -8,15 +8,15 @@ export default {
         scaleTitle: "UV Index Scale",
         scaleList: {
             label1: "0-2 :",
-            desc1: "Low risk. Going outside without protection is generally safe.",
+            desc1: " Low risk. Going outside without protection is generally safe.",
             label2: "3-5 :",
-            desc2: "Moderate risk. Use sunscreen and wear sunglasses.",
+            desc2: " Moderate risk. Use sunscreen and wear sunglasses.",
             label3: "6-7 :",
-            desc3: "High risk. Protect your skin and eyes. Stay in the shade during peak sunlight hours.",
+            desc3: " High risk. Protect your skin and eyes. Stay in the shade during peak sunlight hours.",
             label4: "8-10 :",
-            desc4: "Very high risk. Avoid the sun between 10 a.m. and 4 p.m. if possible.",
+            desc4: " Very high risk. Avoid the sun between 10 a.m. and 4 p.m. if possible.",
             label5: "11+ :",
-            desc5: "Extreme risk. Exposure without protection can cause damage in minutes."
+            desc5: " Extreme risk. Exposure without protection can cause damage in minutes."
         },
         whyTitle: "Why is it important?",
         whyText: "Monitoring the UV Index helps you make informed decisions to protect yourself from the sun. High levels increase the risk of sunburn, premature aging, eye damage, and skin cancer.",

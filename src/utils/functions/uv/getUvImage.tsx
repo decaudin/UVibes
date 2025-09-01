@@ -1,11 +1,10 @@
 import Image from "next/image";
-import type { JSX } from "react";
 
-const renderImage = (src: string, alt: string, extraClass: string): JSX.Element => {
+const renderImage = (src: string, alt: string, extraClass: string) => {
     return <Image src={src} alt={alt} className={`border-solid border-4 ${extraClass}`} width={100} height={100} />;
 };
 
-export const getUvImage = (uvLevel: number): JSX.Element => {
+export const getUvImage = (uvLevel: number) => {
     if (uvLevel >= 9) {
         return renderImage("/uv-index/uv-9.webp", "Extreme UV", "border-red-500");
     } else if (uvLevel >= 7) {
@@ -15,6 +14,6 @@ export const getUvImage = (uvLevel: number): JSX.Element => {
     } else if (uvLevel >= 3) {
         return renderImage("/uv-index/uv-3-5.jpg", "Moderate UV", "border-yellow-300");
     } else {
-        return renderImage("/uv-index/uv-0-3.jpg", "Low UV", "border-gray-300");
+        return renderImage("/uv-index/uv-0-3.jpg", "Low UV", "border-gray-100");
     }
 }

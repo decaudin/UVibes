@@ -8,15 +8,15 @@ export default {
         scaleTitle: "Échelle de l'indice UV",
         scaleList: {
             label1: "0-2 :",
-            desc1: "Risque faible. Sortir sans protection est généralement sans danger.",
+            desc1: " Risque faible. Sortir sans protection est généralement sans danger.",
             label2: "3-5 :",
-            desc2: "Risque modéré. Utilisez de la crème solaire et portez des lunettes de soleil.",
+            desc2: " Risque modéré. Utilisez de la crème solaire et portez des lunettes de soleil.",
             label3: "6-7 :",
-            desc3: "Risque élevé. Protégez votre peau et vos yeux. Restez à l'ombre pendant les heures de fort ensoleillement.",
+            desc3: " Risque élevé. Protégez votre peau et vos yeux. Restez à l'ombre pendant les heures de fort ensoleillement.",
             label4: "8-10 :",
-            desc4: "Risque très élevé. Évitez le soleil entre 10h et 16h si possible.",
+            desc4: " Risque très élevé. Évitez le soleil entre 10h et 16h si possible.",
             label5: "11+ :",
-            desc5: "Risque extrême. Une exposition sans protection peut causer des dommages en quelques minutes."
+            desc5: " Risque extrême. Une exposition sans protection peut causer des dommages en quelques minutes."
         },
         
         whyTitle: "Pourquoi est-ce important ?",
