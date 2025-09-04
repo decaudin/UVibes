@@ -30,8 +30,8 @@ export default async function UnderstandingUvIndex() {
                 <StaggeredFadeIn as="ul">
                     {`🧴 ${t("understand.tipsList.item1")}`}
                     {`🕶️ ${t("understand.tipsList.item2")}`}
-                    {`⛱️ {t("understand.tipsList.item3")}`}
-                    {`⚠️ {t("understand.tipsList.item4")}`}
+                    {`⛱️ ${t("understand.tipsList.item3")}`}
+                    {`⚠️ ${t("understand.tipsList.item4")}`}
                 </StaggeredFadeIn>
             </GuideSection>
         </>

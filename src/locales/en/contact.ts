@@ -1,9 +1,10 @@
 export default {
     contactTitle: "Got questions, suggestions, or feedback ? Contact us easily here !",
-    contactPlaceholders: {
+    contact: {
         firstName: "First Name",
         lastName: "Last Name",
         email: "E-mail",
+        labelMessage: "Your message",
         message: "Enter your message here ..."
     },
     contactButton: {

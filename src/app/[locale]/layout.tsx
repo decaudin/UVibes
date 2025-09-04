@@ -84,3 +84,4 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
 // 6 - SEO/UX: Urls en EN/FR (Hreflang, Canonicalisation .. ?), siteMap ?
 // 7 - Rendre custom page erreur fonctionnel (elle n'intercepte rien pour l'instant ..)
 // 8 - Afficher les mêmes résultats si changement de langue sur results
+// 9 - Modifier StaggeredFadeIn pour pas wrapper à chaque fois l'élément dans une div pour alléger le DOM ? (et mettre ces divs directement dans le JSX via motion.div)

@@ -38,8 +38,6 @@ export default function ContactForm() {
         setValue,
     });
 
-    
-
     const formValues = watch();
 
     const validateName = (name: string) => typeof name === "string" && name.trim().length >= 2;
@@ -87,27 +85,28 @@ export default function ContactForm() {
             {isLoading && <p className="text-blue-500 text-center mb-4">{t("sendingMessage")}</p>}
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center mx-auto mb-16 py-8 w-full text-black bg-amber-100 bg-opacity-70 rounded-lg shadow xs:w-4/5 sm:w-3/5">
                 <Input 
-                    id="firstName" type="text" label="First Name" placeholder={t("contactPlaceholders.firstName")} autoComplete="given-name" 
-                    onBlur={(e) => { blurHandlers.firstName(); firstNameOnBlurRHF(e) }} errorMessage={getZodErrorMessage(errors.firstName)}
+                    id="firstName" type="text" label={t("contact.firstName")} placeholder={t("contact.firstName")} autoComplete="given-name" 
+                    ref={firstNameRef} onBlur={(e) => { blurHandlers.firstName(); firstNameOnBlurRHF(e) }} errorMessage={getZodErrorMessage(errors.firstName)}
                     wrapperClassName={wrapperContactStyles} labelClassName="sr-only" inputClassName={inputContactStyles} errorMessageClassName={errorMessageContactStyles}
-                    ref={firstNameRef} {...firstNameRest}
+                    {...firstNameRest}
                 />
                 <Input 
-                    id="lastName" type="text" label="Last Name" placeholder={t("contactPlaceholders.lastName")} autoComplete="family-name" 
-                    onBlur={(e) => { blurHandlers.lastName(); lastNameOnBlurRHF(e) }} errorMessage={getZodErrorMessage(errors.lastName)}
+                    id="lastName" type="text" label={t("contact.lastName")} placeholder={t("contact.lastName")} autoComplete="family-name" 
+                    ref={lastNameRef} onBlur={(e) => { blurHandlers.lastName(); lastNameOnBlurRHF(e) }} errorMessage={getZodErrorMessage(errors.lastName)}
                     wrapperClassName={wrapperContactStyles} labelClassName="sr-only" inputClassName={inputContactStyles} errorMessageClassName={errorMessageContactStyles}
-                    ref={lastNameRef} {...lastNameRest}
+                    {...lastNameRest}
                 />
                 <Input 
-                    id="email" type="text" label="Email" placeholder={t("contactPlaceholders.email")} autoComplete="email"
-                    onBlur={onEmailBlur} errorMessage={getZodErrorMessage(errors.email)}
+                    id="email" type="text" label={t("contact.email")} placeholder={t("contact.email")} autoComplete="email"
+                    ref={emailRef} onBlur={onEmailBlur} errorMessage={getZodErrorMessage(errors.email)}
                     wrapperClassName={wrapperContactStyles} labelClassName="sr-only" inputClassName={inputContactStyles} errorMessageClassName={errorMessageContactStyles}
-                    ref={emailRef} {...emailRest}
+                    {...emailRest}
                 />
+                <label htmlFor="message" className="sr-only">{t("contact.labelMessage")}</label>
                 <textarea 
-                    id="message" placeholder={t("contactPlaceholders.message")} onBlur={(e) => { blurHandlers.message(); messageOnBlurRHF(e) }}
+                    id="message" placeholder={t("contact.message")} ref={messageRef} onBlur={(e) => { blurHandlers.message(); messageOnBlurRHF(e) }}
                     className={`h-48 mt-4 pl-2 pt-2 w-[90%] shadow xs:w-4/5 sm:w-[300px] ${errors.message && 'border-2 border-red-500'}`}
-                    ref={messageRef} {...messageRest} 
+                    {...messageRest} 
                 />
                 {errors.message && (<p className={errorMessageContactStyles}>{getZodErrorMessage(errors.message)}</p>)}
                 <SubmitButton isFormValid={isValid} className="px-8 mt-8 mb-4">{isLoading ? t("contactButton.sending") : t("contactButton.send")}</SubmitButton>

@@ -32,7 +32,7 @@ export default async function VitaminDAndSunlight() {
                 <StaggeredFadeIn as="ul">
                     {`🕒 ${t("vitaminD.balanceList.item1")}`}
                     <span>⏱️ {t("vitaminD.balanceList.item2First")}<strong>{t("vitaminD.balanceList.item2Strong")}</strong>{t("vitaminD.balanceList.item2Last")}</span>
-                    {`👩‍⚕️ {t("vitaminD.balanceList.item3")}`}
+                    {`👩‍⚕️ ${t("vitaminD.balanceList.item3")}`}
                 </StaggeredFadeIn>
             </GuideSection>
         </>

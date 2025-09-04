@@ -7,13 +7,9 @@ import { useLocale } from '@/hooks/locales/urlLocale';
 import { useZodErrorMessage } from "@/hooks/zod";
 import { useSkinTypeLabels } from "@/hooks/locales/skinTypeLabels";
 import { UvCheckSchema, FormData } from "@/lib/schemas/uvCheckSchema";
-import { Input } from "@/components/ui/Input";
+import ToggleForm from './ToggleForm';
 import SubmitButton from "@/components/ui/SubmitButton";
 import SkinTypeForm from "@/components/features/check-uv/SkinTypeForm";
-import { errorMessageStyles } from "@/styles/classNames";
-
-const wrapperStyles = "flex flex-col w-40 mb-10 mx-auto";
-const inputStyles = "h-8 rounded-lg shadow mt-2 pl-2";
 
 export default function CheckUVForm() {
 
@@ -69,26 +65,14 @@ export default function CheckUVForm() {
     };
 
     return (
-        <form 
-            className="w-full shadow-[0px_-4px_6px_0px_rgba(0,0,0,0.3),0px_4px_6px_0px_rgba(0,0,0,0.3)] text-black bg-neutral-100 mx-auto py-12 sm:w-4/5 lg:w-3/5 sm:rounded-lg sm:shadow-[4px_4px_6px_0px_rgba(0,0,0,0.3)]"
+        <form
             onSubmit={handleSubmit(onSubmit)}
+            className="w-full shadow-[0px_-4px_6px_0px_rgba(0,0,0,0.3),0px_4px_6px_0px_rgba(0,0,0,0.3)] text-black bg-neutral-100 mx-auto py-12 sm:w-4/5 lg:w-3/5 sm:rounded-lg sm:shadow-[4px_4px_6px_0px_rgba(0,0,0,0.3)]"
         >
-            <Input
-                id="latitude" label={t("labelLatitude")} type="number" step="any" errorMessage={getZodErrorMessage(errors.latitude)}
-                wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
-                {...register("latitude")}
-            />
-            <Input 
-                id="longitude" label={t("labelLongitude")} type="number" step="any" errorMessage={getZodErrorMessage(errors.longitude)}
-                wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
-                {...register("longitude")}
-             />
-            <Input
-                id="altitude" label={t("labelAltitude")} type="number" step="any" errorMessage={getZodErrorMessage(errors.altitude)}
-                wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
-                {...register("altitude")}
-            />
+            <ToggleForm register={register} errors={errors} getZodErrorMessage={getZodErrorMessage} t={t} />
+
             <SkinTypeForm register={register} radioTitle={radioTitle} labels={skinTypeLabels} />
+            
             <SubmitButton isFormValid={isValid}>{t("uvCheckButton")}</SubmitButton>
         </form>
     )
