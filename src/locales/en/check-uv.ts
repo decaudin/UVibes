@@ -12,8 +12,6 @@ export default {
     altitudeLabel: "Altitude (optional) :",
     cityLabel: "Ville",
     cityPlaceholder: "Search for a city …",
-    cityOpenSuggestions: "Open the city suggestions list",
-    cityCloseSuggestions: "Close the city suggestions list",
     radioTitle: "For more personalized data, please select your skin type (optional) :",
     skinType1: "Very fair",
     skinType2: "Fair",

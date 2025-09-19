@@ -24,6 +24,7 @@ export default function UVResultsClient() {
     const skinTypeLabels = useSkinTypeLabels();
     const { fetchData, isLoading, error } = useFetch<UvApiResponse>();
 
+    const mode = searchParams.get("mode");
     const latitude = Number(searchParams.get("latitude"));
     const longitude = Number(searchParams.get("longitude"));
     const altitude = searchParams.get("altitude") ? Number(searchParams.get("altitude")) : undefined;
@@ -34,7 +35,7 @@ export default function UVResultsClient() {
             if (latitude == null || longitude == null) return;
 
             try {
-                let apiUrl = `/api/uv?latitude=${latitude}&longitude=${longitude}`;
+                let apiUrl = `/api/uv?mode=${mode}&latitude=${latitude}&longitude=${longitude}`;
                 if (altitude != null) apiUrl += `&altitude=${altitude}`;
 
                 const data = await fetchData(apiUrl);
@@ -55,7 +56,7 @@ export default function UVResultsClient() {
         };
 
         fetchAllData();
-    }, [fetchData, latitude, longitude, altitude, skinType]);
+    }, [fetchData, mode, latitude, longitude, altitude, skinType]);
 
     if (error) return <p className="flex items-center text-center text-red-500 font-bold">{t("uvFetchError")}</p>;
 

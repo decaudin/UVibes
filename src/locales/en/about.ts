@@ -1,5 +1,7 @@
 export default {
-    aboutDescription: "This non-profit website provides UV data for the geographic area of your choice. Simply enter the latitude and longitude (in decimal degrees), along with the altitude (optional, in meters), to access this information. You can find latitude and longitude easily on <gpsLink>Latlong</gpsLink>, and check your altitude using <elevationLink>FreeMapTools</elevationLink>. The data is retrieved with the open-source API <openuvLink>OpenUV</openuvLink>.",
+    aboutDescription: "This non-profit website provides UV data (via the open-source API <openuvLink>OpenUV</openuvLink>) for the geographic area of your choice. You can access UV information in two ways :",
+    aboutDescriptionCoords: "<strong>By coordinates :</strong> enter the latitude and longitude (in decimal degrees), as well as the altitude (optional, in meters). You can easily find your coordinates on <gpsLink>Latlong</gpsLink> and check your altitude using <elevationLink>FreeMapTools</elevationLink>.",
+    aboutDescriptionCity: "<strong>By city :</strong> Start typing the name of a city (at least 3 letters), refine if needed, then select it from the list - the coordinates will be retrieved automatically.",
     aboutCheckUvLink: "Check UV",
     aboutGuidesLink: "Guides & Tips",
     aboutGuidesTitle: "Shine Smart : UV Protection Guides",
