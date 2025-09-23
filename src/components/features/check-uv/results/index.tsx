@@ -3,7 +3,6 @@ import type { UvApiResponse } from "@/types/UvApiResponse";
 import { useEffect, useState } from "react";
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from "next/navigation";
-import { useSkinTypeLabels } from "@/hooks/locales/skinTypeLabels";
 import { useFetch } from "@/hooks/api/useFetch";
 import { formatTime } from "@/utils/functions/time/formatTime";
 import { convertUtcToLocal } from "@/utils/functions/time/convertUtcToLocal";
@@ -21,7 +20,6 @@ export default function UVResultsClient() {
 
     const t = useTranslations();
     const searchParams = useSearchParams();
-    const skinTypeLabels = useSkinTypeLabels();
     const { fetchData, isLoading, error } = useFetch<UvApiResponse>();
 
     const mode = searchParams.get("mode");
@@ -70,30 +68,13 @@ export default function UVResultsClient() {
     const uvMessage = t(uvMessageKey);
     const uvImage = getUvImage(uvLevel);
 
-    const labels = {
-        title: t("uvInfo.title"),
-        currentUvLabel: t("uvInfo.currentUvIndex"),
-        maxUvLabel: t("uvInfo.maxUvIndexOfDay"),
-        ozoneLabel: t("uvInfo.ozoneLevel"),
-        ozoneUnit: t("uvInfo.ozoneUnit")
-    };
-
-    const exposureTexts = {
-        titleForUserSkin: t("safeExposureDuration.userSkinTitle"),
-        titleForAllSkins: t("safeExposureDuration.allSkinsTitle"),
-        riskFreeMessage: t("safeExposureDuration.riskFree")
-    };
-
     return (
         <UVInfo
-            labels={labels}
             uvMessage={uvMessage}
             uvImage={uvImage}
             uvData={uvData} 
             localTime={formattedLocalTime} 
             maxUvTime={formattedMaxUvTime}
-            exposureTexts={exposureTexts}
-            skinTypeLabels={skinTypeLabels}
             filteredExposureTime={filteredExposureTime} 
         />
     )

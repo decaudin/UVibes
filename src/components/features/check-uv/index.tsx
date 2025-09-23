@@ -3,9 +3,8 @@ import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useLocale } from '@/hooks/locales/urlLocale';
+import { useLocale } from '@/hooks/locales';
 import { useZodErrorMessage } from "@/hooks/zod";
-import { useSkinTypeLabels } from "@/hooks/locales/skinTypeLabels";
 import { UvCheckSchema, FormDataWithCity } from "@/lib/schemas/uvCheckSchema";
 import ToggleForm from './ToggleForm';
 import SubmitButton from "@/components/ui/SubmitButton";
@@ -20,7 +19,6 @@ export default function CheckUVForm() {
     const { locale } = useLocale();
 
     const getZodErrorMessage = useZodErrorMessage();
-    const skinTypeLabels = useSkinTypeLabels();
 
     const { register, handleSubmit, setValue, formState: { errors }, watch } = useForm<FormDataWithCity>({
         resolver: zodResolver(UvCheckSchema),
@@ -49,11 +47,6 @@ export default function CheckUVForm() {
         const lat = data.mode === "coords" ? data.latitude : data.cityLatitude;
         const lng = data.mode === "coords" ? data.longitude : data.cityLongitude;
 
-        if (lat == null || lng == null) {
-            alert(t("latLongRequired"));
-            return;
-        }
-
         const queryParams: Record<string, string> = {
             mode: data.mode,
             latitude: `${lat}`,
@@ -74,7 +67,7 @@ export default function CheckUVForm() {
         >
             <ToggleForm register={register} setValue={setValue} errors={errors} getZodErrorMessage={getZodErrorMessage} t={t} />
 
-            <SkinTypeForm register={register} radioTitle={radioTitle} labels={skinTypeLabels} />
+            <SkinTypeForm register={register} radioTitle={radioTitle} t={t} />
             
             <SubmitButton isFormValid={isValid}>{t("uvCheckButton")}</SubmitButton>
         </form>

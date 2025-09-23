@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useLocale } from "@/hooks/locales/urlLocale";
+import { useLocale } from "@/hooks/locales";
 import { useZodErrorMessage } from "@/hooks/zod";
 import { SignUpFormData, signUpSchema } from "@/lib/schemas/authSchema";
 import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";

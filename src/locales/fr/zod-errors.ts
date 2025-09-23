@@ -27,7 +27,6 @@ export default {
         longitudeTooHigh: "La longitude doit être ≤ 180",
         altitudeTooLow: "L'altitude doit être ≥ 0",
         altitudeTooHigh: "L'altitude doit être ≤ 10 000",
-        cityEmpty: "Veuillez sélectionner une ville dans la liste",
         skinTypeRange: "Le phototype doit être entre 1 et 6",
         skinTypeInteger: "Le phototype doit être un nombre entier",
     }

@@ -6,19 +6,20 @@ export default {
     toggleModeDescription: "Choisissez le mode de saisie :",
     coordsMode: "Coordonnées",
     cityMode: "Ville",
-    latLongRequired: "La latitude et la longitude sont obligatoires!",
     latitudeLabel: "Latitude :",
     longitudeLabel: "Longitude :",
     altitudeLabel: "Altitude (facultative) :",
     cityLabel: "City",
     cityPlaceholder: "Recherchez une ville …",
     radioTitle: "Pour des données plus personnalisées, veuillez sélectionner votre type de peau (facultatif) :",
-    skinType1: "Très clair",
-    skinType2: "Clair",
-    skinType3: "Moyen",
-    skinType4: "Olive",
-    skinType5: "Brun",
-    skinType6: "Très foncé",
+    skinTypes: {
+        1: "Très clair",
+        2: "Clair",
+        3: "Moyen",
+        4: "Olive",
+        5: "Brun",
+        6: "Très foncé"
+    },
     uvCheckButton: "Obtenir les données UV",
     uvFetchError: "Une erreur est survenue lors de la récupération des données.",
     uvLevels: {
@@ -36,8 +37,9 @@ export default {
         ozoneUnit: " du"
     },
     safeExposureDuration: {
-        userSkinTitle: "Durée d'exposition sans danger pour votre type de peau :",
-        allSkinsTitle: "Durée d'exposition sans danger pour tous les types de peau :",
-        riskFree: "Exposition sans risque : pas de limite - aucun danger pour votre peau !"
+        titleUser: "Durée d'exposition sans danger pour votre type de peau :",
+        titleAll: "Durée d'exposition sans danger pour tous les types de peau :",
+        riskFreeUser: "Exposition sans risque : pas de limite - aucun danger pour votre peau !",
+        riskFreeAll:"Exposition sans risque : pas de limite - aucun danger pour cette peau !"
     }
 } as const

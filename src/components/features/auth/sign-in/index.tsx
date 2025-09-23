@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 // import { signIn } from 'next-auth/react';
-import { useLocale } from "@/hooks/locales/urlLocale";
+import { useLocale } from "@/hooks/locales";
 import { useUserStore } from '@/stores/userStore';
 import { useZodErrorMessage } from "@/hooks/zod";
 import { SignInFormData, signInSchema } from "@/lib/schemas/authSchema";

@@ -1,39 +1,40 @@
-import { skinTypes } from "@/utils/constants/skinTypes";
+import { useTranslations } from "next-intl";
 import { timeConverter } from "@/utils/functions/time/timeConverter";
-import { getExposureData } from "@/utils/functions/uv/getExposureData";
 
 interface SafeExposureDurationProps {
-    titleForUserSkin: string;
-    riskFreeMessage: string;
-    titleForAllSkins: string;
-    skinTypeLabels: Record<number, string>;
     safeExposureTime: { [key: string]: number | null };
     filteredExposureTime?: number;
 }
 
-export default function SafeExposureDuration({ titleForUserSkin, riskFreeMessage, titleForAllSkins, skinTypeLabels, safeExposureTime, filteredExposureTime }: SafeExposureDurationProps) {
+export default function SafeExposureDuration({ safeExposureTime, filteredExposureTime }: SafeExposureDurationProps) {
+
+    const t = useTranslations();
+
+    if (filteredExposureTime !== undefined) {
+        return (
+            <>
+                <h3 className="my-6">{t("safeExposureDuration.titleUser")}</h3>
+                <p className="font-bold px-2">
+                    {filteredExposureTime === null ? t("safeExposureDuration.riskFreeUser") : timeConverter(filteredExposureTime)}
+                </p>
+            </>
+        )
+    }
 
     return (
         <>
-            {filteredExposureTime !== undefined ? (
-                <>
-                    <h3 className="my-6">{titleForUserSkin}</h3>
-                    <p className="font-bold px-2">
-                        {filteredExposureTime === null ? riskFreeMessage : timeConverter(filteredExposureTime)}
-                    </p>
-                </>
-            ) : (
-                <>
-                    <h3 className="my-6">{titleForAllSkins}</h3>
-                    <ul>
-                        {skinTypes.map((skinType) => (
-                            <li key={skinType.key} className="mt-2 px-2">
-                                <strong>{skinTypeLabels[Number(skinType.key)]} :</strong> {getExposureData(safeExposureTime[skinType.key] ?? null )}
-                            </li>
-                        ))}
-                    </ul>
-                </>
-            )}
+            <h3 className="my-6">{t("safeExposureDuration.titleAll")}</h3>
+            <ul>
+                {[1, 2, 3, 4, 5, 6].map((value) => {
+                    const exposure = safeExposureTime[`st${value}`];
+                    return (
+                        <li key={value} className="mt-2 px-2">
+                            <strong>{t(`skinTypes.${value}`)} : </strong>
+                            {exposure != null ? timeConverter(exposure) : t("safeExposureDuration.riskFreeAll")}
+                        </li>
+                    )
+                })}
+            </ul>
         </>
     )
 }

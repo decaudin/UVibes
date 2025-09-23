@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useLocale } from "@/hooks/locales/urlLocale";
+import { useLocale } from "@/hooks/locales";
 import { useTheme } from "@/hooks/context";
 
 export default function Footer() {

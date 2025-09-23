@@ -31,13 +31,4 @@ const CitySchema = z.object({
 export const UvCheckSchema = z.discriminatedUnion("mode", [CoordSchema, CitySchema]);
 
 export type FormData = z.infer<typeof UvCheckSchema>;
-
-export type CoordsFormData = Extract<FormData, { mode: "coords" }>;
-
-export type CityFormData = Extract<FormData, { mode: "city" }>;
-
-export const CitySchemaFront = z.object({ city: z.string().nonempty("cityEmpty") });
-
-export type CityFormDataFront = z.infer<typeof CitySchemaFront>;
-
 export type FormDataWithCity = FormData & { city?: string };

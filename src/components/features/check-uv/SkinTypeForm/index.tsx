@@ -5,13 +5,13 @@ import { Input } from "@/components/ui/Input";
 interface SkinTypeExposureProps {
     register: UseFormRegister<FormData>;
     radioTitle: string;
-    labels: Record<number, string>;
+    t: (key: string) => string;
 }
 
 const wrapperStyles = "flex flex-col mb-10 mx-auto";
 const inputStyles = "h-4 mt-1 cursor-pointer";
 
-export default function SkinTypeForm({ register, radioTitle, labels }: SkinTypeExposureProps) {
+export default function SkinTypeForm({ register, radioTitle, t}: SkinTypeExposureProps) {
 
     return (
         <div className="flex flex-col items-center">
@@ -21,7 +21,7 @@ export default function SkinTypeForm({ register, radioTitle, labels }: SkinTypeE
                     <Input
                         key={value}
                         id={`skin-type-${value}`}
-                        label={labels[value]}
+                        label={t(`skinTypes.${value}`)}
                         type="radio"
                         value={value}
                         wrapperClassName={wrapperStyles}
