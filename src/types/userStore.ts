@@ -1,16 +1,5 @@
-type User = {
-    id: string;
-    name: string;
-    email: string;
-};
-
-type Point = {
-    id: string;
-    latitude: number;
-    longitude: number;
-    altitude?: number;
-    name: string;
-};
+import type { User } from "@/types/user";
+import type { Point } from "@/types/point";
 
 type Status = "idle" | "loading" | "fetched";
 

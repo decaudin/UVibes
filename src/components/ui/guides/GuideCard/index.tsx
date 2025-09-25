@@ -24,7 +24,7 @@ export default async function GuideCard({ slug, image, locale }: GuideCardProps)
         <div className="bg-white rounded-2xl shadow-md overflow-hidden transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl">
             <Image src={image} alt={title} width={249} height={100} className="w-full h-48 object-cover" />
             <div className="p-6">
-                <h2 className="text-xl font-semibold mb-2">{title}</h2>
+                <h2 className="text-xl text-black font-semibold mb-2">{title}</h2>
                 <p className="text-gray-600 text-sm mb-4">{description}</p>
                 <Link
                     href={`/${locale}/about/guides/${slug}`}

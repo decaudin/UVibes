@@ -4,6 +4,7 @@ export interface IUser extends Document {
     name: string;
     email: string;
     password: string;
+    skinType?: number | null;
 }
 
 const UserSchema: Schema = new Schema({
@@ -20,6 +21,13 @@ const UserSchema: Schema = new Schema({
         type: String,
         required: true,
         select: false,
+    },
+    skinType: {
+        type: Number,
+        required: false,
+        min: 1,
+        max: 6,
+        default: null,
     },
 },{ timestamps: true });
 

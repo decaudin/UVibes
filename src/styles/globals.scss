@@ -1,5 +1,6 @@
 @use './loader-animation.scss';
 @use './toaster-progess-bar.scss';
+@use './modal-animation.scss';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -32,4 +33,8 @@ ol[data-sonner-toaster] li[data-sonner-toast] > button[data-close-button="true"]
     right: -0.8rem;
     top: 0;
     left: auto;
+}
+
+.leaflet-tile {
+    background-color: #f0f0f0;
 }

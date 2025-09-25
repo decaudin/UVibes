@@ -1,4 +1,21 @@
 export default {
     welcome: "Welcome",
-    inProgress: "In Progress ..",
-} as const;
+    skinType: "Skin Type",
+    skinTypeNotSet: "Not set",
+    editSkinType: "Edit",
+    setSkinType: "Set",
+    myPoints:"My points",
+    map: "Map",
+    noPoints: "No points available",
+    uv: "Get UV Data",
+    update: "Modify",
+    delete: "Delete",
+    toggleviewDescriptionList: "Here are your saved points",
+    toggleviewDescriptionMap: "View your points on the map",
+    chooseSkinType: "Choose your Skin Type",
+    saveSkinType: "Save",
+    addPoint: "Add point",
+    pointName: "Point Name",
+    cancelModal: "Cancel",
+    addModal: "Add",
+} as const
