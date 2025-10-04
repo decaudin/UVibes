@@ -8,7 +8,7 @@ import { useZodErrorMessage } from "@/hooks/zod";
 import { UvCheckSchema, FormDataWithCity } from "@/lib/schemas/uvCheckSchema";
 import ToggleForm from './ToggleForm';
 import SubmitButton from "@/components/ui/SubmitButton";
-import SkinTypeForm from "@/components/features/check-uv/SkinTypeForm";
+import SkinTypeForm from "@/components/ui/SkinTypeForm";
 
 export default function CheckUVForm() {
 
@@ -67,7 +67,7 @@ export default function CheckUVForm() {
         >
             <ToggleForm register={register} setValue={setValue} errors={errors} getZodErrorMessage={getZodErrorMessage} t={t} />
 
-            <SkinTypeForm register={register} radioTitle={radioTitle} t={t} />
+            <SkinTypeForm register={register} t={t} radioTitle={radioTitle} className="gap-6 xs:gap-0 xs:w-4/5" />
             
             <SubmitButton isFormValid={isValid}>{t("uvCheckButton")}</SubmitButton>
         </form>

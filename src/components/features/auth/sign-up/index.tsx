@@ -101,7 +101,7 @@ export default function SignUpForm() {
                 <FormWrapper title={t("signUp")} content={t("signUpPrompt")} href={`/${locale}/sign-in`} link={t("signIn")}>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Input 
-                            id="name" type="email" label={t("label.name")} placeholder={t("authPlaceholders.name")} autoComplete="name"
+                            id="name" type="text" label={t("label.name")} placeholder={t("authPlaceholders.name")} autoComplete="name"
                             onBlur={(e) => { blurHandlers.name(); nameOnBlurRHF(e) }} errorMessage={getZodErrorMessage(errors.name)}
                             wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
                             ref={nameRef} {...nameRest}

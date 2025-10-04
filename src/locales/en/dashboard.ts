@@ -4,6 +4,7 @@ export default {
     skinTypeNotSet: "Not set",
     editSkinType: "Edit",
     setSkinType: "Set",
+    deleteSkinType: "Delete skin type",
     myPoints:"My points",
     map: "Map",
     noPoints: "No points available",
@@ -18,4 +19,17 @@ export default {
     pointName: "Point Name",
     cancelModal: "Cancel",
     addModal: "Add",
+    skinTypeSaved: "Skin type saved successfully !",
+    skinTypeDeleted: "Skin type deleted.",
+    skinTypeRestored: "Skin type restored",
+    undo: "Undo",
+    unknownError: "An unknown error occurred.",
+    errorWhileSaving: "An error occurred while saving.",
+    errors: {
+        UNAUTHORIZED: "You must be logged in.",
+        INVALID_TOKEN: "Your session is invalid. Please log in again.",
+        INVALID_SKIN_TYPE: "Invalid skin type value.",
+        USER_NOT_FOUND: "User not found.",
+        SERVER_ERROR: "Internal server error."
+    }
 } as const

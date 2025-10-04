@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
 
         const payload = jwt.verify(token, JWT_SECRET) as { userId: string };
 
-        const user = await User.findById(payload.userId).select("name email");
+        const user = await User.findById(payload.userId).select("name email skinType");
 
         if (!user) return NextResponse.json({ message: "User not found" }, { status: 404 });
 

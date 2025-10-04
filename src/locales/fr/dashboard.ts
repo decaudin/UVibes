@@ -4,6 +4,7 @@ export default {
     skinTypeNotSet: "À définir",
     editSkinType: "Modifier",
     setSkinType: "Renseigner",
+    deleteSkinType: "Supprimer le type de peau",
     myPoints:"Mes points",
     map: "Carte",
     noPoints: "Aucun point enregistré",
@@ -18,4 +19,17 @@ export default {
     pointName: "Nom du point",
     cancelModal: "Annuler",
     addModal: "Ajouter",
+    skinTypeSaved: "Type de peau enregistré avec succès !",
+    skinTypeDeleted: "Type de peau supprimé.",
+    skinTypeRestored: "Type de peau restauré",
+    undo: "Annuler",
+    unknownError: "Une erreur inconnue est survenue.",
+    errorWhileSaving: "Une erreur est survenue lors de l'enregistrement.",
+    errors: {
+        UNAUTHORIZED: "Vous devez être connecté.",
+        INVALID_TOKEN: "Votre session est invalide. Veuillez vous reconnecter.",
+        INVALID_SKIN_TYPE: "Valeur du type de peau invalide.",
+        USER_NOT_FOUND: "Utilisateur introuvable.",
+        SERVER_ERROR: "Erreur interne du serveur."
+    }
 } as const
