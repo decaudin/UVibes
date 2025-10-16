@@ -25,11 +25,4 @@ export default {
     undo: "Undo",
     unknownError: "An unknown error occurred.",
     errorWhileSaving: "An error occurred while saving.",
-    errors: {
-        UNAUTHORIZED: "You must be logged in.",
-        INVALID_TOKEN: "Your session is invalid. Please log in again.",
-        INVALID_SKIN_TYPE: "Invalid skin type value.",
-        USER_NOT_FOUND: "User not found.",
-        SERVER_ERROR: "Internal server error."
-    }
 } as const

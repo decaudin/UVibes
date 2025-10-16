@@ -8,6 +8,7 @@ import uvCheck from './check-uv';
 import contact from './contact';
 import auth from './auth';
 import footer from './footer';
+import apiCodes from './apiCodes';
 import zodErrors from './zod-errors';
 import notFound from './not-found';
 
@@ -22,6 +23,7 @@ const fr = {
     ...contact,
     ...auth,
     ...footer,
+    ...apiCodes,
     ...zodErrors,
     ...notFound,
 }

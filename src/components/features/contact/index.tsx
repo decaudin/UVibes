@@ -58,15 +58,15 @@ export default function ContactForm() {
         setIsLoading(true);
         try {
             await postData("/api/contact", formData);
-            toast.success(t("contactSuccessToast"), { className: "sonner-toast" });
+            toast.success(t("MESSAGE_SENT_SUCCESSFULLY"), { className: "sonner-toast" });
             reset();
         } catch (error: unknown) {
             if (error instanceof Error) {
                 const messageKey = typeof error.message === "string" ? error.message : "";
-                const translatedMessage = messageKey && t(messageKey as keyof typeof t) ? t(messageKey as keyof typeof t) : t("contactUnknownError");
+                const translatedMessage = messageKey ? t(messageKey) : t("contactErrorToast");
                 toast.error(translatedMessage, { className: "sonner-toast" });
             } else {
-                toast.error(t("contactUnknownError"), { className: "sonner-toast" });
+                toast.error(t("contactErrorToast"), { className: "sonner-toast" });
             }
         } finally {
             setIsLoading(false);

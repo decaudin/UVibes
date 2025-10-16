@@ -25,9 +25,7 @@ export async function PATCH(req: NextRequest) {
 
         const { skinType } = await req.json();
         
-        if (skinType !== null && (skinType < 1 || skinType > 6)) {
-            return NextResponse.json({ code: "INVALID_SKIN_TYPE" }, { status: 400 });
-        }
+        if (skinType !== null && (skinType < 1 || skinType > 6)) return NextResponse.json({ code: "INVALID_SKIN_TYPE" }, { status: 400 });
 
         const existingUser = await User.findById(payload.userId).select("skinType");
         
@@ -42,6 +40,6 @@ export async function PATCH(req: NextRequest) {
 
     } catch (error) {
         console.error("[PATCH_SKINTYPE_ERROR]", error);
-        return NextResponse.json({ code: "SERVER_ERROR" }, { status: 500 });
+        return NextResponse.json({ code: "INTERNAL_SERVER_ERROR" }, { status: 500 });
     }
 }

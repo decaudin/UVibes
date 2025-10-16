@@ -56,7 +56,11 @@ export default function UVResultsClient() {
         fetchAllData();
     }, [fetchData, mode, latitude, longitude, altitude, skinType]);
 
-    if (error) return <p className="flex items-center text-center text-red-500 font-bold">{t("uvFetchError")}</p>;
+    if (error) {
+        const message = error.code === "UV_QUOTA_EXCEEDED" ? t(error.code) : t("uvFetchError");
+
+        return <p className="flex items-center text-center text-red-500 font-bold">{message}</p>;
+    }
 
     if (isLoading || !uvData || !localTime || !timeZone ) return <Loader />;
 

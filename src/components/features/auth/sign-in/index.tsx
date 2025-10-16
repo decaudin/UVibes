@@ -67,15 +67,18 @@ export default function SignInForm() {
 
             if (!res.ok) {
                 const responseData = await res.json();
-                if (responseData.message === "Invalid credentials") {
+                if (responseData.code === "INVALID_CREDENTIALS") {
                     setError("email", { type: "manual", message: t("signInError") });
                     setError("password", { type: "manual", message: t("signInError") });
                 }
-                throw new Error(responseData.message || 'Something went wrong');
+                throw new Error(responseData.code || "UNKNOWN_ERROR");
             }
 
             const userRes = await fetch("/api/user/me", { credentials: "include" });
-            if (!userRes.ok) throw new Error("Error while retrieving the user");
+            if (!userRes.ok) {
+                const data = await userRes.json();
+                throw new Error(data.code || "UNKNOWN_ERROR");
+            }
 
             const userData = await userRes.json();
 

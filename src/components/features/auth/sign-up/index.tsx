@@ -70,11 +70,11 @@ export default function SignUpForm() {
             const responseData = await res.json();
 
             if (!res.ok) {
-                if (responseData.message === 'User already exists. Please use a different email.') {
+                if (responseData.code === "USER_ALREADY_EXISTS") {
                     setError('email', { type: 'manual', message: t("signUpErrorUserExists") });
                 }
     
-                throw new Error(responseData.message || 'Something went wrong');
+                throw new Error(responseData.code || "UNKNOWN_ERROR");
             }
 
             toast.success(t("signUpSuccessToast"), { className: "sonner-toast" });

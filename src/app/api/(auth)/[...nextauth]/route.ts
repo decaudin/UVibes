@@ -3,7 +3,6 @@ import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import { JWT } from "next-auth/jwt";
 import { User, Session } from "next-auth";
-
 import clientPromise from "@/lib/mongoClient";
 
 const authOptions = {

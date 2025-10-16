@@ -1,0 +1,16 @@
+export default {
+    UNAUTHORIZED: "Vous devez être connecté.",
+    INVALID_TOKEN: "Votre session est invalide. Veuillez vous reconnecter.",
+    INVALID_SKIN_TYPE: "Valeur du type de peau invalide.",
+    USER_NOT_FOUND: "Utilisateur introuvable.",
+    INTERNAL_SERVER_ERROR: "Erreur interne du serveur.",
+    UNEXPECTED_ERROR: "Une erreur inattendue est survenue.",
+    UNKNOWN_ERROR: "Une erreur inconnue est survenue",
+    UV_QUOTA_EXCEEDED : "Limite quotidienne de recherche UV atteinte. Veuillez ressayer demain.",
+    MISSING_FIELDS: "Tous les champs sont obligatoires.",
+    RECEIVER_EMAIL_NOT_CONFIGURED: "L'adresse email du destinataire n'est pas configurée.",
+    FAILED_TO_SEND_EMAIL: "Échec de l'envoi du message.",
+    MESSAGE_SENT_SUCCESSFULLY: "Message envoyé avec succès !",
+    NETWORK_ERROR: "Erreur réseau. Veuillez vérifier votre connexion.",
+    SERVER_UNEXPECTED_RESPONSE: "Le serveur a renvoyé une réponse inattendue.",
+} as const

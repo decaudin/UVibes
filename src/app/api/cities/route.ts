@@ -12,7 +12,7 @@ export async function GET(req: Request) {
 
     if (!RAPIDAPI_KEY) {
         console.error("RAPIDAPI_KEY is not defined in environment variables");
-        return NextResponse.json({ error: "Server misconfiguration" }, { status: 500 });
+        return NextResponse.json({ code: "GEODB_KEY_NOT_CONFIGURED" }, { status: 500 });
     }
 
     try {
@@ -43,6 +43,6 @@ export async function GET(req: Request) {
 
     } catch (err) {
         console.error("Erreur API GeoDB:", err);
-        return NextResponse.json({ error: "Erreur API GeoDB" }, { status: 500 });
+        return NextResponse.json({ code: "GEODB_ERROR" }, { status: 500 });
     }
 }

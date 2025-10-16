@@ -16,23 +16,17 @@ export async function POST(req: NextRequest) {
         const body = await req.json();
         const parsed = signInSchema.safeParse(body);
 
-        if (!parsed.success) {
-            return NextResponse.json({ errors: parsed.error.format() }, { status: 400 });
-        }
+        if (!parsed.success) return NextResponse.json({ errors: parsed.error.format() }, { status: 400 });
 
         const { email, password, isRememberMe } = parsed.data;
 
         const user = await User.findOne({ email }).select('+password');
 
-        if (!user) {
-            return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
-        }
+        if (!user) return NextResponse.json({ code: "INVALID_CREDENTIALS" }, { status: 401 });
 
         const isValidPassword = await bcrypt.compare(password, user.password);
 
-        if (!isValidPassword) {
-            return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
-        }
+        if (!isValidPassword) return NextResponse.json({ code: "INVALID_CREDENTIALS" }, { status: 401 });
 
         const maxAge = isRememberMe ? 60 * 60 * 24 * 7 : 60 * 60;
 
@@ -42,7 +36,7 @@ export async function POST(req: NextRequest) {
             { expiresIn: maxAge }
         );
 
-        const response = NextResponse.json({ message: "Success" });
+        const response = NextResponse.json({ code: "SUCCESS" });
 
         response.cookies.set("token", token, {
             httpOnly: true,
@@ -56,6 +50,6 @@ export async function POST(req: NextRequest) {
 
     } catch (error) {
         console.error("[SIGNIN_ERROR]", error);
-        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+        return NextResponse.json({ code: "INTERNAL_SERVER_ERROR" }, { status: 500 });
     }
 }

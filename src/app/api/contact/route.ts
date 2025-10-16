@@ -5,13 +5,14 @@ import { escapeHtml } from '@/lib/escapeHtml';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
+    
     const { firstName, lastName, email, message } = await req.json();
 
-    if (!firstName || !lastName || !email || !message) return NextResponse.json({ errorcode: 'contactMissingFields' }, { status: 400 });
+    if (!firstName || !lastName || !email || !message) return NextResponse.json({ code: 'MISSING_FIELDS' }, { status: 400 });
 
     const toEmail = process.env.CONTACT_RECEIVER_EMAIL;
 
-    if (!toEmail) return NextResponse.json({ errorcode: 'receiverEmailNotConfigured' }, { status: 500 });
+    if (!toEmail) return NextResponse.json({ code: 'RECEIVER_EMAIL_NOT_CONFIGURED' }, { status: 500 });
 
     const safeFirstName = escapeHtml(firstName);
     const safeLastName = escapeHtml(lastName);
@@ -58,15 +59,15 @@ export async function POST(req: NextRequest) {
 
         if (data.error) {
             console.error('Resend error:', data.error);
-            return NextResponse.json({ errorcode: 'failedToSendEmail' }, { status: 500 });
+            return NextResponse.json({ code: 'FAILED_TO_SEND_EMAIL' }, { status: 500 });
         }
 
         console.log('[CONTACT_EMAIL_SENT]', { id: data.data?.id ?? null, timestamp: new Date().toISOString() });
 
-        return NextResponse.json({ successcode: 'messageSentSuccessfully' }, { status: 200 });
+        return NextResponse.json({ code: 'MESSAGE_SENT_SUCCESSFULLY' }, { status: 200 });
 
     } catch (err) {
         console.error('Unexpected error while sending email:', err);
-        return NextResponse.json({ errorcode: 'contactUnexpectedError' }, { status: 500 });
+        return NextResponse.json({ code: 'UNEXPECTED_ERROR' }, { status: 500 });
     }
 }

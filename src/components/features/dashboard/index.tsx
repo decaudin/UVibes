@@ -45,7 +45,7 @@ export default function DashboardClient() {
             if (!res.ok) {
                 const { code } = await res.json();
                 const fallbackMsg = t("errorWhileSaving");
-                const translatedMsg = code ? t(`errors.${code}`) : fallbackMsg;
+                const translatedMsg = code ? t(code) : fallbackMsg;
                 throw new Error(translatedMsg);
             }
 

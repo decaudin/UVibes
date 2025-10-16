@@ -20,9 +20,9 @@ export const usePost = () => {
             if (!response.ok) {
                 if (contentType.includes("application/json")) {
                     const errorData = await response.json();
-                    throw new Error(errorData?.errorcode ?? "contactUnexpectedError");
+                    throw new Error(errorData?.code ?? "UNEXPECTED_ERROR");
                 } else {
-                    throw new Error("contactServerUnexpectedResponse");
+                    throw new Error("SERVER_UNEXPECTED_RESPONSE");
                 }
             }
 
@@ -30,12 +30,12 @@ export const usePost = () => {
 
         } catch (error) {
             if (error instanceof TypeError) {
-                throw new Error("contactNetworkError");
+                throw new Error("NETWORK_ERROR");
             }
 
-            throw error instanceof Error ? error : new Error("contactUnexpectedError");
+            throw error instanceof Error ? error : new Error("UNEXPECTED_ERROR");
         }
     }
 
-    return { postData };
-};
+    return { postData }
+}
