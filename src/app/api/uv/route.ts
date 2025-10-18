@@ -1,8 +1,9 @@
+import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import headers from '@/config/openUvHeaders';
 import { UvCheckSchema } from '@/lib/schemas/uvCheckSchema';
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
     try {
         const { searchParams } = new URL(req.url);
 
@@ -45,7 +46,8 @@ export async function GET(req: Request) {
             if (!response.ok) return NextResponse.json({ code: "UV_FETCH_FAILED" }, { status: response.status });
 
             const uvData = await response.json();
-            return NextResponse.json(uvData, { status: 200 });
+            
+            return NextResponse.json(uvData);
 
         } catch (fetchError) {
             console.error("Error calling OpenUV API:", fetchError);

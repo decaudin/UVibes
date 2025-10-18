@@ -1,7 +1,8 @@
-import { City } from "@/types/city";
+import type { NextRequest } from "next/server";
+import type { City } from "@/types/city";
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
 
     const { searchParams } = new URL(req.url);
     const query = searchParams.get("q") || "";
@@ -39,7 +40,7 @@ export async function GET(req: Request) {
             longitude: city.longitude,
         }));
 
-        return NextResponse.json({ cities }, { status: 200 });
+        return NextResponse.json({ cities });
 
     } catch (err) {
         console.error("Erreur API GeoDB:", err);

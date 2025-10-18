@@ -1,4 +1,4 @@
-export const escapeHtml = (unsafe: string): string =>
+export const escapeHtml = (unsafe: string) =>
     unsafe
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")

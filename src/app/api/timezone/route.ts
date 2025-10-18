@@ -1,8 +1,9 @@
+import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request) {
+export async function GET(req: NextRequest) {
 
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = new URL(req.url);
     const latitude = searchParams.get('latitude');
     const longitude = searchParams.get('longitude');
 

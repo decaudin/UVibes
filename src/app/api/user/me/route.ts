@@ -1,22 +1,18 @@
-import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
-import { getJwtSecret } from "@/lib/env";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
+import { getUserIdFromRequest } from "@/lib/auth";
 import User from "@/models/User";
-
-const JWT_SECRET = getJwtSecret();
 
 export async function GET(req: NextRequest) {
     try {
         await connectToDatabase();
 
-        const token = req.cookies.get("token")?.value;
+        const result = getUserIdFromRequest(req);
+        
+        if (result.error) return result.error;
 
-        if (!token) return NextResponse.json({ code: "UNAUTHORIZED" }, { status: 401 });
-
-        const payload = jwt.verify(token, JWT_SECRET) as { userId: string };
-
-        const user = await User.findById(payload.userId).select("name email skinType");
+        const user = await User.findById(result.userId).select("name skinType");
 
         if (!user) return NextResponse.json({ code: "USER_NOT_FOUND" }, { status: 404 });
 

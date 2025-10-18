@@ -1,14 +1,15 @@
+import type { NextRequest } from "next/server";
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { connectToDatabase } from '@/lib/mongodb';
 import { signUpSchema } from '@/lib/schemas/authSchema';
 import User from '@/models/User';
 
-export async function POST(request: Request) {
+export async function POST(req: NextRequest) {
     try {
         await connectToDatabase();
 
-        const body = await request.json();
+        const body = await req.json();
         const parsed = signUpSchema.safeParse(body);
 
         if (!parsed.success) return NextResponse.json({ errors: parsed.error.format() }, { status: 400 });
@@ -27,9 +28,9 @@ export async function POST(request: Request) {
             return NextResponse.json({ code: "HASHING_ERROR" }, { status: 500 });
         }
 
-        const newUser = await User.create({ email, password: hashedPassword, name });
+        await User.create({ email, password: hashedPassword, name });
 
-        return NextResponse.json({ code: "USER_CREATED", userId: newUser._id }, { status: 201 });
+        return NextResponse.json({ code: "USER_CREATED" }, { status: 201 });
     } catch (error: unknown) {
         console.error("Error in sign-up:", error);
         return NextResponse.json({ code: "USER_CREATION_ERROR" }, { status: 500 });

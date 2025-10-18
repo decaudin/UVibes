@@ -1,33 +1,22 @@
-import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
-import { getJwtSecret } from "@/lib/env";
+import type { NextRequest } from "next/server"; 
+import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
+import { getUserIdFromRequest } from "@/lib/auth";
 import User from "@/models/User";
-
-const JWT_SECRET = getJwtSecret();
 
 export async function PATCH(req: NextRequest) {
     try {
         await connectToDatabase();
 
-        const token = req.cookies.get("token")?.value;
+        const result = getUserIdFromRequest(req);
         
-        if (!token) return NextResponse.json({ code: "UNAUTHORIZED" }, { status: 401 });
-
-        let payload: { userId: string };
-        
-        try {
-            payload = jwt.verify(token, JWT_SECRET) as { userId: string };
-        } catch (err) {
-            console.error("JWT verification failed:", err);
-            return NextResponse.json({ code: "INVALID_TOKEN" }, { status: 401 });
-        }
+        if (result.error) return result.error;
 
         const { skinType } = await req.json();
         
         if (skinType !== null && (skinType < 1 || skinType > 6)) return NextResponse.json({ code: "INVALID_SKIN_TYPE" }, { status: 400 });
 
-        const existingUser = await User.findById(payload.userId).select("skinType");
+        const existingUser = await User.findById(result.userId).select("skinType");
         
         if (!existingUser) return NextResponse.json({ code: "USER_NOT_FOUND" }, { status: 404 });
 

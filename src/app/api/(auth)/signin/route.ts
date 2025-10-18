@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { getJwtSecret } from "@/lib/env";
@@ -28,12 +28,14 @@ export async function POST(req: NextRequest) {
 
         if (!isValidPassword) return NextResponse.json({ code: "INVALID_CREDENTIALS" }, { status: 401 });
 
-        const maxAge = isRememberMe ? 60 * 60 * 24 * 7 : 60 * 60;
+        const jwtExpiry = isRememberMe ? 60 * 60 * 24 * 7 : 60 * 60;
+
+        const cookieMaxAge = isRememberMe ? 60 * 60 * 24 * 30 : 60 * 60 * 24 * 7;
 
         const token = jwt.sign(
             { userId: user._id },
             JWT_SECRET,
-            { expiresIn: maxAge }
+            { expiresIn: jwtExpiry }
         );
 
         const response = NextResponse.json({ code: "SUCCESS" });
@@ -43,7 +45,7 @@ export async function POST(req: NextRequest) {
             secure: process.env.NODE_ENV === "production",
             sameSite: "lax",
             path: "/",
-            maxAge
+            maxAge: cookieMaxAge
         });
 
         return response;
