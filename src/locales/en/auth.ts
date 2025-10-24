@@ -19,9 +19,10 @@ export default {
     signInError: "Invalid email or password",
     signInSuccessToast: "You're in! Taking you to your Dashboard...",
     signInErrorToast: "Signin failed",
+    userMeErrorToast:"An error occurred while retrieving your user data.",
     signInUnknownErrorToast: "Unknown signin error",
     signUpErrorUserExists: "User already exists. Please use a different email.",
-    signUpSuccessToast: "Account created ! Taking you to the Sign In page ...",
+    signUpSuccessToast: "Account created! Taking you to the Sign In page ...",
     signUpErrorToast: "Signup failed",
     signUpUnknownErrorToast: "Unknown signup error",
 } as const

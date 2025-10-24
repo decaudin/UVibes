@@ -1,9 +1,11 @@
 "use client"
 import { useState } from "react";
-import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 import { useTranslations } from 'next-intl';
+import { toast } from "sonner";
 import 'leaflet/dist/leaflet.css';
 import { useUserStore } from "@/stores/userStore";
+import { authFetch } from "@/utils/functions/api/authFetch";
 import Loader from "@/components/ui/animations/Loader";
 import SkinTypeSetting from "./SkinTypeSetting";
 import ToggleButtons from "@/components/ui/ToggleButtons";
@@ -14,6 +16,8 @@ import PointModal from "./PointModal";
 export default function DashboardClient() {
 
     const [isLoading, setIsLoading] = useState(false);
+
+    const router = useRouter();
 
     const t = useTranslations();
     
@@ -35,17 +39,23 @@ export default function DashboardClient() {
         setIsLoading(true);
 
         try {
-            const res = await fetch('/api/user/skinType', {
+            const res = await authFetch('/api/user/skinType', {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ skinType }),
-                credentials: 'include',
             });
 
             if (!res.ok) {
                 const { code } = await res.json();
                 const fallbackMsg = t("errorWhileSaving");
                 const translatedMsg = code ? t(code) : fallbackMsg;
+
+                if (code === "INVALID_TOKEN" || code === "UNAUTHORIZED") {
+                    useUserStore.getState().clearUser();
+                    toast.error(translatedMsg, { className: "sonner-toast" });
+                    router.push("/sign-in");
+                    return false;
+                }
                 throw new Error(translatedMsg);
             }
 
@@ -54,7 +64,6 @@ export default function DashboardClient() {
                 if (!state.user) return state;
                 return { user: { ...state.user, skinType: updatedUser.skinType } };
             });
-
 
             if (showToast && skinType !== null) toast.success(t("skinTypeSaved"), { className: "sonner-toast" });
             

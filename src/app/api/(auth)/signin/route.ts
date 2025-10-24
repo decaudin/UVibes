@@ -2,6 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 import { getJwtSecret } from "@/lib/env";
 import { connectToDatabase } from "@/lib/mongodb";
 import { signInSchema } from '@/lib/schemas/authSchema';
@@ -38,15 +39,28 @@ export async function POST(req: NextRequest) {
             { expiresIn: jwtExpiry }
         );
 
+        const refreshToken = crypto.randomBytes(64).toString('hex');
+
+        user.refreshTokens.push({
+            token: refreshToken,
+            expiresAt: new Date(Date.now() + cookieMaxAge * 1000),
+            isRememberMe
+        });
+
+        await user.save();
+
         const response = NextResponse.json({ code: "SUCCESS" });
 
-        response.cookies.set("token", token, {
+        const cookieOptions = {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
+            sameSite: "lax" as const,
             path: "/",
             maxAge: cookieMaxAge
-        });
+        };
+
+        response.cookies.set("token", token, cookieOptions);
+        response.cookies.set("refreshToken", refreshToken, cookieOptions);
 
         return response;
 

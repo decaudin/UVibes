@@ -1,6 +1,6 @@
 export default {
     UNAUTHORIZED: "Vous devez être connecté.",
-    INVALID_TOKEN: "Votre session est invalide. Veuillez vous reconnecter.",
+    INVALID_TOKEN: "Votre session a expiré ou est invalide. Veuillez vous reconnecter.",
     INVALID_SKIN_TYPE: "Valeur du type de peau invalide.",
     USER_NOT_FOUND: "Utilisateur introuvable.",
     INTERNAL_SERVER_ERROR: "Erreur interne du serveur.",

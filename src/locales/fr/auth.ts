@@ -19,6 +19,7 @@ export default {
     signInError: "Email ou mot de passe invalide",
     signInSuccessToast: "Bienvenue ! Nous vous redirigeons vers votre tableau de bord...",
     signInErrorToast: " Échec lors de la connexion",
+    userMeErrorToast:"Erreur lors de la récupération de vos données utilisateur.",
     signInUnknownErrorToast: "Erreur inconnue lors de la connexion",
     signUpErrorUserExists: "Cet utilisateur existe déjà. Veuillez utiliser une autre adresse email.",
     signUpSuccessToast: "Compte créé ! Nous vous redirigeons vers la page de connexion...",

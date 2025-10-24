@@ -71,14 +71,12 @@ export default function SignInForm() {
                     setError("email", { type: "manual", message: t("signInError") });
                     setError("password", { type: "manual", message: t("signInError") });
                 }
-                throw new Error(responseData.code || "UNKNOWN_ERROR");
+                throw new Error("SIGNIN_ERROR");
             }
 
             const userRes = await fetch("/api/user/me", { credentials: "include" });
-            if (!userRes.ok) {
-                const data = await userRes.json();
-                throw new Error(data.code || "UNKNOWN_ERROR");
-            }
+            
+            if (!userRes.ok) throw new Error("USER_ME_ERROR");
 
             const userData = await userRes.json();
 
@@ -87,15 +85,20 @@ export default function SignInForm() {
             router.push("/dashboard");
 
         } catch (error: unknown) {
-            setIsLoading(false);
-            if (error instanceof Error) {
-                toast.error(t("signInErrorToast"), { className: "sonner-toast" });
-                console.error(error.message);
+                setIsLoading(false);
+                if (error instanceof Error) {
+                    if (error.message === "SIGNIN_ERROR") {
+                        toast.error(t("signInErrorToast"), { className: "sonner-toast" });
+                } else if (error.message === "USER_ME_ERROR") {
+                    toast.error(t("userMeErrorToast"), { className: "sonner-toast" });
+                } else {
+                    toast.error(t("signInUnknownErrorToast"), { className: "sonner-toast" });
+                }
             } else {
                 toast.error(t("signInUnknownErrorToast"), { className: "sonner-toast" });
             }
         }
-    };
+    }
 
     const { ref: emailRef, onBlur: emailOnBlurRHF, ...emailRest } = register("email");
 

@@ -1,6 +1,6 @@
 export default {
     UNAUTHORIZED: "You must be logged in.",
-    INVALID_TOKEN: "Your session is invalid. Please log in again.",
+    INVALID_TOKEN: "Your session has expired or is invalid. Please log in again.",
     INVALID_SKIN_TYPE: "Invalid skin type value.",
     USER_NOT_FOUND: "User not found.",
     INTERNAL_SERVER_ERROR: "Internal server error.",

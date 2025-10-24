@@ -1,9 +1,16 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
+interface RefreshToken {
+    token: string;
+    expiresAt: Date;
+    isRememberMe: boolean;
+}
+
 export interface IUser extends Document {
     name: string;
     email: string;
     password: string;
+    refreshTokens: RefreshToken[];
     skinType?: number | null;
 }
 
@@ -21,6 +28,16 @@ const UserSchema: Schema = new Schema({
         type: String,
         required: true,
         select: false,
+    },
+    refreshTokens: {
+        type: [
+            { 
+                token: { type: String, required: true },
+                expiresAt: { type: Date, required: true },
+                isRememberMe: { type: Boolean, default: false }
+            }
+        ],
+        default: [],
     },
     skinType: {
         type: Number,
