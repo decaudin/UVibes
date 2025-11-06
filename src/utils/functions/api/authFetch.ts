@@ -8,7 +8,11 @@ export const authFetch = async (input: RequestInfo, init?: RequestInit) => {
             credentials: "include",
         });
 
-        if (refreshRes.ok) res = await fetch(input, { ...init, credentials: "include" });
+        if (refreshRes.ok) {
+            res = await fetch(input, { ...init, credentials: "include" });
+        } else {
+            res = refreshRes;
+        }
     }
 
     return res

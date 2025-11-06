@@ -60,12 +60,19 @@ export default function DashboardClient() {
             }
 
             const updatedUser = await res.json();
+
+            const previousSkinType = useUserStore.getState().user?.skinType ?? null;
+
             useUserStore.setState((state) => {
                 if (!state.user) return state;
                 return { user: { ...state.user, skinType: updatedUser.skinType } };
             });
 
-            if (showToast && skinType !== null) toast.success(t("skinTypeSaved"), { className: "sonner-toast" });
+            if (showToast && skinType !== null) {
+                const isNew = previousSkinType === null;
+                const message = isNew ? t("skinTypeCreated") : t("skinTypeUpdated");
+                toast.success(message, { className: "sonner-toast" });
+            }
             
             return true;
 

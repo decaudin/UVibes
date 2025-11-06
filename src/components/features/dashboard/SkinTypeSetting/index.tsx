@@ -26,10 +26,7 @@ export default function SkinTypeSetting({ t, onSave, isSaving, skinType }: SkinT
 
         const success = await onSave(currentSkinType);
 
-        if (!success) { 
-            setCurrentSkinType(skinType ?? null);
-            toast.error(t("errorWhileSaving"), { className: "sonner-toast" });
-        }
+        if (!success) setCurrentSkinType(skinType ?? null);
     };
 
     const handleDeleteSkinType = async () => {
@@ -39,6 +36,7 @@ export default function SkinTypeSetting({ t, onSave, isSaving, skinType }: SkinT
         setCurrentSkinType(null);
 
         const success = await onSave(null, false);
+        
         if (!success) {
             setCurrentSkinType(previousSkinType);
             return;
