@@ -16,7 +16,6 @@ export default {
     chooseSkinType: "Choisissez votre type de peau",
     saveSkinType: "Enregistrer",
     addPoint: "Ajouter un point",
-    pointName: "Nom du point",
     cancelModal: "Annuler",
     addModal: "Ajouter",
     skinTypeCreated: "Type de peau ajouté avec succès",
@@ -26,4 +25,9 @@ export default {
     undo: "Annuler",
     unknownError: "Une erreur inconnue est survenue.",
     errorWhileSaving: "Une erreur est survenue lors de l'enregistrement.",
+    namePlaceholder: "Nom du point",
+    latitudePlaceholder: "Latitude",
+    longitudePlaceholder: "Longitude",
+    altitudePlaceholder: "Altitude (facultative)",
+    addPointSuccess: "Point ajouté avec succès"
 } as const

@@ -1,17 +1,13 @@
-import type { Point } from '@/types/point';
+import type { PointsProps } from "@/types/pointsProps";
 import { MapContainer, TileLayer, Marker, Popup, LayersControl } from 'react-leaflet';
 import { defaultIcon } from "@/utils/constants/leaflet";
 import FitBounds from "./FitBounds";
 
-interface PointsMapProps {
-    points: Point[];
-}
-
-export default function PointsMap({ points }: PointsMapProps) {
+export default function PointsMap({ points }: PointsProps) {
 
     return (
         <div className="flex-1 border p-6 rounded shadow-md h-96 md:h-auto">
-            <MapContainer scrollWheelZoom={false} className="w-full h-96 md:h-[500px] rounded">
+            <MapContainer center={[20, 0]} zoom={2} scrollWheelZoom={false} className="w-full h-96 md:h-[500px] rounded">
                 <LayersControl position="topright">
                    <LayersControl.BaseLayer checked name="OpenStreetMap">
                         <TileLayer
@@ -30,13 +26,13 @@ export default function PointsMap({ points }: PointsMapProps) {
                     </LayersControl.BaseLayer>
                 </LayersControl>
 
-                {points.map(point => (
-                    <Marker key={point.id} position={[point.lat, point.lng]} icon={defaultIcon}>
+                {points?.map(point => (
+                    <Marker key={point.id} position={[point.latitude, point.longitude]} icon={defaultIcon}>
                         <Popup>{point.name}</Popup>
                     </Marker>
                 ))}
 
-                <FitBounds points={points} />
+                {points.length > 0 && <FitBounds points={points} />}
             </MapContainer>
         </div>
     )

@@ -8,7 +8,7 @@ interface PointModalProps {
     onClose: () => void;
     title: string;
     children: React.ReactNode;
-    actionLabel: string;
+    actionLabel: React.ReactNode;
     onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     isDisabled: boolean;
     formClassName?: string;
@@ -85,7 +85,7 @@ export default function Modal({ isOpen, onClose, title, children, actionLabel, o
                             <button
                                 type="submit"
                                 disabled={isDisabled}
-                                className={`min-w-[100px] px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 ${isDisabled ? "opacity-50 cursor-not-allowed" : ""}`}
+                                className={`flex items-center justify-center min-w-[100px] px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 ${isDisabled ? "opacity-50 cursor-not-allowed" : ""}`}
                             >
                                 {actionLabel}
                             </button>

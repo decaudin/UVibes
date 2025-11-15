@@ -1,10 +1,15 @@
 "use client"
+import type { PointFormData } from "@/lib/schemas/pointSchema";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from 'next-intl';
+import { useForm } from "react-hook-form";
+import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from "sonner";
 import 'leaflet/dist/leaflet.css';
+import { PointSchema } from "@/lib/schemas/pointSchema";
 import { useUserStore } from "@/stores/userStore";
+import { usePoints } from "@/hooks/api/usePoints";
 import { authFetch } from "@/utils/functions/api/authFetch";
 import Loader from "@/components/ui/animations/Loader";
 import SkinTypeSetting from "./SkinTypeSetting";
@@ -26,14 +31,16 @@ export default function DashboardClient() {
     const [view, setView] = useState<'list' | 'map'>('list');
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    if(!user) return <Loader />
+    const { register, handleSubmit, /*setValue,*/ formState: { errors }, watch } = useForm<PointFormData>({
+        resolver: zodResolver(PointSchema),
+        mode: "onBlur",
+        shouldFocusError: false,
+        shouldUnregister: true
+    });
 
-    const points = [
-        { id: "1", name: "Buenos Aires - Stade Monumental", lat: -34.5454, lng: -58.4498 },
-        { id: "2", name: "Naples - Stade San Paolo", lat: 40.8280, lng: 14.1930 },
-        { id: "3", name: "Toulouse - Stadium", lat: 43.5833, lng: 1.4340 },
-        { id: "4", name: "Paris - Stade de France", lat: 48.9244, lng: 2.3601 },
-    ];
+    const { pointsGPS, isLoading : isPointLoading, addPoint/*, updatePoint, deletePoint*/ } = usePoints();
+
+    if(!user) return <Loader />
 
     const updateSkinType = async (skinType: number | null, showToast = true) => {
         setIsLoading(true);
@@ -88,6 +95,20 @@ export default function DashboardClient() {
         }
     };
 
+    const handleAddPointSubmit = async (data: PointFormData) => {
+        try {
+            await addPoint(data);
+            setIsModalOpen(false);
+            toast.success(t("addPointSuccess"), { className: "sonner-toast" });
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                toast.error(error.message, { className: "sonner-toast" });
+            } else {
+                toast.error(t("unknownError"), { className: "sonner-toast" });
+            }
+        }
+    };
+
     return (
          <div className="flex flex-col items-center w-full p-4 max-w-6xl mx-auto">
             <h1 className="text-4xl font-bold mt-8 mb-12">👋 {t("welcome")} {user?.name} !</h1>
@@ -104,11 +125,11 @@ export default function DashboardClient() {
             />
 
             <p className="text-sm text-gray-500 mb-6">
-                {view === "list" ? t("toggleviewDescriptionList") : t("toggleviewDescriptionMap")}
+                {pointsGPS.length > 0 ? (view === "list" ? t("toggleviewDescriptionList") : t("toggleviewDescriptionMap")) : t("noPoints")}
             </p>
 
             <div className="w-full flex flex-col md:flex-row gap-6">
-                {view === 'list' ? (<PointsList points={points} t={t} />) : (<PointsMap points={points} />)}
+                {view === 'list'  ? (pointsGPS.length > 0 && <PointsList points={pointsGPS} t={t} />) : (<PointsMap points={pointsGPS} />)}
             </div>
 
             <button 
@@ -118,7 +139,15 @@ export default function DashboardClient() {
                 {t("addPoint")}
             </button>
 
-            <PointModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <PointModal 
+                isOpen={isModalOpen}
+                isLoading={isPointLoading}
+                onClose={() => setIsModalOpen(false)}
+                register={register}
+                errors={errors}
+                watch={watch}
+                handleSubmit={handleSubmit(handleAddPointSubmit)}
+            />
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import type { User } from "@/types/user";
-import type { Point } from "@/types/point";
+import type { Point } from "@/lib/schemas/pointSchema";
 
 type Status = "idle" | "loading" | "fetched";
 
@@ -18,4 +18,4 @@ export type UserStore = {
     updatePoint: (updatedPoint: Point) => void;
     removePoint: (id: string) => void;
     clearPoints: () => void;
-};
+}

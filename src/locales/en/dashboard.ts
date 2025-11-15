@@ -16,7 +16,6 @@ export default {
     chooseSkinType: "Choose your Skin Type",
     saveSkinType: "Save",
     addPoint: "Add point",
-    pointName: "Point Name",
     cancelModal: "Cancel",
     addModal: "Add",
     skinTypeCreated: "Skin type created successfully",
@@ -26,4 +25,9 @@ export default {
     undo: "Undo",
     unknownError: "An unknown error occurred.",
     errorWhileSaving: "An error occurred while saving.",
+    namePlaceholder: "Point Name",
+    latitudePlaceholder: "Latitude",
+    longitudePlaceholder: "Longitude",
+    altitudePlaceholder: "Altitude (optional)",
+    addPointSuccess: "Point added successfully"
 } as const

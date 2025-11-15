@@ -1,18 +1,13 @@
-import type { Point } from "@/types/point";
+import type { PointsProps } from "@/types/pointsProps";
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 
-interface FitBoundsProps {
-    points: Point[]
-}
-
-export default function FitBounds({ points }: FitBoundsProps) {
+export default function FitBounds({ points }: PointsProps) {
 
     const map = useMap();
 
     useEffect(() => {
-        if (points.length === 0) return;
-        const bounds = points.map(p => [p.lat, p.lng] as [number, number]);
+        const bounds = points.map(p => [p.latitude, p.longitude] as [number, number]);
         map.fitBounds(bounds);
     }, [map, points]);
 
