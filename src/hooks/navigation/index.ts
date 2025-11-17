@@ -16,6 +16,7 @@ export const useNavigationItems = () => {
 
     const user = useUserStore((state) => state.user);
     const clearUser = useUserStore((state) => state.clearUser);
+    const clearPoints = useUserStore((state) => state.clearPoints);
 
     const handleSignOut = useCallback(async () => {
         try {
@@ -23,17 +24,19 @@ export const useNavigationItems = () => {
             if (!res.ok) throw new Error("Sign out failed");
 
             clearUser();
+            clearPoints();
+            
             toast.success(t("signOutSuccessToast"), { className: "sonner-toast" });
             router.push("/");
         } catch (error) {
             toast.error(t("signOutErrorToast"), { className: "sonner-toast" });
             console.error(error);
         }
-    }, [clearUser, router, t]);
+    }, [clearUser, clearPoints, router, t]);
 
     const navList = useMemo(() => {
         return getNavList({ isLoggedIn: !!user, pathname, onSignOut: handleSignOut, t, locale });
     }, [t, pathname, user, handleSignOut, locale]);
 
-    return { pathname, navList };
-};
+    return { pathname, navList }
+}

@@ -1,4 +1,5 @@
 "use client"
+import type { Point } from "@/lib/schemas/pointSchema";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from 'next-intl';
@@ -28,7 +29,10 @@ export default function SignInForm() {
     const t = useTranslations();
 
     const { locale } = useLocale();
+
     const setUser = useUserStore(state => state.setUser);
+    const clearPoints = useUserStore(state => state.clearPoints);
+    const addPoints = useUserStore(state => state.addPoints);
 
     const getZodErrorMessage = useZodErrorMessage();
     
@@ -79,8 +83,20 @@ export default function SignInForm() {
             if (!userRes.ok) throw new Error("USER_ME_ERROR");
 
             const userData = await userRes.json();
-
             setUser(userData.user);
+
+            try {
+                const pointsRes = await fetch("/api/points", { credentials: "include" });
+                if (!pointsRes.ok) throw new Error("POINTS_FETCH_ERROR");
+
+                const pointsGPS: Point[] = await pointsRes.json();
+                clearPoints();
+                addPoints(pointsGPS);
+            } catch (err: unknown) {
+                console.error(err);
+                toast.error(t("pointsFetchError"), { className: "sonner-toast" });
+            }
+
             toast.success(t("signInSuccessToast"), { className: "sonner-toast" });
             router.push("/dashboard");
 
@@ -96,7 +112,7 @@ export default function SignInForm() {
                 }
             } else {
                 toast.error(t("signInUnknownErrorToast"), { className: "sonner-toast" });
-            }
+            } 
         }
     }
 

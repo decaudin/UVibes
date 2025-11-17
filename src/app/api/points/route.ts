@@ -5,6 +5,17 @@ import { getUserIdFromRequest } from "@/lib/auth";
 import { PointSchema } from "@/lib/schemas/pointSchema";
 import Point, { IPoint } from "@/models/Point";
 
+export async function GET(req: NextRequest) {
+    const result = getUserIdFromRequest(req);
+    if (result.error) return result.error;
+
+    const pointsGPS = await Point.find({ userId: result.userId }).lean<{ _id: string }[]>();
+
+    const formattedPoints = pointsGPS.map(p => ({ ...p, id: p._id.toString() }));
+
+    return NextResponse.json(formattedPoints);
+}
+
 export async function POST(req: NextRequest) {
     try {
         await connectToDatabase();
@@ -23,10 +34,7 @@ export async function POST(req: NextRequest) {
 
         const pointData = parseResult.data;
 
-        const newPoint: IPoint = await Point.create({
-            userId,
-            ...pointData,
-        });
+        const newPoint: IPoint = await Point.create({ userId, ...pointData });
 
         return NextResponse.json(newPoint, { status: 201 });
     } catch (err: unknown) {

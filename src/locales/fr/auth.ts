@@ -17,6 +17,7 @@ export default {
     or: "ou",
     signInGoogle: "Se connecter avec Google",
     signInError: "Email ou mot de passe invalide",
+    pointsFetchError: "Échec lors de la récupération des points GPS.",
     signInSuccessToast: "Bienvenue ! Nous vous redirigeons vers votre tableau de bord...",
     signInErrorToast: " Échec lors de la connexion",
     userMeErrorToast:"Erreur lors de la récupération de vos données utilisateur.",

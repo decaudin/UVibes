@@ -1,6 +1,7 @@
+import type { UserStore } from "@/types/userStore";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { UserStore } from "@/types/userStore";
+
 
 export const useUserStore = create<UserStore>()(
     persist(
@@ -22,6 +23,8 @@ export const useUserStore = create<UserStore>()(
             setJustLoggedOut: (val) => set({ justLoggedOut: val }),
 
             addPoint: (point) => set((state) => ({ pointsGPS: [...state.pointsGPS, point] })),
+
+            addPoints: (points) => set((state) => ({ pointsGPS: [...state.pointsGPS, ...points] })),
 
             updatePoint: (updatedPoint) =>
                 set((state) => ({ pointsGPS: state.pointsGPS.map((p) => p.id === updatedPoint.id ? updatedPoint : p) })),

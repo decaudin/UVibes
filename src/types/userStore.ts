@@ -6,6 +6,7 @@ type Status = "idle" | "loading" | "fetched";
 export type UserStore = {
     user: User | null;
     status: Status;
+
     pointsGPS: Point[];
     justLoggedOut: boolean;
 
@@ -15,6 +16,7 @@ export type UserStore = {
     setJustLoggedOut: (value: boolean) => void;
 
     addPoint: (point: Point) => void;
+    addPoints: (points: Point[]) => void;
     updatePoint: (updatedPoint: Point) => void;
     removePoint: (id: string) => void;
     clearPoints: () => void;

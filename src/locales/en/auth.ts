@@ -17,6 +17,7 @@ export default {
     or: "or",
     signInGoogle: "Sign In with Google",
     signInError: "Invalid email or password",
+    pointsFetchError: "Failed to fetch GPS points.",
     signInSuccessToast: "You're in! Taking you to your Dashboard...",
     signInErrorToast: "Signin failed",
     userMeErrorToast:"An error occurred while retrieving your user data.",

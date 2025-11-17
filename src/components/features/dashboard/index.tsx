@@ -133,7 +133,7 @@ export default function DashboardClient() {
             </div>
 
             <button 
-                className="mt-10 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 fixed md:static bottom-4 right-4 z-50 shadow-lg transition"
+                className="mt-10 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 fixed md:static bottom-4 z-50 shadow-lg transition"
                 onClick={() => setIsModalOpen(true)}
             >
                 {t("addPoint")}
