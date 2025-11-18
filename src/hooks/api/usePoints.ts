@@ -7,6 +7,7 @@ export const usePoints = () => {
 
     const pointsGPS = useUserStore(state => state.pointsGPS);
     const addPointToStore = useUserStore(state => state.addPoint);
+    const addPointAtIndexInStore = useUserStore(state => state.addPointAtIndex);
     const updatePointInStore = useUserStore(state => state.updatePoint);
     const removePointFromStore = useUserStore(state => state.removePoint);
     const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +36,16 @@ export const usePoints = () => {
 
     const addPoint = async (data: PointFormData) => {
         const newPoint = await handleApi("/api/points", "POST", data);
-        addPointToStore({ ...newPoint, id: newPoint._id });
+        const pointWithId = { ...newPoint, id: newPoint._id };
+        addPointToStore(pointWithId);
+        return pointWithId;
+    };
+
+    const addPointAtIndex = async (data: PointFormData, index: number): Promise<Point> => {
+        const newPoint = await handleApi("/api/points", "POST", data);
+        const pointWithId = { ...newPoint, id: newPoint._id };
+        addPointAtIndexInStore(pointWithId, index);
+        return pointWithId;
     };
 
     const updatePoint = async (point: Point) => {
@@ -48,5 +58,5 @@ export const usePoints = () => {
         removePointFromStore(id);
     };
 
-    return { pointsGPS, isLoading, addPoint, updatePoint, deletePoint };
+    return { pointsGPS, isLoading, addPoint, addPointAtIndex, updatePoint, deletePoint }
 }

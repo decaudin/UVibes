@@ -2,29 +2,35 @@ import type { UserStore } from "@/types/userStore";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-
 export const useUserStore = create<UserStore>()(
     persist(
         (set) => ({
             user: null,
 
-            status: "idle",
-            
-            pointsGPS: [],
-
-            justLoggedOut: false,
-
             setUser: (userData) => set({ user: userData, justLoggedOut: false }),
 
             clearUser: () => set({ user: null, status: "fetched", justLoggedOut: true }),
 
+            status: "idle",
+
             setStatus: (status) => set({ status }),
+            
+            justLoggedOut: false,
 
             setJustLoggedOut: (val) => set({ justLoggedOut: val }),
+            
+            pointsGPS: [],
 
             addPoint: (point) => set((state) => ({ pointsGPS: [...state.pointsGPS, point] })),
 
             addPoints: (points) => set((state) => ({ pointsGPS: [...state.pointsGPS, ...points] })),
+
+            addPointAtIndex: (point, index) =>
+                set((state) => {
+                    const newPoints = [...state.pointsGPS];
+                    newPoints.splice(index, 0, point);
+                    return { pointsGPS: newPoints };
+                }),
 
             updatePoint: (updatedPoint) =>
                 set((state) => ({ pointsGPS: state.pointsGPS.map((p) => p.id === updatedPoint.id ? updatedPoint : p) })),

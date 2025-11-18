@@ -6,15 +6,23 @@ import { PointSchema } from "@/lib/schemas/pointSchema";
 import Point, { IPoint } from "@/models/Point";
 
 export async function GET(req: NextRequest) {
-    const result = getUserIdFromRequest(req);
-    if (result.error) return result.error;
+    try {
+        await connectToDatabase()
 
-    const pointsGPS = await Point.find({ userId: result.userId }).lean<{ _id: string }[]>();
+        const result = getUserIdFromRequest(req);
 
-    const formattedPoints = pointsGPS.map(p => ({ ...p, id: p._id.toString() }));
+        if (result.error) return result.error;
 
-    return NextResponse.json(formattedPoints);
-}
+        const pointsGPS = await Point.find({ userId: result.userId }).lean<{ _id: string }[]>();
+
+        const formattedPoints = pointsGPS.map(p => ({ ...p, id: p._id.toString() }));
+
+        return NextResponse.json(formattedPoints);
+    } catch (error: unknown) {
+        console.error("[GET_POINTS_ERROR]", error);
+        return NextResponse.json({ code: "INTERNAL_SERVER_ERROR"}, { status: 500 })
+    }
+};
 
 export async function POST(req: NextRequest) {
     try {

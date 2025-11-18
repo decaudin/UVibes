@@ -29,5 +29,8 @@ export default {
     latitudePlaceholder: "Latitude",
     longitudePlaceholder: "Longitude",
     altitudePlaceholder: "Altitude (optional)",
-    addPointSuccess: "Point added successfully"
+    addPointSuccess: "Point added successfully",
+    deletedSuccess: "deleted successfully",
+    pointLabel: "Point",
+    pointRestored: "Point restored successfully"
 } as const

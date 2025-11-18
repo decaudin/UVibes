@@ -38,7 +38,7 @@ export default function DashboardClient() {
         shouldUnregister: true
     });
 
-    const { pointsGPS, isLoading : isPointLoading, addPoint/*, updatePoint, deletePoint*/ } = usePoints();
+    const { pointsGPS, isLoading : isPointLoading, addPoint, addPointAtIndex/*, updatePoint*/, deletePoint } = usePoints();
 
     if(!user) return <Loader />
 
@@ -129,7 +129,11 @@ export default function DashboardClient() {
             </p>
 
             <div className="w-full flex flex-col md:flex-row gap-6">
-                {view === 'list'  ? (pointsGPS.length > 0 && <PointsList points={pointsGPS} t={t} />) : (<PointsMap points={pointsGPS} />)}
+                {view === 'list'  ? (
+                    pointsGPS.length > 0 && <PointsList points={pointsGPS} deletePoint={deletePoint} addPointAtIndex={addPointAtIndex} t={t} />
+                ) : (
+                    <PointsMap points={pointsGPS} />
+                )}
             </div>
 
             <button 
