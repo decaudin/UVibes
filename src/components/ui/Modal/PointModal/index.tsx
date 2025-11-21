@@ -11,13 +11,15 @@ interface PointModalProps {
     isOpen: boolean;
     isLoading: boolean;
     onClose: () => void;
+    handleSubmit: ReturnType<UseFormHandleSubmit<PointFormData>>;
     register: UseFormRegister<PointFormData>;
     errors: FieldErrors<PointFormData>;
     watch: UseFormWatch<PointFormData>;
-    handleSubmit: ReturnType<UseFormHandleSubmit<PointFormData>>;
+    title: string;
+    actionLabel: React.ReactNode;
 }
 
-export default function PointModal({ isOpen, isLoading, onClose, register, errors, watch, handleSubmit }: PointModalProps) {
+export default function PointModal({ isOpen, isLoading, onClose, handleSubmit, register, errors, watch, title, actionLabel }: PointModalProps) {
 
     const t = useTranslations();
 
@@ -44,9 +46,9 @@ export default function PointModal({ isOpen, isLoading, onClose, register, error
 
     return (
         <Modal
-            isOpen={isOpen} onClose={onClose}
-            title={t("addPoint")} actionLabel={isLoading ? <ButtonSpinner /> : t("addModal")}
-            onSubmit={handleSubmit} isDisabled={!isValid || isLoading} formClassName="flex flex-col gap-5"
+            isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}
+            title={title} actionLabel={isLoading ? <ButtonSpinner /> : actionLabel}
+            isDisabled={!isValid || isLoading} formClassName="flex flex-col gap-5"
         >
             {fields.map(({ id, labelKey }) => (
                 <Input

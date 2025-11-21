@@ -36,16 +36,14 @@ export const usePoints = () => {
 
     const addPoint = async (data: PointFormData) => {
         const newPoint = await handleApi("/api/points", "POST", data);
-        const pointWithId = { ...newPoint, id: newPoint._id };
-        addPointToStore(pointWithId);
-        return pointWithId;
+        addPointToStore(newPoint);
+        return newPoint;
     };
 
     const addPointAtIndex = async (data: PointFormData, index: number): Promise<Point> => {
         const newPoint = await handleApi("/api/points", "POST", data);
-        const pointWithId = { ...newPoint, id: newPoint._id };
-        addPointAtIndexInStore(pointWithId, index);
-        return pointWithId;
+        addPointAtIndexInStore(newPoint, index);
+        return newPoint;
     };
 
     const updatePoint = async (point: Point) => {

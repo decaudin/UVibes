@@ -38,3 +38,7 @@ ol[data-sonner-toaster] li[data-sonner-toast] > button[data-close-button="true"]
 .leaflet-tile {
     background-color: #f0f0f0;
 }
+
+.toast-delete-point [data-close-button="true"] {
+    background-color: #f5f5f5 !important;
+}

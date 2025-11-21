@@ -59,7 +59,7 @@ export default function SkinTypeSetting({ t, onSave, isSaving, skinType }: SkinT
                     {t("undo")}
                 </button>
             </div>,
-            { className: "sonner-toast", style: { backgroundColor: "#f5f5f5" } }
+            { className: "sonner-toast toast-delete-point", style: { backgroundColor: "#f5f5f5" } }
         )
     };
 

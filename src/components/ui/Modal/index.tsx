@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-interface PointModalProps {
+interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
     title: string;
@@ -14,7 +14,7 @@ interface PointModalProps {
     formClassName?: string;
 }
 
-export default function Modal({ isOpen, onClose, title, children, actionLabel, onSubmit, isDisabled, formClassName }: PointModalProps) {
+export default function Modal({ isOpen, onClose, title, children, actionLabel, onSubmit, isDisabled, formClassName }: ModalProps) {
 
     const t = useTranslations();
 

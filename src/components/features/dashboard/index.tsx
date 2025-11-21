@@ -1,6 +1,6 @@
 "use client"
-import type { PointFormData } from "@/lib/schemas/pointSchema";
-import { useState } from "react";
+import type { PointFormData, Point } from "@/lib/schemas/pointSchema";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from 'next-intl';
 import { useForm } from "react-hook-form";
@@ -11,12 +11,13 @@ import { PointSchema } from "@/lib/schemas/pointSchema";
 import { useUserStore } from "@/stores/userStore";
 import { usePoints } from "@/hooks/api/usePoints";
 import { authFetch } from "@/utils/functions/api/authFetch";
+import { checkPointDuplicates } from "@/utils/functions/pointsGPS/checkPointDuplicates";
 import Loader from "@/components/ui/animations/Loader";
 import SkinTypeSetting from "./SkinTypeSetting";
 import ToggleButtons from "@/components/ui/ToggleButtons";
 import PointsList from "./PointsList";
 import PointsMap from "./PointsMap";
-import PointModal from "./PointModal";
+import PointModal from "@/components/ui/Modal/PointModal";
 
 export default function DashboardClient() {
 
@@ -29,18 +30,52 @@ export default function DashboardClient() {
     const user = useUserStore((state) => state.user);
 
     const [view, setView] = useState<'list' | 'map'>('list');
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
 
-    const { register, handleSubmit, /*setValue,*/ formState: { errors }, watch } = useForm<PointFormData>({
+    const { register, handleSubmit, reset, formState: { errors }, watch } = useForm<PointFormData>({
         resolver: zodResolver(PointSchema),
         mode: "onBlur",
         shouldFocusError: false,
         shouldUnregister: true
     });
 
-    const { pointsGPS, isLoading : isPointLoading, addPoint, addPointAtIndex/*, updatePoint*/, deletePoint } = usePoints();
+    useEffect(() => {
+        if (isUpdateModalOpen && selectedPoint) {
+            reset({
+                name: selectedPoint.name,
+                latitude: selectedPoint.latitude,
+                longitude: selectedPoint.longitude,
+                altitude: selectedPoint.altitude ?? undefined,
+            });
+        } else if (isAddModalOpen) {
+            reset({
+                name: "",
+                latitude: undefined,
+                longitude: undefined,
+                altitude: undefined,
+            });
+        }
+    }, [isUpdateModalOpen, isAddModalOpen, selectedPoint, reset]);
+
+    const { pointsGPS, isLoading : isPointLoading, addPoint, addPointAtIndex, updatePoint, deletePoint } = usePoints();
 
     if(!user) return <Loader />
+
+    const duplicateMessages = {
+        duplicateName: t("duplicatePointName"),
+        duplicateCoords: t("duplicatePointCoords"),
+    };
+
+    const checkAndToast = (data: PointFormData, ignoreId?: string) => {
+        const check = checkPointDuplicates(data, pointsGPS, ignoreId);
+        if (!check.ok) {
+            toast.error(duplicateMessages[check.key], { className: "sonner-toast" });
+            return false;
+        }
+        return true;
+    };
 
     const updateSkinType = async (skinType: number | null, showToast = true) => {
         setIsLoading(true);
@@ -96,10 +131,41 @@ export default function DashboardClient() {
     };
 
     const handleAddPointSubmit = async (data: PointFormData) => {
+        if (!checkAndToast(data)) return;
+
         try {
             await addPoint(data);
-            setIsModalOpen(false);
+            setIsAddModalOpen(false);
             toast.success(t("addPointSuccess"), { className: "sonner-toast" });
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                toast.error(error.message, { className: "sonner-toast" });
+            } else {
+                toast.error(t("unknownError"), { className: "sonner-toast" });
+            }
+        }
+    };
+
+    const handleUpdatePointSubmit = async (data: PointFormData) => {
+        if (!selectedPoint) return;
+
+        const isModified =
+            data.name !== selectedPoint.name ||
+            data.latitude !== selectedPoint.latitude ||
+            data.longitude !== selectedPoint.longitude ||
+            (data.altitude ?? undefined) !== (selectedPoint.altitude ?? undefined);
+
+        if (!isModified) {
+            toast.info(t("noChangesDetected"), { className: "sonner-toast" });
+            return;
+        }
+
+        if (!checkAndToast(data, selectedPoint?.id)) return;
+
+        try {
+            await updatePoint({ ...data, id: selectedPoint.id });
+            setIsUpdateModalOpen(false);
+            toast.success(t("updatePointSuccess"), { className: "sonner-toast" });
         } catch (error: unknown) {
             if (error instanceof Error) {
                 toast.error(error.message, { className: "sonner-toast" });
@@ -130,7 +196,16 @@ export default function DashboardClient() {
 
             <div className="w-full flex flex-col md:flex-row gap-6">
                 {view === 'list'  ? (
-                    pointsGPS.length > 0 && <PointsList points={pointsGPS} deletePoint={deletePoint} addPointAtIndex={addPointAtIndex} t={t} />
+                    pointsGPS.length > 0 && (
+                        <PointsList
+                            points={pointsGPS}
+                            deletePoint={deletePoint}
+                            addPointAtIndex={addPointAtIndex}
+                            setIsModalOpen={setIsUpdateModalOpen}
+                            setSelectedPoint={setSelectedPoint}
+                            t={t}
+                        />
+                    )
                 ) : (
                     <PointsMap points={pointsGPS} />
                 )}
@@ -138,19 +213,33 @@ export default function DashboardClient() {
 
             <button 
                 className="mt-10 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 fixed md:static bottom-4 z-50 shadow-lg transition"
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => setIsAddModalOpen(true)}
             >
                 {t("addPoint")}
             </button>
 
             <PointModal 
-                isOpen={isModalOpen}
+                isOpen={isAddModalOpen}
                 isLoading={isPointLoading}
-                onClose={() => setIsModalOpen(false)}
+                onClose={() => setIsAddModalOpen(false)}
+                handleSubmit={handleSubmit(handleAddPointSubmit)}
                 register={register}
                 errors={errors}
                 watch={watch}
-                handleSubmit={handleSubmit(handleAddPointSubmit)}
+                title={t("addPoint")}
+                actionLabel={t("addModal")}
+            />
+
+            <PointModal 
+                isOpen={isUpdateModalOpen}
+                isLoading={isPointLoading}
+                onClose={() => setIsUpdateModalOpen(false)}
+                handleSubmit={handleSubmit(handleUpdatePointSubmit)}
+                register={register}
+                errors={errors}
+                watch={watch}
+                title={t("updatePoint")}
+                actionLabel={t("updateModal")}
             />
         </div>
     )

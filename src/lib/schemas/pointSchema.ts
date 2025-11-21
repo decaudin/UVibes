@@ -7,6 +7,8 @@ export const PointSchema = GPSCoordinatesSchema.extend({
 
 export type PointFormData = z.infer<typeof PointSchema>;
 
+export type PatchPointData = Partial<Omit<z.infer<typeof PointSchema>, "userId">>;
+
 export interface Point extends PointFormData {
     id: string
 }

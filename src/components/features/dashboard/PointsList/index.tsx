@@ -6,10 +6,12 @@ interface PointsListProps {
     points: Point[];
     deletePoint: (id: string) => Promise<void>;
     addPointAtIndex: (data: PointFormData, index: number) => Promise<Point>;
+    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setSelectedPoint: React.Dispatch<React.SetStateAction<Point | null>>;
     t: (key: string) => string;
 }
 
-export default function PointsList({ points, deletePoint, addPointAtIndex, t }: PointsListProps) {
+export default function PointsList({ points, deletePoint, addPointAtIndex, setIsModalOpen, setSelectedPoint, t }: PointsListProps) {
 
     const handleDelete = async (id: string) => {
 
@@ -46,14 +48,15 @@ export default function PointsList({ points, deletePoint, addPointAtIndex, t }: 
                     {t("undo")}
                 </button>
             </div>,
-            { className: "sonner-toast justify-center items-center text-center", style: { backgroundColor: "#f5f5f5" } }
+            { className: "sonner-toast toast-delete-point justify-center items-center text-center", style: { backgroundColor: "#f5f5f5" } }
         )
     };
 
     return (
         <div className="flex-1 border p-6 rounded shadow-md max-h-[50vh] md:max-h-[60vh] overflow-y-auto">
                 <ul className="space-y-3 max-h-96 overflow-y-auto">
-                    {points.map(({ id, name, latitude, longitude, altitude }) => {
+                    {points.map((point) => {
+                        const { id, name, latitude, longitude, altitude } = point;
                         const coords = toDMS(latitude, longitude);
                         const title = `Latitude: ${coords.lat}, Longitude: ${coords.lng}${altitude ? `, Altitude: ${Math.round(altitude)} m` : ''}`;
 
@@ -64,11 +67,23 @@ export default function PointsList({ points, deletePoint, addPointAtIndex, t }: 
                                 </span>
                                 <div className="w-[100px] flex justify-between">
                                     <button title={t("uv")} className="hover:bg-gray-200 p-1 rounded transition">👁️</button>
-                                    <button title={t("update")} className="hover:bg-gray-200 p-1 rounded transition">✏️</button>
+                                    <button
+                                        title={t("update")}
+                                        onClick={() => {
+                                            setSelectedPoint(point);
+                                            setIsModalOpen(true)
+                                        }}
+                                        className="hover:bg-gray-200 p-1 rounded transition"
+                                    >
+                                        ✏️
+                                    </button>
                                     <button 
                                         title={t("delete")} 
                                         onClick={() => handleDelete(id)}
-                                        className="hover:bg-gray-200 p-1 rounded transition">🗑️</button>
+                                        className="hover:bg-gray-200 p-1 rounded transition"
+                                    >
+                                        🗑️
+                                    </button>
                                 </div>
                             </li>
                         )

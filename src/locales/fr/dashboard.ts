@@ -16,8 +16,10 @@ export default {
     chooseSkinType: "Choisissez votre type de peau",
     saveSkinType: "Enregistrer",
     addPoint: "Ajouter un point",
+    updatePoint: "Modifier un point",
     cancelModal: "Annuler",
     addModal: "Ajouter",
+    updateModal: "Modifier",
     skinTypeCreated: "Type de peau ajouté avec succès",
     skinTypeUpdated: "Type de peau modifié avec succès",
     skinTypeDeleted: "Type de peau supprimé",
@@ -30,7 +32,11 @@ export default {
     longitudePlaceholder: "Longitude",
     altitudePlaceholder: "Altitude (facultative)",
     addPointSuccess: "Point ajouté avec succès",
+    updatePointSuccess: "Point modifié avec succès",
     deletedSuccess: "supprimé avec succès",
     pointLabel: "Point",
-    pointRestored: "Point restauré avec succès"
+    pointRestored: "Point restauré avec succès",
+    noChangesDetected: "Aucune modification détectée",
+    duplicatePointName: "Ce nom de point existe déjà",
+    duplicatePointCoords: "Il existe déjà un point à ces coordonnées",
 } as const
