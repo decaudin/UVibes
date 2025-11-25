@@ -1,6 +1,9 @@
 import type { Point, PointFormData } from "@/lib/schemas/pointSchema";
 import { toast } from "sonner";
+import { useLocale } from '@/hooks/locales';
+import { useRedirectToUvResults } from "@/hooks/uv"; 
 import { toDMS } from "@/utils/functions/pointsGPS/toDMS";
+
 
 interface PointsListProps {
     points: Point[];
@@ -8,10 +11,15 @@ interface PointsListProps {
     addPointAtIndex: (data: PointFormData, index: number) => Promise<Point>;
     setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setSelectedPoint: React.Dispatch<React.SetStateAction<Point | null>>;
+    skinType?: number | null;
     t: (key: string) => string;
 }
 
-export default function PointsList({ points, deletePoint, addPointAtIndex, setIsModalOpen, setSelectedPoint, t }: PointsListProps) {
+export default function PointsList({ points, deletePoint, addPointAtIndex, setIsModalOpen, setSelectedPoint, skinType, t }: PointsListProps) {
+    
+    const { locale } = useLocale();
+
+    const redirectToUvResults = useRedirectToUvResults();
 
     const handleDelete = async (id: string) => {
 
@@ -66,7 +74,13 @@ export default function PointsList({ points, deletePoint, addPointAtIndex, setIs
                                     📍<span className="ml-4">{name}</span>
                                 </span>
                                 <div className="w-[100px] flex justify-between">
-                                    <button title={t("uv")} className="hover:bg-gray-200 p-1 rounded transition">👁️</button>
+                                    <button
+                                        title={t("uv")}
+                                        onClick={() => redirectToUvResults({ mode: 'coords', latitude: point.latitude, longitude: point.longitude, altitude: point.altitude, skinType, locale })}
+                                        className="hover:bg-gray-200 p-1 rounded transition"
+                                    >
+                                        👁️
+                                    </button>
                                     <button
                                         title={t("update")}
                                         onClick={() => {

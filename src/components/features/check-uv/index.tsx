@@ -1,8 +1,8 @@
 "use client"
-import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRedirectToUvResults } from '@/hooks/uv';
 import { useLocale } from '@/hooks/locales';
 import { useZodErrorMessage } from "@/hooks/zod";
 import { UvCheckSchema, FormDataWithCity } from "@/lib/schemas/uvCheckSchema";
@@ -12,9 +12,9 @@ import SkinTypeForm from "@/components/ui/SkinTypeForm";
 
 export default function CheckUVForm() {
 
-    const router = useRouter();
-
     const t = useTranslations();
+
+    const redirectToUvResults = useRedirectToUvResults();
     
     const { locale } = useLocale();
 
@@ -42,23 +42,7 @@ export default function CheckUVForm() {
 
     const radioTitle = t("radioTitle");
 
-    const onSubmit = (data: FormDataWithCity) => {
-
-        const lat = data.mode === "coords" ? data.latitude : data.cityLatitude;
-        const lng = data.mode === "coords" ? data.longitude : data.cityLongitude;
-
-        const queryParams: Record<string, string> = {
-            mode: data.mode,
-            latitude: `${lat}`,
-            longitude: `${lng}`,
-            ...(data.mode === "coords" && data.altitude ? { altitude: `${data.altitude}` } : {}),
-            // ...(data.mode === "coords" && data.altitude !== undefined ? { altitude: `${data.altitude}` } : {}),
-            ...(data.skinType != null && { skinType: `${data.skinType}` }),
-        };
-
-        const query = new URLSearchParams(queryParams);
-        router.push(`/${locale}/check-uv/results?${query.toString()}`);
-    };
+    const onSubmit = (data: FormDataWithCity) => redirectToUvResults({ ...data, locale });
 
     return (
         <form

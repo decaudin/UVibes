@@ -6,7 +6,7 @@ export default {
     INTERNAL_SERVER_ERROR: "Erreur interne du serveur.",
     UNEXPECTED_ERROR: "Une erreur inattendue est survenue.",
     UNKNOWN_ERROR: "Une erreur inconnue est survenue",
-    UV_QUOTA_EXCEEDED : "Limite quotidienne de recherche UV atteinte. Veuillez ressayer demain.",
+    UV_QUOTA_EXCEEDED : "Limite quotidienne de recherche UV atteinte. Veuillez réessayer demain.",
     MISSING_FIELDS: "Tous les champs sont obligatoires.",
     RECEIVER_EMAIL_NOT_CONFIGURED: "L'adresse email du destinataire n'est pas configurée.",
     FAILED_TO_SEND_EMAIL: "Échec de l'envoi du message.",

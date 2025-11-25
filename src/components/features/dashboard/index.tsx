@@ -203,6 +203,7 @@ export default function DashboardClient() {
                             addPointAtIndex={addPointAtIndex}
                             setIsModalOpen={setIsUpdateModalOpen}
                             setSelectedPoint={setSelectedPoint}
+                            skinType={user.skinType}
                             t={t}
                         />
                     )
