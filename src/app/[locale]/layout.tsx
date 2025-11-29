@@ -76,8 +76,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     )
 }
 
-// 1 - Sign In (via google)
-// 2 - Voir pour les boutons radios pour pouvoir en sélectionner plusieurs
-// 3 - SEO/UX: Urls en EN/FR (Hreflang, Canonicalisation .. ?), siteMap ?
-// 4 - Faire un store pour conserver état quand changement de langue (inputs, toggle, theme, results ..)
-// 5 - Modifier StaggeredFadeIn pour pas wrapper à chaque fois l'élément dans une div pour alléger le DOM ? (et mettre ces divs directement dans le JSX via motion.div)
+// 1 - Voir pour les boutons radios pour pouvoir en sélectionner plusieurs (?)
+// 2 - SEO/UX: Urls en EN/FR (Hreflang, Canonicalisation .. ?), siteMap ?
+// 3 - Faire un store pour conserver état quand changement de langue (inputs, toggle, theme, results ..)
+// 4 - Modifier StaggeredFadeIn pour pas wrapper à chaque fois l'élément dans une div pour alléger le DOM ? (et mettre ces divs directement dans le JSX via motion.div)

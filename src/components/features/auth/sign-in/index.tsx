@@ -1,12 +1,11 @@
 "use client"
 import type { Point } from "@/lib/schemas/pointSchema";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from 'next-intl';
 import { useForm } from "react-hook-form";
 import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
-// import { signIn } from 'next-auth/react';
 import { useLocale } from "@/hooks/locales";
 import { useUserStore } from '@/stores/userStore';
 import { useZodErrorMessage } from "@/hooks/zod";
@@ -120,6 +119,49 @@ export default function SignInForm() {
 
     const onEmailBlur = handleEmailTrimOnBlur({ setValue, onBlurRHF: emailOnBlurRHF, fieldName: "email" });
 
+    const handleGoogleSignIn = async () => {
+        try {
+            const width = 600;
+            const height = 700;
+            const left = (window.innerWidth - width) / 2;
+            const top = (window.innerHeight - height) / 2;
+
+            const googleWindow = window.open(
+                '/api/google',
+                'Google Sign In',
+                `width=${width},height=${height},top=${top},left=${left}`
+            );
+
+            if (!googleWindow) throw new Error("Google OAuth window blocked");
+
+        } catch (err) {
+            console.error(err);
+            toast.error(t("signInGoogleErrorToast"));
+        }
+    };
+
+    useEffect(() => {
+        const handleMessage = async (e: MessageEvent) => {
+            if (e.origin !== process.env.NEXT_PUBLIC_BASE_URL) return;
+            if (e.data?.type === "google-auth-success") {
+                setIsLoading(true);
+                try {
+                    const res = await fetch("/api/user/me", { credentials: "include" });
+                    if (!res.ok) throw new Error("Failed to fetch user");
+                    const data = await res.json();
+                    useUserStore.getState().setUser(data.user);
+                    router.push("/dashboard");
+                } catch (err) {
+                    console.error(err);
+                    toast.error(t("signInGoogleFetchUserErrorToast"), { className: "sonner-toast" });
+                }
+            }
+        };
+
+        window.addEventListener("message", handleMessage);
+        return () => window.removeEventListener("message", handleMessage);
+    }, [router, t]);
+
     return (
         <>
             {!isLoading ? (
@@ -147,9 +189,8 @@ export default function SignInForm() {
                     </div>
 
                     <button
-                        // onClick={() => signIn('google')}
-                        onClick={() => alert('This feature is under development and will be available soon.')}
-                        className="flex items-center justify-center gap-3 px-6 py-2 mt-8 mb-12 rounded-md bg-white border border-gray-300 shadow-md hover:shadow-lg transition duration-200"
+                        onClick={handleGoogleSignIn}
+                        className="flex items-center justify-center gap-4 px-8 py-2 mt-8 mb-12 rounded-md bg-white border border-gray-300 shadow-md hover:shadow-lg transition duration-200"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="w-6 h-6">
                             <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
