@@ -1,6 +1,6 @@
 "use client"
 import type { Point } from "@/lib/schemas/pointSchema";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from 'next-intl';
 import { useForm } from "react-hook-form";
@@ -58,6 +58,33 @@ export default function SignInForm() {
         /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=.]).{8,}$/.test(formValues.password)
     );
 
+    const handleUserAndPoints = useCallback(async () => {
+        const userRes = await fetch("/api/user/me", { credentials: "include" });
+        if (!userRes.ok) throw new Error("USER_ME_ERROR");
+        const userData = await userRes.json();
+        setUser(userData.user);
+
+        const pointsRes = await fetch("/api/points", { credentials: "include" });
+        if (!pointsRes.ok) throw new Error("POINTS_FETCH_ERROR");
+        const pointsGPS: Point[] = await pointsRes.json();
+        clearPoints();
+        addPoints(pointsGPS);
+
+        router.push("/dashboard");
+    }, [router, setUser, clearPoints, addPoints]);
+
+    const handleAuthErrors = useCallback((error: unknown) => {
+        const errorMap: Record<string, string> = {
+            SIGNIN_ERROR: t("signInErrorToast"),
+            USER_ME_ERROR: t("userMeErrorToast"),
+            POINTS_FETCH_ERROR: t("pointsFetchError"),
+        };
+
+        const message = error instanceof Error && error.message in errorMap ? errorMap[error.message] : t("signInUnknownErrorToast");
+
+        toast.error(message, { className: "sonner-toast" })
+    }, [t]);
+
     const onSubmit = async (data: SignInFormData) => {
         setIsLoading(true);
         try {
@@ -77,43 +104,14 @@ export default function SignInForm() {
                 throw new Error("SIGNIN_ERROR");
             }
 
-            const userRes = await fetch("/api/user/me", { credentials: "include" });
-            
-            if (!userRes.ok) throw new Error("USER_ME_ERROR");
-
-            const userData = await userRes.json();
-            setUser(userData.user);
-
-            try {
-                const pointsRes = await fetch("/api/points", { credentials: "include" });
-                if (!pointsRes.ok) throw new Error("POINTS_FETCH_ERROR");
-
-                const pointsGPS: Point[] = await pointsRes.json();
-                clearPoints();
-                addPoints(pointsGPS);
-            } catch (err: unknown) {
-                console.error(err);
-                toast.error(t("pointsFetchError"), { className: "sonner-toast" });
-            }
-
+            await handleUserAndPoints();
             toast.success(t("signInSuccessToast"), { className: "sonner-toast" });
-            router.push("/dashboard");
 
-        } catch (error: unknown) {
-                setIsLoading(false);
-                if (error instanceof Error) {
-                    if (error.message === "SIGNIN_ERROR") {
-                        toast.error(t("signInErrorToast"), { className: "sonner-toast" });
-                } else if (error.message === "USER_ME_ERROR") {
-                    toast.error(t("userMeErrorToast"), { className: "sonner-toast" });
-                } else {
-                    toast.error(t("signInUnknownErrorToast"), { className: "sonner-toast" });
-                }
-            } else {
-                toast.error(t("signInUnknownErrorToast"), { className: "sonner-toast" });
-            } 
+        } catch (error) {
+            setIsLoading(false);
+            handleAuthErrors(error);
         }
-    }
+    };
 
     const { ref: emailRef, onBlur: emailOnBlurRHF, ...emailRest } = register("email");
 
@@ -134,8 +132,7 @@ export default function SignInForm() {
 
             if (!googleWindow) throw new Error("Google OAuth window blocked");
 
-        } catch (err) {
-            console.error(err);
+        } catch {
             toast.error(t("signInGoogleErrorToast"));
         }
     };
@@ -146,21 +143,18 @@ export default function SignInForm() {
             if (e.data?.type === "google-auth-success") {
                 setIsLoading(true);
                 try {
-                    const res = await fetch("/api/user/me", { credentials: "include" });
-                    if (!res.ok) throw new Error("Failed to fetch user");
-                    const data = await res.json();
-                    useUserStore.getState().setUser(data.user);
-                    router.push("/dashboard");
-                } catch (err) {
-                    console.error(err);
-                    toast.error(t("signInGoogleFetchUserErrorToast"), { className: "sonner-toast" });
+                    await handleUserAndPoints();
+                    toast.success(t("signInSuccessToast"), { className: "sonner-toast" });
+                } catch (error) {
+                    setIsLoading(false);
+                    handleAuthErrors(error)
                 }
             }
         };
 
         window.addEventListener("message", handleMessage);
         return () => window.removeEventListener("message", handleMessage);
-    }, [router, t]);
+    }, [ t, handleUserAndPoints, handleAuthErrors]);
 
     return (
         <>
