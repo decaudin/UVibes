@@ -36,7 +36,7 @@ export const getNavList = ({ isLoggedIn, pathname, t, locale, onSignOut }: GetNa
         :   {
                 label: t("navAccount"),
                 href: `/${locale}/sign-in`,
-                isActive: () => ["/sign-in", "/sign-up"].includes(cleanPath),
+                isActive: () => ["/sign-in", "/sign-up", "/reset-password"].some((p) => cleanPath.startsWith(p)),
             };
 
     return [

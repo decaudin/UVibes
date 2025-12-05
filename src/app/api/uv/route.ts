@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import headers from '@/config/openUvHeaders';
-import { UvCheckSchema } from '@/lib/schemas/uvCheckSchema';
+import { UvCheckSchema } from '@/schemas/uvCheckSchema';
 
 export async function GET(req: NextRequest) {
     try {

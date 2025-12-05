@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRedirectToUvResults } from '@/hooks/uv';
 import { useLocale } from '@/hooks/locales';
 import { useZodErrorMessage } from "@/hooks/zod";
-import { UvCheckSchema, FormDataWithCity } from "@/lib/schemas/uvCheckSchema";
+import { UvCheckSchema, FormDataWithCity } from "@/schemas/uvCheckSchema";
 import ToggleForm from './ToggleForm';
 import SubmitButton from "@/components/ui/SubmitButton";
 import SkinTypeForm from "@/components/ui/SkinTypeForm";

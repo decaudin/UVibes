@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import { getUserIdFromRequest } from "@/lib/auth";
 import { checkPointDuplicates } from "@/lib/checkPointDuplicates";
-import { PointSchema } from "@/lib/schemas/pointSchema";
+import { PointSchema } from "@/schemas/pointSchema";
 import Point, { IPoint } from "@/models/Point";
 
 export async function GET(req: NextRequest) {

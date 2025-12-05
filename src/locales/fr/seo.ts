@@ -121,6 +121,11 @@ export default {
             "type": "website",
             "url": "https://u-vibes.vercel.app/fr/sign-up"
         },
+        "resetPassword": {
+            "title": "Réinitialiser le mot de passe",
+            "description": "Réinitialisez votre mot de passe pour accéder à votre compte en toute sécurité. Entrez votre email pour recevoir un lien de réinitialisation.",
+            "robots": "noindex, nofollow"
+        },
         "notFound": {
             "title": "404 - Page non trouvée",
             "description": "Cette page n'existe pas. Retrouvez des informations sur l'indice UV, des conseils d'exposition au soleil et les outils UVibes sur notre page d'accueil.",

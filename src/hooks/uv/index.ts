@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { FormDataWithCity } from "@/lib/schemas/uvCheckSchema";
+import { FormDataWithCity } from "@/schemas/uvCheckSchema";
 
 export const useRedirectToUvResults = () => {
     const router = useRouter();

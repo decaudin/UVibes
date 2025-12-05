@@ -1,5 +1,5 @@
 "use client"
-import type { FormDataWithCity } from "@/lib/schemas/uvCheckSchema";
+import type { FormDataWithCity } from "@/schemas/uvCheckSchema";
 import { useState, useEffect } from "react";
 import ToggleButtons from "@/components/ui/ToggleButtons";
 import CoordsForm from "@/components/features/check-uv/ToggleForm/CoordsForm";

@@ -1,5 +1,5 @@
 import type { User } from "@/types/user";
-import type { Point } from "@/lib/schemas/pointSchema";
+import type { Point } from "@/schemas/pointSchema";
 
 type Status = "idle" | "loading" | "fetched";
 

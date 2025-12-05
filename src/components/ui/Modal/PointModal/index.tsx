@@ -1,5 +1,5 @@
 import type { UseFormRegister, FieldErrors, UseFormWatch, UseFormHandleSubmit } from "react-hook-form";
-import type { PointFormData } from "@/lib/schemas/pointSchema";
+import type { PointFormData } from "@/schemas/pointSchema";
 import { useTranslations } from "next-intl";
 import { useZodErrorMessage } from "@/hooks/zod";
 import Modal from "@/components/ui/Modal";

@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocale } from "@/hooks/locales";
 import { useZodErrorMessage } from "@/hooks/zod";
-import { SignUpFormData, signUpSchema } from "@/lib/schemas/authSchema";
+import { SignUpFormData, signUpSchema } from "@/schemas/authSchema";
 import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";
 import { handleEmailTrimOnBlur } from "@/utils/functions/input/handleEmailTrimOnBlur";
 import FormWrapper from "@/components/ui/auth/FormWrapper";
@@ -112,8 +112,11 @@ export default function SignUpForm() {
                             wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
                             ref={emailRef} {...emailRest}
                         />
-                        <PasswordInput autoComplete="new-password" error={errors.password} register={register} onBlur={blurHandlers.password} />
-                        <SubmitButton isFormValid={isValid} isLoading={isLoading} className="my-8">{t("signUp")}</SubmitButton>
+                        <PasswordInput
+                            register={register} autoComplete="new-password"
+                            error={errors.password}  onBlur={blurHandlers.password} wrapperClassName="mb-12"
+                        />
+                        <SubmitButton isFormValid={isValid} isLoading={isLoading}>{t("signUp")}</SubmitButton>
                     </form>
                 </FormWrapper>
             ) : (   

@@ -1,4 +1,4 @@
-import type { Point, PointFormData } from "@/lib/schemas/pointSchema";
+import type { Point, PointFormData } from "@/schemas/pointSchema";
 import { useState } from "react";
 import { useUserStore } from "@/stores/userStore";
 import { authFetch } from "@/utils/functions/api/authFetch";

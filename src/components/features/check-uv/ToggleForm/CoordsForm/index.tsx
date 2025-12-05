@@ -1,4 +1,4 @@
-import type { FormDataWithCity } from "@/lib/schemas/uvCheckSchema";
+import type { FormDataWithCity } from "@/schemas/uvCheckSchema";
 import { UseFormRegister, FieldErrors, FieldError } from "react-hook-form";
 import { Input } from "@/components/ui/Input";
 import { errorMessageStyles } from "@/styles/classNames";

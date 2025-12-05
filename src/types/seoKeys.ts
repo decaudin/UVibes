@@ -2,4 +2,4 @@ export type SeoIndexedPageKey = "home" | "about" | "guides" | "safeSunExposure" 
                                 "chooseSunscreen" | "uvLongTermEffects" | "vitaminDAndSunlight" | "sunProtectionInWinter" |
                                 "yearRoundHighUvZones" | "howUvIndexIsCalculated" | "checkUv" | "signIn" | "signUp" | "contact";
 
-export type SeoNonIndexedPageKey = "results" | "dashboard" | "notFound";
+export type SeoNonIndexedPageKey = "results" | "dashboard" | "notFound" | "resetPassword";

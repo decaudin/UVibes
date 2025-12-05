@@ -11,7 +11,7 @@ export default function SubmitButton({ children, isFormValid, isLoading, classNa
         <button
             type="submit"
             disabled={!isFormValid || isLoading}
-            className={`flex mx-auto rounded-lg shadow py-1 px-4 ${isFormValid ? "bg-blue-300 text-black cursor-pointer" : "bg-gray-500 text-white cursor-not-allowed"} ${isLoading && "cursor-not-allowed"} ${className}`}
+            className={`flex mx-auto rounded-lg shadow py-1 px-4 ${isFormValid ? "bg-blue-300 text-black cursor-pointer hover:bg-blue-400" : "bg-gray-500 text-white cursor-not-allowed"} ${isLoading && "cursor-not-allowed"} ${className}`}
         >
             {children}
         </button>

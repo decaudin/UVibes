@@ -1,7 +1,8 @@
 "use client"
-import type { Point } from "@/lib/schemas/pointSchema";
+import type { Point } from "@/schemas/pointSchema";
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useTranslations } from 'next-intl';
 import { useForm } from "react-hook-form";
 import { toast } from 'sonner';
@@ -9,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocale } from "@/hooks/locales";
 import { useUserStore } from '@/stores/userStore';
 import { useZodErrorMessage } from "@/hooks/zod";
-import { SignInFormData, signInSchema } from "@/lib/schemas/authSchema";
+import { SignInFormData, signInSchema } from "@/schemas/authSchema";
 import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";
 import { handleEmailTrimOnBlur } from "@/utils/functions/input/handleEmailTrimOnBlur";
 import FormWrapper from "@/components/ui/auth/FormWrapper";
@@ -167,7 +168,13 @@ export default function SignInForm() {
                             wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
                             ref={emailRef} {...emailRest}
                         />
-                        <PasswordInput autoComplete="current-password" error={errors.password} register={register} onBlur={blurHandlers.password} />
+                        <PasswordInput 
+                            register={register} autoComplete="current-password"
+                            error={errors.password} onBlur={blurHandlers.password} wrapperClassName="mb-4"
+                        />
+                        <Link className="block text-right mt-0 mb-8 text-sm text-red-500 hover:text-red-700" href={`/${locale}/reset-password`}>
+                            {t("forgotPassword")}
+                        </Link>
                         <Input
                             id="isRememberMe" type="checkbox" label={t("label.checkbox")}
                             wrapperClassName="flex justify-center flex-row-reverse" inputClassName="mr-1 cursor-pointer"
@@ -176,7 +183,7 @@ export default function SignInForm() {
                         <SubmitButton isFormValid={isValid} isLoading={isLoading} className="my-8" >{t("signIn")}</SubmitButton>
                     </form>
 
-                    <div className="flex items-center w-64 mt-2">
+                    <div className="flex items-center w-64">
                         <div className="border-gray-200 w-full border-t-2 border-solid"></div>
                         <span className="mx-4">{t("or")}</span>
                         <div className="border-gray-200 w-full border-t-2 border-solid"></div>
@@ -184,7 +191,7 @@ export default function SignInForm() {
 
                     <button
                         onClick={handleGoogleSignIn}
-                        className="flex items-center justify-center gap-4 px-8 py-2 mt-8 mb-12 rounded-md bg-white border border-gray-300 shadow-md hover:shadow-lg transition duration-200"
+                        className="flex items-center justify-center gap-4 px-8 py-2 mt-8 rounded-md bg-white border border-gray-300 shadow-md hover:shadow-lg transition duration-200"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="w-6 h-6">
                             <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />

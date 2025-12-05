@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import { getUserIdFromRequest } from "@/lib/auth";
 import { checkPointDuplicates } from "@/lib/checkPointDuplicates";
-import { PointSchema } from "@/lib/schemas/pointSchema";
+import { PointSchema } from "@/schemas/pointSchema";
 import Point from "@/models/Point";
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {

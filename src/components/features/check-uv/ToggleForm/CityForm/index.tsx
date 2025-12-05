@@ -1,5 +1,5 @@
 "use client"
-import type { FormDataWithCity } from "@/lib/schemas/uvCheckSchema";
+import type { FormDataWithCity } from "@/schemas/uvCheckSchema";
 import type { City } from "@/types/city";
 import { useState, useEffect, useRef } from "react";
 import { UseFormSetValue, UseFormRegister, FieldErrors, FieldError } from "react-hook-form";

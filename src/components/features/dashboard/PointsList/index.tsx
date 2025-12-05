@@ -1,4 +1,4 @@
-import type { Point, PointFormData } from "@/lib/schemas/pointSchema";
+import type { Point, PointFormData } from "@/schemas/pointSchema";
 import { toast } from "sonner";
 import { useLocale } from '@/hooks/locales';
 import { useRedirectToUvResults } from "@/hooks/uv"; 

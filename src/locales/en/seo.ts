@@ -121,6 +121,11 @@ export default {
             "type": "website",
             "url": "https://u-vibes.vercel.app/en/sign-up"
         },
+        "resetPassword": {
+            "title": "Reset Password",
+            "description": "Reset your password to securely access your account. Enter your email to receive a password reset link.",
+            "robots": "noindex, nofollow",
+        },
         "notFound": {
             "title": "404 - Page Not Found",
             "description": "This page doesn't exist. Find UV index information, sun exposure tips, and UVibes tools on our homepage.",

@@ -4,9 +4,9 @@ export default {
     signInPrompt: "Vous n'avez pas de compte ? ",
     signUpPrompt: "Vous avez déjà un compte ? ",
     label: {
-        password: "Mot de passe :",
-        name: "Nom :",
-        email: "E-mail :",
+        password: "Mot de passe",
+        name: "Nom",
+        email: "E-mail",
         checkbox: "Se souvenir de moi",
     },
     authPlaceholders: {
@@ -14,6 +14,7 @@ export default {
         password: "Entrez votre mot de passe",
         name: "Entrez votre nom",
     },
+    forgotPassword: "Mot de passe oublié ?",
     or: "ou",
     signInGoogle: "Continuer avec Google",
     signInError: "Email ou mot de passe invalide",
@@ -27,4 +28,8 @@ export default {
     signUpSuccessToast: "Compte créé ! Nous vous redirigeons vers la page de connexion...",
     signUpErrorToast: "Échec lors de l'inscription",
     signUpUnknownErrorToast: "Erreur inconnue lors de l'inscription",
+    resetPassword: {
+        title: "Réinitialiser votre mot de passe",
+        sendResetLink: "Saisissez l'adresse email associée à votre compte et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+    }
 } as const

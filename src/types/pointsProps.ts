@@ -1,4 +1,4 @@
-import type { Point } from "@/lib/schemas/pointSchema";
+import type { Point } from "@/schemas/pointSchema";
 
 export type PointsProps = {
     points: Point[]

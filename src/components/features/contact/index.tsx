@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useZodErrorMessage } from "@/hooks/zod";
 import { usePost } from "@/hooks/api/usePost";
-import { ContactFormData, contactSchema } from "@/lib/schemas/contactSchema";
+import { ContactFormData, contactSchema } from "@/schemas/contactSchema";
 import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";
 import { handleEmailTrimOnBlur } from "@/utils/functions/input/handleEmailTrimOnBlur";
 import { Input } from "@/components/ui/Input"

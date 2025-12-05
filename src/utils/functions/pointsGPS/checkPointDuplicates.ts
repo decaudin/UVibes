@@ -1,5 +1,5 @@
-import type { PointFormData } from "@/lib/schemas/pointSchema";
-import type { Point } from "@/lib/schemas/pointSchema";
+import type { PointFormData } from "@/schemas/pointSchema";
+import type { Point } from "@/schemas/pointSchema";
 
 type CheckPointDuplicatesResult = | { ok: true } | { ok: false; key: "duplicateName" | "duplicateCoords" };
 

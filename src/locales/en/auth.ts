@@ -4,9 +4,9 @@ export default {
     signInPrompt: "Don't have an account ? ",
     signUpPrompt: "Already have an account ? ",
     label: {
-        password: "Password :",
-        name: "Name :",
-        email: "E-mail :",
+        password: "Password",
+        name: "Name",
+        email: "E-mail",
         checkbox: "Remember me",
     },
     authPlaceholders: {
@@ -14,6 +14,7 @@ export default {
         password: "Enter your password",
         name: "Enter your name",
     },
+    forgotPassword: "Forgot password?",
     or: "or",
     signInGoogle: "Continue with Google",
     signInError: "Invalid email or password",
@@ -27,4 +28,8 @@ export default {
     signUpSuccessToast: "Account created! Taking you to the Sign In page ...",
     signUpErrorToast: "Sign up failed",
     signUpUnknownErrorToast: "Unknown Sign up error",
+    resetPassword: {
+        title: "Reset Your Password",
+        sendResetLink: "Enter the email address associated with your account, and we'll send you a link to reset your password.",
+    }
 } as const

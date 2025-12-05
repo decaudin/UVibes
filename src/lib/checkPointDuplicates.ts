@@ -1,5 +1,5 @@
 import Point from "@/models/Point";
-import type { PointFormData } from "@/lib/schemas/pointSchema";
+import type { PointFormData } from "@/schemas/pointSchema";
 
 export const checkPointDuplicates = async (userId: string, data: PointFormData, ignoreId?: string): Promise<"name" | "coords" | null> => {
 

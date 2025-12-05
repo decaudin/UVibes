@@ -5,16 +5,17 @@ import { useZodErrorMessage } from "@/hooks/zod";
 import { usePasswordToggle } from "@/hooks/passwordToggle";
 import { Input } from "../../Input";
 import EyeToggle from "@/components/ui/auth/EyeToggle";
-import { wrapperStyles, inputStyles, errorMessageStyles } from "@/styles/classNames";
+import { wrapperBaseStyles, inputStyles, errorMessageStyles } from "@/styles/classNames";
 
 interface PasswordInputProps<T extends FieldValues> {
     autoComplete: string;
     register: UseFormRegister<T>;
     error?: FieldError;
     onBlur?: React.FocusEventHandler<HTMLInputElement>;
+    wrapperClassName: string;
 }
 
-export default function PasswordInput<T extends FieldValues>({ autoComplete, register, error, onBlur }: PasswordInputProps<T>) {
+export default function PasswordInput<T extends FieldValues>({ autoComplete, register, error, onBlur, wrapperClassName }: PasswordInputProps<T>) {
 
     const t = useTranslations();
 
@@ -34,10 +35,10 @@ export default function PasswordInput<T extends FieldValues>({ autoComplete, reg
             <Input 
                 id="password" type={isPasswordVisible ? "text" : "password"} label={t("label.password")} 
                 placeholder={t("authPlaceholders.password")} autoComplete={autoComplete} errorMessage={getErrorMessage(error)} 
-                wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
+                wrapperClassName={`${wrapperBaseStyles} ${wrapperClassName}`} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
                 ref={ref} {...rest} onBlur={handleBlur}
             />
             <EyeToggle isVisible={isPasswordVisible} onToggle={togglePasswordVisibility} />
         </div>
     )
-};
+}

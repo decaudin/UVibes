@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { connectToDatabase } from "@/lib/mongodb";
 import { createAuthResponse } from "@/lib/createAuthResponse";
-import { signInSchema } from '@/lib/schemas/authSchema';
+import { signInSchema } from '@/schemas/authSchema';
 import User from "@/models/User";
 
 export async function POST(req: NextRequest) {

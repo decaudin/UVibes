@@ -1,5 +1,5 @@
 "use client"
-import type { PointFormData, Point } from "@/lib/schemas/pointSchema";
+import type { PointFormData, Point } from "@/schemas/pointSchema";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from 'next-intl';
@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from "sonner";
 import 'leaflet/dist/leaflet.css';
-import { PointSchema } from "@/lib/schemas/pointSchema";
+import { PointSchema } from "@/schemas/pointSchema";
 import { useUserStore } from "@/stores/userStore";
 import { usePoints } from "@/hooks/api/usePoints";
 import { authFetch } from "@/utils/functions/api/authFetch";
