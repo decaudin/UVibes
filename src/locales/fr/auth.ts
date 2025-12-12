@@ -31,5 +31,7 @@ export default {
     resetPassword: {
         title: "Réinitialiser votre mot de passe",
         sendResetLink: "Saisissez l'adresse email associée à votre compte et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+        buttonText: "Envoyer le lien de réinitialisation",
+        errorMessage: "Une erreur est survenue lors de l'envoi de l'email. Veuillez réessayer."
     }
 } as const

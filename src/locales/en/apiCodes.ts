@@ -13,4 +13,5 @@ export default {
     MESSAGE_SENT_SUCCESSFULLY: "Message sent successfully !",
     NETWORK_ERROR: "Network error. Please check your connection.",
     SERVER_UNEXPECTED_RESPONSE: "Server returned an unexpected response.",
+    RESET_LINK_SENT: "If that email is associated with an account, a link has been sent."
 } as const

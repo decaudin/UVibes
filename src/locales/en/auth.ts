@@ -31,5 +31,7 @@ export default {
     resetPassword: {
         title: "Reset Your Password",
         sendResetLink: "Enter the email address associated with your account, and we'll send you a link to reset your password.",
+        buttonText: "Send reset link",
+        errorMessage: "An error occurred while sending the email. Please try again."
     }
 } as const

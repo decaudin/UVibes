@@ -13,4 +13,5 @@ export default {
     MESSAGE_SENT_SUCCESSFULLY: "Message envoyé avec succès !",
     NETWORK_ERROR: "Erreur réseau. Veuillez vérifier votre connexion.",
     SERVER_UNEXPECTED_RESPONSE: "Le serveur a renvoyé une réponse inattendue.",
+    RESET_LINK_SENT: "Si cet email est associé à un compte, un lien a été envoyé."
 } as const

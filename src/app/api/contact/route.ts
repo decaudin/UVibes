@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
 
     try {
         const data = await resend.emails.send({
-            from: 'U-Vibes Contact <onboarding@resend.dev>',
+            from: 'UVibes Contact <onboarding@resend.dev>',
             to: toEmail,
             subject: 'Nouveau message de contact',
             html: `
