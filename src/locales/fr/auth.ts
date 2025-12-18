@@ -5,6 +5,7 @@ export default {
     signUpPrompt: "Vous avez déjà un compte ? ",
     label: {
         password: "Mot de passe",
+        confirmPassword: "Confirmer le mot de passe",
         name: "Nom",
         email: "E-mail",
         checkbox: "Se souvenir de moi",
@@ -12,6 +13,7 @@ export default {
     authPlaceholders: {
         email: "Entrez votre email",
         password: "Entrez votre mot de passe",
+        confirmPassword: "Confirmez votre mot de passe",
         name: "Entrez votre nom",
     },
     forgotPassword: "Mot de passe oublié ?",
@@ -32,6 +34,11 @@ export default {
         title: "Réinitialiser votre mot de passe",
         sendResetLink: "Saisissez l'adresse email associée à votre compte et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
         buttonText: "Envoyer le lien de réinitialisation",
-        errorMessage: "Une erreur est survenue lors de l'envoi de l'email. Veuillez réessayer."
+        errorMessage: "Une erreur est survenue lors de l'envoi de l'email. Merci de réessayer."
+    },
+    resetPasswordToken: {
+        title: "Définissez votre nouveau mot de passe",
+        submit: "Définir le nouveau mot de passe",
+        errorMessage: "Une erreur est survenue lors de la réinitialisation de votre mot de passe. Merci de réessayer."
     }
 } as const

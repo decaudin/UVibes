@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { emailSchema } from "./commonUserchemas"; 
+import { emailSchema } from "./commonUserSchemas"; 
 
 export const resetPasswordSchema = z.object({
     email: emailSchema,

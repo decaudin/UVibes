@@ -13,5 +13,13 @@ export default {
     MESSAGE_SENT_SUCCESSFULLY: "Message sent successfully !",
     NETWORK_ERROR: "Network error. Please check your connection.",
     SERVER_UNEXPECTED_RESPONSE: "Server returned an unexpected response.",
-    RESET_LINK_SENT: "If that email is associated with an account, a link has been sent."
+    RESET_LINK_SENT: "If that email is associated with an account, a link has been sent.",
+    PASSWORDS_DO_NOT_MATCH: "Passwords do not match.",
+    PASSWORD_INVALID: "The password does not meet the security requirements.",
+    PASSWORD_RESET_SUCCESS: "Your password has been successfully reset.",
+    INVALID_OR_EXPIRED_TOKEN: "The reset token is invalid or has expired.",
+    HASHING_ERROR: "An error occurred while processing your password. Please try again.",
+    RESET_PASSWORD_TOKEN_ERROR: "An error occurred while resetting your password. Please try again.",
+    MISSING_TOKEN: "The reset link is missing.",
+    CHECK_RESET_TOKEN_ERROR: "An error occurred while checking the link. Please try again."
 } as const

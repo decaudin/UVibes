@@ -168,7 +168,8 @@ export default function SignInForm() {
                             wrapperClassName={wrapperStyles} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
                             ref={emailRef} {...emailRest}
                         />
-                        <PasswordInput 
+                        <PasswordInput
+                            name="password" label={t("label.password")} placeholder={t("authPlaceholders.password")}
                             register={register} autoComplete="current-password"
                             error={errors.password} onBlur={blurHandlers.password} wrapperClassName="mb-4"
                         />

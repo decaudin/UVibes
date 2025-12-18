@@ -19,6 +19,8 @@ export default {
         passwordTooShort: "Le mot de passe doit contenir au moins 8 caractères",
         passwordTooLong: "Le mot de passe doit contenir au maximum 64 caractères",
         passwordInvalid: "Le mot de passe doit contenir une majuscule, un chiffre et un caractère spécial",
+        tokenRequired: "Le token est requis",
+        passwordsDontMatch: "Les mots de passe ne correspondent pas",
         messageTooShort: "Le message doit contenir au moins 10 caractères",
         messageTooLong: "Le message est trop long",
         latitudeTooLow: "La latitude doit être ≥ -90",

@@ -19,6 +19,8 @@ export default {
         passwordTooShort: "Password must be at least 8 characters",
         passwordTooLong: "Password must be at most 64 characters",
         passwordInvalid: "Password must include an uppercase letter, a number, and a special character",
+        tokenRequired: "Token is required",
+        passwordsDontMatch: "Passwords don't match",
         messageTooShort: "Message must be at least 10 characters",
         messageTooLong: "Message is too long",
         latitudeTooLow: "Latitude must be ≥ -90",

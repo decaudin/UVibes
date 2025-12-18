@@ -126,6 +126,11 @@ export default {
             "description": "Reset your password to securely access your account. Enter your email to receive a password reset link.",
             "robots": "noindex, nofollow",
         },
+        "resetPasswordToken": {
+            "title": "Reset Your Password",
+            "description": "Set a new password for your UVibes account to secure your access.",
+            "robots": "noindex, nofollow"
+        },
         "notFound": {
             "title": "404 - Page Not Found",
             "description": "This page doesn't exist. Find UV index information, sun exposure tips, and UVibes tools on our homepage.",

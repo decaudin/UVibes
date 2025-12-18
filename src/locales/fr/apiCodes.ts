@@ -1,17 +1,25 @@
 export default {
     UNAUTHORIZED: "Vous devez être connecté.",
-    INVALID_TOKEN: "Votre session a expiré ou est invalide. Veuillez vous reconnecter.",
+    INVALID_TOKEN: "Votre session a expiré ou est invalide. Merci de vous reconnecter.",
     INVALID_SKIN_TYPE: "Valeur du type de peau invalide.",
     USER_NOT_FOUND: "Utilisateur introuvable.",
     INTERNAL_SERVER_ERROR: "Erreur interne du serveur.",
     UNEXPECTED_ERROR: "Une erreur inattendue est survenue.",
     UNKNOWN_ERROR: "Une erreur inconnue est survenue",
-    UV_QUOTA_EXCEEDED : "Limite quotidienne de recherche UV atteinte. Veuillez réessayer demain.",
+    UV_QUOTA_EXCEEDED : "Limite quotidienne de recherche UV atteinte. Merci de réessayer demain.",
     MISSING_FIELDS: "Tous les champs sont obligatoires.",
     RECEIVER_EMAIL_NOT_CONFIGURED: "L'adresse email du destinataire n'est pas configurée.",
     FAILED_TO_SEND_EMAIL: "Échec de l'envoi du message.",
     MESSAGE_SENT_SUCCESSFULLY: "Message envoyé avec succès !",
     NETWORK_ERROR: "Erreur réseau. Veuillez vérifier votre connexion.",
     SERVER_UNEXPECTED_RESPONSE: "Le serveur a renvoyé une réponse inattendue.",
-    RESET_LINK_SENT: "Si cet email est associé à un compte, un lien a été envoyé."
+    RESET_LINK_SENT: "Si cet email est associé à un compte, un lien a été envoyé.",
+    PASSWORDS_DO_NOT_MATCH: "Les mots de passe ne correspondent pas.",
+    PASSWORD_INVALID: "Le mot de passe ne respecte pas les règles de sécurité.",
+    PASSWORD_RESET_SUCCESS: "Votre mot de passe a été réinitialisé avec succès.",
+    INVALID_OR_EXPIRED_TOKEN: "Le lien de réinitialisation est invalide ou a expiré.",
+    HASHING_ERROR: "Une erreur est survenue lors du traitement de votre mot de passe. Merci de réessayer.",
+    RESET_PASSWORD_TOKEN_ERROR: "Une erreur est survenue lors de la réinitialisation de votre mot de passe. Merci de réessayer.",
+    MISSING_TOKEN: "Le lien de réinitialisation est manquant.",
+    CHECK_RESET_TOKEN_ERROR: "Une erreur est survenue lors de la vérification du lien. Merci de réessayer."
 } as const

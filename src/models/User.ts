@@ -6,11 +6,17 @@ interface RefreshToken {
     isRememberMe: boolean;
 }
 
+interface ResetPasswordToken {
+    token: string;
+    expiresAt: Date;
+}
+
 export interface IUser extends Document {
     name: string;
     email: string;
     password: string;
     refreshTokens: RefreshToken[];
+    resetPasswordTokens: ResetPasswordToken[];
     skinType?: number | null;
 }
 
@@ -35,6 +41,15 @@ const UserSchema: Schema = new Schema({
                 token: { type: String, required: true },
                 expiresAt: { type: Date, required: true },
                 isRememberMe: { type: Boolean, default: false }
+            }
+        ],
+        default: [],
+    },
+    resetPasswordTokens: {
+        type: [
+            {
+                token: { type: String, required: true, select: false },
+                expiresAt: { type: Date, required: true, select: false },
             }
         ],
         default: [],

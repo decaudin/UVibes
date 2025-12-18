@@ -113,6 +113,7 @@ export default function SignUpForm() {
                             ref={emailRef} {...emailRest}
                         />
                         <PasswordInput
+                            name="password" label={t("label.password")} placeholder={t("authPlaceholders.password")}
                             register={register} autoComplete="new-password"
                             error={errors.password}  onBlur={blurHandlers.password} wrapperClassName="mb-12"
                         />

@@ -22,10 +22,13 @@ export async function POST(req: NextRequest) {
         if (!user) return NextResponse.json({ code: "RESET_LINK_SENT" });
 
         const token = crypto.randomBytes(32).toString("hex");
+
+        const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
         const tokenExpiry = new Date(Date.now() + 1000 * 60 * 60);
 
-        user.resetPasswordToken = token;
-        user.resetPasswordExpires = tokenExpiry;
+        user.resetPasswordTokens.push({ token: hashedToken, expiresAt: tokenExpiry });
+
         await user.save();
 
         const resetLink = `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password/${token}`;

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { createIdentitySchema, emailSchema, passwordSchema } from './commonUserchemas';
+import { createIdentitySchema, emailSchema, passwordSchema } from './commonUserSchemas';
 
 export const signUpSchema = z.object({
     name: createIdentitySchema("name"),

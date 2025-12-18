@@ -126,6 +126,11 @@ export default {
             "description": "Réinitialisez votre mot de passe pour accéder à votre compte en toute sécurité. Entrez votre email pour recevoir un lien de réinitialisation.",
             "robots": "noindex, nofollow"
         },
+        "resetPasswordToken": {
+            "title": "Réinitialiser votre mot de passe",
+            "description": "Définissez un nouveau mot de passe pour votre compte UVibes et sécurisez votre accès.",
+            "robots": "noindex, nofollow"
+        },
         "notFound": {
             "title": "404 - Page non trouvée",
             "description": "Cette page n'existe pas. Retrouvez des informations sur l'indice UV, des conseils d'exposition au soleil et les outils UVibes sur notre page d'accueil.",

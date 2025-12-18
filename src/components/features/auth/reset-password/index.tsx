@@ -48,17 +48,17 @@ export default function ResetPasswordForm() {
             if (res.ok) {
                 toast.success(t(result.code), { className: "sonner-toast" });
             } else {
-                toast.error(t("resetPassword.errorMessage"));
+                toast.error(t("resetPassword.errorMessage"), { className: "sonner-toast" });
             }
         } catch {
-            toast.error(t("resetPassword.errorMessage"));
+            toast.error(t("resetPassword.errorMessage"), { className: "sonner-toast" });
         } finally {
             setIsLoading(false);
         }
     };
 
     return (
-        <FormWrapper title={t("resetPassword.title")} content={t("resetPassword.sendResetLink")}>
+        <FormWrapper title={t("resetPassword.title")} content={t("resetPassword.sendResetLink")} className="!mb-16">
             <form onSubmit={handleSubmit(onSubmit)} className="my-8">
                 <input type="hidden" value={locale} {...register("locale")} />
                 <Input  
@@ -67,7 +67,10 @@ export default function ResetPasswordForm() {
                     wrapperClassName={wrapperStyles} labelClassName="sr-only" inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
                     {...register("email")}
                 />
-                <SubmitButton isFormValid={isValid} isLoading={isLoading} className="mt-16 min-w-[261px] min-h-[32px]">{isLoading ? <ButtonSpinner /> : t("resetPassword.buttonText")}</SubmitButton>
+                <SubmitButton isFormValid={isValid} isLoading={isLoading} className="relative mt-16">
+                    <span className={isLoading ? "opacity-0" : "opacity-100"}>{t("resetPassword.buttonText")}</span>
+                    {isLoading && <span className="absolute inset-0 flex items-center justify-center"><ButtonSpinner /></span>}
+                </SubmitButton>
             </form>
         </FormWrapper>
     )

@@ -5,6 +5,7 @@ export default {
     signUpPrompt: "Already have an account ? ",
     label: {
         password: "Password",
+        confirmPassword: "Confirm Password",
         name: "Name",
         email: "E-mail",
         checkbox: "Remember me",
@@ -12,6 +13,7 @@ export default {
     authPlaceholders: {
         email: "Enter your email",
         password: "Enter your password",
+        confirmPassword: "Confirm your password",
         name: "Enter your name",
     },
     forgotPassword: "Forgot password?",
@@ -33,5 +35,10 @@ export default {
         sendResetLink: "Enter the email address associated with your account, and we'll send you a link to reset your password.",
         buttonText: "Send reset link",
         errorMessage: "An error occurred while sending the email. Please try again."
+    },
+    resetPasswordToken: {
+        title: "Set Your New Password",
+        submit: "Set new password",
+        errorMessage: "An error occurred while resetting your password. Please try again."
     }
 } as const
