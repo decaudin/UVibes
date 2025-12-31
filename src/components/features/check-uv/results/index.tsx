@@ -3,6 +3,7 @@ import type { UvApiResponse } from "@/types/UvApiResponse";
 import { useEffect, useState } from "react";
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from "next/navigation";
+import { useUvResultsStore } from "@/stores/uvResultsStore";
 import { useFetch } from "@/hooks/api/useFetch";
 import { formatTime } from "@/utils/functions/time/formatTime";
 import { convertUtcToLocal } from "@/utils/functions/time/convertUtcToLocal";
@@ -13,13 +14,12 @@ import Loader from "@/components/ui/animations/Loader";
 
 export default function UVResultsClient() {
 
-    const [uvData, setUvData] = useState<UvApiResponse | null>(null);
-    const [localTime, setLocalTime] = useState<string | null>(null);
-    const [timeZone, setTimeZone] = useState<string | null>(null);
-    const [filteredExposureTime, setFilteredExposureTime] = useState<number | undefined>(undefined);
+    const [fetchError, setFetchError] = useState<string | null>(null);    
 
     const t = useTranslations();
     const searchParams = useSearchParams();
+
+    const { uvData, localTime, timeZone, filteredExposureTime, setResults } = useUvResultsStore();
     const { fetchData, isLoading, error } = useFetch<UvApiResponse>();
 
     const mode = searchParams.get("mode");
@@ -29,40 +29,42 @@ export default function UVResultsClient() {
     const skinType = searchParams.get("skinType") ? Number(searchParams.get("skinType")) : undefined; 
 
     useEffect(() => {
-        const fetchAllData = async () => {
-            if (latitude == null || longitude == null) return;
+        if (uvData || latitude == null || longitude == null || mode == null) return;
 
+        const fetchAllData = async () => {
             try {
                 let apiUrl = `/api/uv?mode=${mode}&latitude=${latitude}&longitude=${longitude}`;
                 if (altitude != null) apiUrl += `&altitude=${altitude}`;
 
                 const data = await fetchData(apiUrl);
-                setUvData(data ?? null);
+                if (!data) return;
 
-                if (skinType && data?.result?.safe_exposure_time) {
-                    setFilteredExposureTime(data.result.safe_exposure_time[`st${skinType}`]);
-                }
+                const exposureTime = (skinType && data?.result?.safe_exposure_time) ? data.result.safe_exposure_time[`st${skinType}`] : undefined;
 
                 const timeZoneRes = await fetch(`/api/timezone?latitude=${latitude}&longitude=${longitude}`);
                 const timeZoneData = await timeZoneRes.json();
-                setLocalTime(timeZoneData.localTime ?? null);
-                setTimeZone(timeZoneData.timeZone ?? null);
 
-            } catch (err) {
-                console.error("Error : ", err);
+                setResults({
+                    uvData: data,
+                    localTime: timeZoneData.localTime ?? null,
+                    timeZone: timeZoneData.timeZone ?? null,
+                    filteredExposureTime: exposureTime,
+                });
+            } catch {
+                setFetchError(t("uvFetchError"))
             }
         };
 
         fetchAllData();
-    }, [fetchData, mode, latitude, longitude, altitude, skinType]);
+    }, [uvData, fetchData, latitude, longitude, altitude, skinType, mode, setResults, setFetchError, t]);
 
-    if (error) {
-        const message = error.code === "UV_QUOTA_EXCEEDED" ? t(error.code) : t("uvFetchError");
+    if (error || fetchError) {
+        const message = error?.code === "UV_QUOTA_EXCEEDED" ? t(error.code) : t("uvFetchError");
 
         return <p className="flex items-center text-center text-red-500 font-bold">{message}</p>;
     }
 
-    if (isLoading || !uvData || !localTime || !timeZone ) return <Loader />;
+    if (isLoading || !uvData || !localTime || !timeZone) return <Loader />;
 
     const formattedLocalTime = formatTime(localTime);
     const formattedMaxUvTime = formatTime(convertUtcToLocal(uvData.result.uv_max_time, timeZone));

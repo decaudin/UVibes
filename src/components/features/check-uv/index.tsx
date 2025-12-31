@@ -24,7 +24,7 @@ export default function CheckUVForm() {
         resolver: zodResolver(UvCheckSchema),
         mode: "onBlur",
         shouldFocusError: false,
-        shouldUnregister: true
+        shouldUnregister: false
     });
 
     const formValues = watch();

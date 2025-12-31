@@ -13,7 +13,7 @@ export default async function CheckUV() {
             <h1 className="text-4xl font-bold text-sky-700 text-center">
                 {t("checkUv.title")}
             </h1>
-            <p className="text-center text-gray-600 my-10">
+            <p className="text-center my-10">
                 {t("checkUv.subtitle")}
             </p>
             <CheckUVForm />

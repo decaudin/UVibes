@@ -16,10 +16,12 @@ interface ToggleFormProps {
 
 export default function ToggleForm({ register, setValue, errors, getZodErrorMessage, t }: ToggleFormProps) {
     
-    const [mode, setMode] = useState<"coords" | "city">("coords");
+    const storedMode = typeof window !== "undefined" ? localStorage.getItem("uvMode") as "coords" | "city" : null;
+    const [mode, setMode] = useState<"coords" | "city">(storedMode ?? "coords");
 
     useEffect(() => {
         setValue("mode", mode);
+        localStorage.setItem("uvMode", mode);
     }, [mode, setValue]);
 
     return (

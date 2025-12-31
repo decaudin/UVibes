@@ -14,7 +14,8 @@ interface ResetPasswordToken {
 export interface IUser extends Document {
     name: string;
     email: string;
-    password: string;
+    password?: string;
+    isOAuth: boolean;
     refreshTokens: RefreshToken[];
     resetPasswordTokens: ResetPasswordToken[];
     skinType?: number | null;
@@ -32,8 +33,12 @@ const UserSchema: Schema = new Schema({
     },
     password: {
         type: String,
-        required: true,
+        required: function (this: IUser) { return !this.isOAuth },
         select: false,
+    },
+    isOAuth: { 
+        type: Boolean, 
+        default: false 
     },
     refreshTokens: {
         type: [

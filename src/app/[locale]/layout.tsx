@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "@/context/theme";
 import SessionGate from "@/components/ui/SessionGate";
 import { Toaster } from "sonner";
+import LocaleSync from "@/components/ui/LocaleSync";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
 import "@/styles/globals.scss";
@@ -62,6 +63,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
                 <ThemeProvider>
                     <SessionGate>                       
                         <NextIntlClientProvider locale={locale}>
+                            <LocaleSync locale={locale as "fr" | "en"} />
                             <Header />
                             <main className="flex-grow flex justify-center">
                                 <Toaster richColors position="top-right" closeButton />
@@ -76,7 +78,6 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     )
 }
 
-// 1 - Voir pour les boutons radios pour pouvoir en sélectionner plusieurs (?)
-// 2 - SEO/UX: Urls en EN/FR (Hreflang, Canonicalisation .. ?), siteMap ?
-// 3 - Faire un store pour conserver état quand changement de langue (inputs, toggle, theme, results ..)
-// 4 - Modifier StaggeredFadeIn pour pas wrapper à chaque fois l'élément dans une div pour alléger le DOM ? (et mettre ces divs directement dans le JSX via motion.div)
+// 1 - SEO/UX: Urls en EN/FR (Hreflang, Canonicalisation .. ?), siteMap ?
+// 2 - Faire un store pour conserver état quand changement de langue (inputs)
+// 3 - Modifier StaggeredFadeIn pour pas wrapper à chaque fois l'élément dans une div pour alléger le DOM ? (et mettre ces divs directement dans le JSX via motion.div)

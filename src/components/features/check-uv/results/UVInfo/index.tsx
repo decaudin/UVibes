@@ -5,7 +5,6 @@ import { roundToHundredths } from "@/utils/functions/uv/roundToHundredths";
 import SafeExposureDuration from "./SafeExposureDuration";
 import StaggeredFadeIn from "@/components/ui/animations/StaggeredFadeIn";
 
-
 interface UVInfoProps {
     uvMessage: string;
     uvImage: JSX.Element;
@@ -28,7 +27,7 @@ export default function UVInfo({ uvMessage, uvImage, uvData, localTime, maxUvTim
                     {uvImage}
                 </div>
             </div>
-            <StaggeredFadeIn className="mt-16 p-6 bg-white shadow-md rounded-lg text-center">
+            <StaggeredFadeIn className="mt-16 p-6 text-black bg-white shadow-md rounded-lg text-center">
                 <p className="mt-4 mb-6">{t("uvInfo.currentUvIndex")}<strong>{roundToHundredths(uvData.result.uv)}</strong> ({localTime})</p>
                 <p>{t("uvInfo.maxUvIndexOfDay")}<strong>{roundToHundredths(uvData.result.uv_max)}</strong> ({maxUvTime})</p>
                 <SafeExposureDuration

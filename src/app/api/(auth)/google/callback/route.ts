@@ -51,7 +51,7 @@ export async function GET(req: NextRequest) {
         let user = await User.findOne({ email });
 
         if (!user) {
-            user = await User.create({ email, name });
+            user = await User.create({ email, name, isOAuth: true });
         } else {
             user.name = name;
             await user.save();

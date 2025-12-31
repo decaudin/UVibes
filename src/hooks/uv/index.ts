@@ -1,10 +1,13 @@
 import { useRouter } from "next/navigation";
+import { useUvResultsStore } from "@/stores/uvResultsStore";
 import { FormDataWithCity } from "@/schemas/uvCheckSchema";
 
 export const useRedirectToUvResults = () => {
     const router = useRouter();
+    const { reset } = useUvResultsStore();
 
     return (data: FormDataWithCity & { locale: string }) => {
+        reset();
         const latitude = data.mode === "coords" ? data.latitude : data.cityLatitude;
         const longitude = data.mode === "coords" ? data.longitude : data.cityLongitude;
         const altitude = data.mode === "coords" ? data.altitude : undefined;
