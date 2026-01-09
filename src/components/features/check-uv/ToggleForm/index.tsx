@@ -1,5 +1,6 @@
 "use client"
 import type { FormDataWithCity } from "@/schemas/uvCheckSchema";
+import type { City } from "@/types/city";
 import { useState, useEffect } from "react";
 import ToggleButtons from "@/components/ui/ToggleButtons";
 import CoordsForm from "@/components/features/check-uv/ToggleForm/CoordsForm";
@@ -11,10 +12,13 @@ interface ToggleFormProps {
     setValue: UseFormSetValue<FormDataWithCity>;
     errors: FieldErrors<FormDataWithCity>;
     getZodErrorMessage: (error?: FieldError) => string | undefined;
+    onCitySelectChange: (selectedCity: City | null) => void;
     t: (key: string) => string;
 }
 
-export default function ToggleForm({ register, setValue, errors, getZodErrorMessage, t }: ToggleFormProps) {
+export default function ToggleForm({ register, setValue, errors, getZodErrorMessage, onCitySelectChange, t }: ToggleFormProps) {
+
+    const [cityState, setCityState] = useState<{ query: string; selectedCity: City | null }>({ query: "", selectedCity: null});
     
     const storedMode = typeof window !== "undefined" ? localStorage.getItem("uvMode") as "coords" | "city" : null;
     const [mode, setMode] = useState<"coords" | "city">(storedMode ?? "coords");
@@ -23,6 +27,10 @@ export default function ToggleForm({ register, setValue, errors, getZodErrorMess
         setValue("mode", mode);
         localStorage.setItem("uvMode", mode);
     }, [mode, setValue]);
+
+    useEffect(() => {
+        onCitySelectChange?.(cityState.selectedCity);
+    }, [onCitySelectChange, cityState.selectedCity]);
 
     return (
         <div className="w-full flex flex-col items-center mb-6">
@@ -53,6 +61,8 @@ export default function ToggleForm({ register, setValue, errors, getZodErrorMess
                     errors={errors}
                     getZodErrorMessage={getZodErrorMessage}
                     t={t}
+                    cityState={cityState}
+                    setCityState={setCityState}
                 />
             )}
         </div>

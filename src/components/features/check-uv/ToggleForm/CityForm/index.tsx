@@ -3,6 +3,7 @@ import type { FormDataWithCity } from "@/schemas/uvCheckSchema";
 import type { City } from "@/types/city";
 import { useState, useEffect, useRef } from "react";
 import { UseFormSetValue, UseFormRegister, FieldErrors, FieldError } from "react-hook-form";
+import { useUvCheckStore } from '@/stores/forms/uvCheckStore'
 import { useFetch } from "@/hooks/api/useFetch";
 import { Input } from "@/components/ui/Input";
 
@@ -12,18 +13,22 @@ interface CityFormProps {
     errors: FieldErrors<FormDataWithCity>;
     getZodErrorMessage: (error?: FieldError) => string | undefined;
     t: (key: string) => string;
+    cityState: { query: string; selectedCity: City | null};
+    setCityState: React.Dispatch<React.SetStateAction<{ query: string; selectedCity: City | null }>>;
 }
 
 const wrapperCityStyles = "mt-2 mb-10 text-center";
 const inputCityStyles = "w-60 xxs:w-80 h-10 rounded-lg shadow pl-14 pr-8";
 const errorMessageCityStyles = "text-sm text-red-500 w-60 mt-2 xxs:w-80";
 
-export default function CityForm({ register, setValue, errors, getZodErrorMessage, t }: CityFormProps) {
+export default function CityForm({ register, setValue, errors, getZodErrorMessage, t, cityState, setCityState }: CityFormProps) {
 
     const [isOpen, setIsOpen] = useState(false);
-    const [query, setQuery] = useState("");
     const [suggestions, setSuggestions] = useState<City[]>([]);
-    const [selectedCity, setSelectedCity] = useState<City | null>(null);
+
+    const { query, selectedCity } = cityState;
+
+    const setField = useUvCheckStore(state => state.setField);
 
     const containerRef = useRef<HTMLDivElement>(null);
     
@@ -63,29 +68,58 @@ export default function CityForm({ register, setValue, errors, getZodErrorMessag
     }, []);
 
     const handleSelect = (city: City) => {
-        setQuery(city.name);
-        setSelectedCity(city);
+        setCityState({ query: city.name, selectedCity: city });
         setSuggestions([]);
         setValue("city", city.name);
         setValue("cityLatitude", city.latitude);
         setValue("cityLongitude", city.longitude);
+        setField("cityQuery", city.name);
+        setField("citySelected", city);
         setIsOpen(false);
     };
 
     const handleCityInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const text = e.target.value;
 
-        setQuery(text);
+        setCityState(prev => ({
+            query: text,
+            selectedCity: prev.selectedCity && text !== prev.selectedCity.name ? null : prev.selectedCity
+        }));
+
+        setField("cityQuery", text);
 
         if (selectedCity && text !== selectedCity.name) {
-            setSelectedCity(null);
             setValue("city", "");
             // Invalidate latitude/longitude on city change.
             // TS expects number, so we safely cast via unknown.
             setValue("cityLatitude", undefined as unknown as number);
             setValue("cityLongitude", undefined as unknown as number);
+
+            setField("citySelected", null);
         }
     };
+
+    const cityQuery = useUvCheckStore(state => state.cityQuery);
+    const citySelectedFromStore = useUvCheckStore(state => state.citySelected);
+    
+    useEffect(() => {
+        if (cityQuery) setCityState(prev => ({ ...prev, query: cityQuery }));
+    }, [cityQuery, setCityState]);
+
+    useEffect(() => {
+        if (!citySelectedFromStore) return;
+
+        setCityState({
+            query: citySelectedFromStore.name,
+            selectedCity: citySelectedFromStore,
+        });
+
+        setValue("city", citySelectedFromStore.name, { shouldValidate: false });
+        setValue("cityLatitude", citySelectedFromStore.latitude, { shouldValidate: false });
+        setValue("cityLongitude", citySelectedFromStore.longitude, { shouldValidate: false });
+
+        setIsOpen(false);
+    }, [citySelectedFromStore, setCityState, setValue]);
 
     return (
         <div ref={containerRef} className="relative w-80">

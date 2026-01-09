@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocale } from "@/hooks/locales";
 import { useZodErrorMessage } from "@/hooks/zod";
+import { useSignUpStore } from "@/stores/forms/signUpStore";
+import { useResetOnPageLeave } from "@/hooks/lifecycle";
 import { SignUpFormData, signUpSchema } from "@/schemas/authSchema";
 import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";
 import { handleEmailTrimOnBlur } from "@/utils/functions/input/handleEmailTrimOnBlur";
@@ -28,11 +30,15 @@ export default function SignUpForm() {
     const { locale } = useLocale();
     
     const getZodErrorMessage = useZodErrorMessage();
+
+    const { name, email, password, setName, setEmail, setPassword, reset } = useSignUpStore();
+    useResetOnPageLeave(reset);
     
     const { register, setValue, handleSubmit, formState: { errors }, setError, watch } = useForm<SignUpFormData>({
         resolver: zodResolver(signUpSchema),
         mode: "onBlur",
         shouldFocusError: false,
+        defaultValues: { name, email, password }
     });
 
     const blurHandlers = createBlurHandlers<SignUpFormData>({
@@ -42,6 +48,12 @@ export default function SignUpForm() {
     });
 
     const formValues = watch();
+
+    useEffect(() => {
+        if (formValues.name !== name) setName(formValues.name ?? "");
+        if (formValues.email !== email) setEmail(formValues.email ?? "");
+        if (formValues.password !== password) setPassword(formValues.password ?? "");
+    }, [formValues.name, formValues.email, formValues.password, name, email, password, setName, setEmail, setPassword]);
 
     const isValid = !!(
         formValues.name &&

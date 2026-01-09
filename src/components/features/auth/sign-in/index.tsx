@@ -8,8 +8,10 @@ import { useForm } from "react-hook-form";
 import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocale } from "@/hooks/locales";
-import { useUserStore } from '@/stores/userStore';
 import { useZodErrorMessage } from "@/hooks/zod";
+import { useUserStore } from '@/stores/userStore';
+import { useSignInStore } from "@/stores/forms/signInStore";
+import { useResetOnPageLeave } from "@/hooks/lifecycle";
 import { SignInFormData, signInSchema } from "@/schemas/authSchema";
 import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";
 import { handleEmailTrimOnBlur } from "@/utils/functions/input/handleEmailTrimOnBlur";
@@ -30,16 +32,20 @@ export default function SignInForm() {
 
     const { locale } = useLocale();
 
+    const getZodErrorMessage = useZodErrorMessage();
+
     const setUser = useUserStore(state => state.setUser);
     const clearPoints = useUserStore(state => state.clearPoints);
     const addPoints = useUserStore(state => state.addPoints);
 
-    const getZodErrorMessage = useZodErrorMessage();
+    const { email, password, isRememberMe, setEmail, setPassword, setIsRememberMe, reset } = useSignInStore();
+    useResetOnPageLeave(reset);
     
     const { register, setValue, handleSubmit, formState: { errors }, setError, watch } = useForm<SignInFormData>({
         resolver: zodResolver(signInSchema),
         mode: "onBlur",
         shouldFocusError: false,
+        defaultValues: { email, password, isRememberMe }
     });
 
     const blurHandlers = createBlurHandlers<SignInFormData>({
@@ -49,6 +55,12 @@ export default function SignInForm() {
     });
 
     const formValues = watch();
+
+    useEffect(() => {
+            if (formValues.email !== email) setEmail(formValues.email ?? "");
+            if (formValues.password !== password) setPassword(formValues.password ?? "");
+            if (formValues.isRememberMe !== isRememberMe) setIsRememberMe(formValues.isRememberMe ?? false);
+    }, [formValues.email, formValues.password, formValues.isRememberMe, email, password, isRememberMe, setEmail, setPassword, setIsRememberMe]);
 
     const isValid = !!(
         formValues.email &&

@@ -14,7 +14,7 @@ interface ThemeProviderProps {
     children: ReactNode;
 }
 
-export const ThemeProvider = ({ children }: ThemeProviderProps) => {
+export function ThemeProvider ({ children }: ThemeProviderProps) {
 
     const [theme, setTheme] = useState<Theme>(() => {
         if (typeof window !== "undefined") {

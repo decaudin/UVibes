@@ -7,6 +7,8 @@ import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from 'sonner';
+import { useResetPasswordTokenStore } from "@/stores/forms/resetPasswordTokenStore";
+import { useResetOnPageLeave } from "@/hooks/lifecycle";
 import { resetPasswordFormSchema } from "@/schemas/resetPasswordFormSchema";
 import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";
 import FormWrapper from "@/components/ui/auth/FormWrapper";
@@ -23,6 +25,29 @@ export default function ResetPasswordTokenForm() {
     const t = useTranslations();
     const params = useParams();
     const token = params.token;
+
+    const { password, confirmPassword, setPassword, setConfirmPassword, reset } = useResetPasswordTokenStore();
+    useResetOnPageLeave(reset);
+
+    const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm<ResetPasswordFormSchema>({
+        resolver: zodResolver(resetPasswordFormSchema),
+        mode: "onBlur",
+        shouldFocusError: false,
+        defaultValues: { password, confirmPassword }
+    });
+
+    const formValues = watch();
+
+    const blurHandlers = createBlurHandlers<ResetPasswordFormSchema>({
+        fieldNames: ["password", "confirmPassword"],
+        watch,
+        setValue,
+    });
+
+    useEffect(() => {
+        if (formValues.password !== password) setPassword(formValues.password ?? "");
+        if (formValues.confirmPassword !== confirmPassword) setConfirmPassword(formValues.confirmPassword ?? "");
+    }, [formValues.password, formValues.confirmPassword, password, confirmPassword, setPassword, setConfirmPassword]);
 
     useEffect(() => {
         const checkToken = async () => {
@@ -52,21 +77,7 @@ export default function ResetPasswordTokenForm() {
 
         checkToken();
     }, [token, router, t]);
-
-    const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm<ResetPasswordFormSchema>({
-        resolver: zodResolver(resetPasswordFormSchema),
-        mode: "onBlur",
-        shouldFocusError: false,
-    });
-
-    const blurHandlers = createBlurHandlers<ResetPasswordFormSchema>({
-        fieldNames: ["password", "confirmPassword"],
-        watch,
-        setValue,
-    });
-
-    const formValues = watch();
-
+    
     const isValid = !!(
         formValues.password &&
         formValues.confirmPassword &&

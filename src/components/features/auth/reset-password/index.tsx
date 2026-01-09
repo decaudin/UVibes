@@ -1,12 +1,15 @@
 "use client"
+import type { SubmitHandler } from "react-hook-form";
 import type { ResetPasswordSchema } from "@/schemas/resetPasswordSchema";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from 'sonner';
-import { resetPasswordSchema } from "@/schemas/resetPasswordSchema";
 import { useZodErrorMessage } from "@/hooks/zod";
+import { useResetPasswordStore } from "@/stores/forms/resetPasswordStore";
+import { useResetOnPageLeave } from "@/hooks/lifecycle";
+import { resetPasswordSchema } from "@/schemas/resetPasswordSchema";
 import FormWrapper from "@/components/ui/auth/FormWrapper";
 import { Input } from "@/components/ui/Input";
 import SubmitButton from "@/components/ui/SubmitButton";
@@ -20,20 +23,28 @@ export default function ResetPasswordForm() {
     const t = useTranslations();
 
     const locale = useLocale();
-    
+
     const getZodErrorMessage = useZodErrorMessage();
+
+    const { email, setEmail, reset } = useResetPasswordStore();
+    useResetOnPageLeave(reset);
 
     const { register, handleSubmit, formState: { errors }, watch } = useForm<ResetPasswordSchema>({
         resolver: zodResolver(resetPasswordSchema),
         mode: "onBlur",
         shouldFocusError: false,
+        defaultValues: { email }
     });
 
     const formValues = watch();
 
+    useEffect(() => {
+        if (formValues.email !== email) setEmail(formValues.email ?? "");
+    }, [formValues.email, email, setEmail]);
+
     const isValid = !!(formValues.email && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(formValues.email));
 
-    const onSubmit = async (data: ResetPasswordSchema) => {
+    const onSubmit: SubmitHandler<ResetPasswordSchema> = async (data) => {
         setIsLoading(true);
 
         try {
@@ -46,6 +57,7 @@ export default function ResetPasswordForm() {
             const result = await res.json();
 
             if (res.ok) {
+                reset();
                 toast.success(t(result.code), { className: "sonner-toast" });
             } else {
                 toast.error(t("resetPassword.errorMessage"), { className: "sonner-toast" });

@@ -1,11 +1,13 @@
 "use client"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from 'next-intl';
 import { useForm } from "react-hook-form";
 import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useZodErrorMessage } from "@/hooks/zod";
 import { usePost } from "@/hooks/api/usePost";
+import { useContactStore } from "@/stores/forms/contactStore";
+import { useResetOnPageLeave } from "@/hooks/lifecycle";
 import { ContactFormData, contactSchema } from "@/schemas/contactSchema";
 import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";
 import { handleEmailTrimOnBlur } from "@/utils/functions/input/handleEmailTrimOnBlur";
@@ -26,10 +28,14 @@ export default function ContactForm() {
 
     const { postData } = usePost();
 
+    const { firstName, lastName, email, message, setFirstName, setLastName, setEmail, setMessage, reset: resetStore } = useContactStore();
+    useResetOnPageLeave(resetStore);
+
     const { register, setValue, handleSubmit, formState: { errors }, watch, reset } = useForm<ContactFormData>({
         resolver: zodResolver(contactSchema),
         mode: "onBlur",
         shouldFocusError: false,
+        defaultValues: { firstName, lastName, email, message }
     });
 
     const blurHandlers = createBlurHandlers<ContactFormData>({
@@ -39,6 +45,13 @@ export default function ContactForm() {
     });
 
     const formValues = watch();
+
+    useEffect(() => {
+        if (formValues.firstName !== firstName) setFirstName(formValues.firstName ?? "");
+        if (formValues.lastName !== lastName) setLastName(formValues.lastName ?? "");
+        if (formValues.email !== email) setEmail(formValues.email ?? "");
+        if (formValues.message !== message) setMessage(formValues.message ?? "");
+    }, [formValues.firstName, formValues.lastName, formValues.email, formValues.message, firstName, lastName, email, message, setFirstName, setLastName, setEmail, setMessage]);
 
     const validateName = (name: string) => typeof name === "string" && name.trim().length >= 2;
 
@@ -59,7 +72,8 @@ export default function ContactForm() {
         try {
             await postData("/api/contact", formData);
             toast.success(t("MESSAGE_SENT_SUCCESSFULLY"), { className: "sonner-toast" });
-            reset();
+            reset({ firstName: "", lastName: "", email: "", message: "" });
+            resetStore();
         } catch (error: unknown) {
             if (error instanceof Error) {
                 const messageKey = typeof error.message === "string" ? error.message : "";

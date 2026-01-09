@@ -4,7 +4,7 @@ import type { LocaleLayoutProps } from "@/types/localeLayoutProps";
 import { getTranslations } from "next-intl/server";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { ThemeProvider } from "@/context/theme";
+import { ThemeProvider } from "@/contexts/themeContext";
 import SessionGate from "@/components/ui/SessionGate";
 import { Toaster } from "sonner";
 import LocaleSync from "@/components/ui/LocaleSync";
@@ -79,5 +79,4 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
 }
 
 // 1 - SEO/UX: Urls en EN/FR (Hreflang, Canonicalisation .. ?), siteMap ?
-// 2 - Faire un store pour conserver état quand changement de langue (inputs)
-// 3 - Modifier StaggeredFadeIn pour pas wrapper à chaque fois l'élément dans une div pour alléger le DOM ? (et mettre ces divs directement dans le JSX via motion.div)
+// 2 - Modifier StaggeredFadeIn pour pas wrapper à chaque fois l'élément dans une div pour alléger le DOM ? (et mettre ces divs directement dans le JSX via motion.div)
