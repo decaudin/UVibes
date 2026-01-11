@@ -30,7 +30,7 @@ export default async function GuideCard({ slug, image, locale }: GuideCardProps)
                     href={`/${locale}/about/guides/${slug}`}
                     className="inline-block text-blue-600 hover:font-bold hover:underline font-medium cursor-pointer"
                 >
-                    {t("card.Link")}→
+                    {t("card.link")}→
                 </Link>
             </div>
         </div>

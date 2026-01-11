@@ -11,8 +11,8 @@ export default async function ArticleLayout({ children, params }: LocaleLayoutPr
     return (
         <div className="max-w-3xl mx-auto py-10">
             {children}
-            <Link href={`/${locale}/about/guides`} className="flex justify-center my-4 text-blue-600 hover:underline">
-                ← {t("aboutBackLink")}
+            <Link href={`/${locale}/about/guides`} className="flex justify-center my-4 text-blue-600 hover:underline hover:font-bold">
+                ← {t("about.backLink")}
             </Link>
         </div>
     )

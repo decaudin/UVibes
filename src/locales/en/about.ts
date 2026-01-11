@@ -1,13 +1,16 @@
 export default {
-    aboutDescription: "This non-profit website provides UV data (via the open-source API <openuvLink>OpenUV</openuvLink>) for the geographic area of your choice. You can access UV information in two ways :",
-    aboutDescriptionCoords: "<strong>By coordinates :</strong> enter the latitude and longitude (in decimal degrees), as well as the altitude (optional, in meters). You can easily find your coordinates on <gpsLink>Latlong</gpsLink> and check your altitude using <elevationLink>FreeMapTools</elevationLink>.",
-    aboutDescriptionCity: "<strong>By city :</strong> Start typing the name of a city (at least 3 letters), refine if needed, then select it from the list - the coordinates will be retrieved automatically.",
-    aboutCheckUvLink: "Check UV",
-    aboutGuidesLink: "Guides & Tips",
-    aboutGuidesTitle: "Shine Smart : UV Protection Guides",
-    aboutBackLink: "Back to Guides & Tips List",
+    about: {
+        description: "This non-profit website provides UV data (via the open-source API <openuvLink>OpenUV</openuvLink>) for the geographic area of your choice. You can access UV information in two ways :",
+        descriptionCoords: "<strong>By coordinates :</strong> enter the latitude and longitude (in decimal degrees), as well as the altitude (optional, in meters). You can easily find your coordinates on <gpsLink>Latlong</gpsLink> and check your altitude using <elevationLink>FreeMapTools</elevationLink>.",
+        descriptionCity: "<strong>By city :</strong> Start typing the name of a city (at least 3 letters), refine if needed, then select it from the list - the coordinates will be retrieved automatically.",
+        descriptionAccount: "You can also create your account to save your favorite locations. Once signed in, you'll be able to access the UV data for these locations without having to re-enter the coordinates each time.",
+        checkUvLink: "Check UV",
+        guidesLink: "Guides & Tips",
+        guidesTitle: "Shine Smart : UV Protection Guides",
+        backLink: "Back to Guides & Tips List",
+    },
     card: {
-        Link: "Read more ",
+        link: "Read more ",
         understand: {
             title: "Understanding the UV Index",
             description: "Discover what the UV Index measures, how it's categorized, and why it's essential for sun safety.",

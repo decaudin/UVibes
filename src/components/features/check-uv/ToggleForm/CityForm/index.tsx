@@ -23,14 +23,16 @@ const errorMessageCityStyles = "text-sm text-red-500 w-60 mt-2 xxs:w-80";
 
 export default function CityForm({ register, setValue, errors, getZodErrorMessage, t, cityState, setCityState }: CityFormProps) {
 
+    const { query, selectedCity } = cityState;
+
     const [isOpen, setIsOpen] = useState(false);
     const [suggestions, setSuggestions] = useState<City[]>([]);
 
-    const { query, selectedCity } = cityState;
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const setField = useUvCheckStore(state => state.setField);
-
-    const containerRef = useRef<HTMLDivElement>(null);
+    const cityQuery = useUvCheckStore(state => state.cityQuery);
+    const citySelectedFromStore = useUvCheckStore(state => state.citySelected);
     
     const { fetchData } = useFetch<{ cities: City[] }>();
 
@@ -98,9 +100,6 @@ export default function CityForm({ register, setValue, errors, getZodErrorMessag
             setField("citySelected", null);
         }
     };
-
-    const cityQuery = useUvCheckStore(state => state.cityQuery);
-    const citySelectedFromStore = useUvCheckStore(state => state.citySelected);
     
     useEffect(() => {
         if (cityQuery) setCityState(prev => ({ ...prev, query: cityQuery }));

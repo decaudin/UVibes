@@ -1,13 +1,16 @@
 export default {
-    aboutDescription: "Ce site web à but non lucratif fournit des données UV (via l'API open source <openuvLink>OpenUV</openuvLink>) pour la zone géographique de votre choix. Vous pouvez accéder aux informations UV de deux manières :",
-    aboutDescriptionCoords: "<strong>Par coordonnées :</strong> saisissez la latitude et la longitude (en degrés décimaux), ainsi que l'altitude (facultative, en mètres). Vous pouvez facilement trouver vos coordonnées sur <gpsLink>Coordonnées GPS</gpsLink> et vérifier votre altitude à l'aide de <elevationLink>FreeMapTools</elevationLink>.",
-    aboutDescriptionCity: "<strong>Par ville :</strong> Commencez à taper le nom d'une ville (au moins 3 lettres), affinez si besoin, puis choisissez-la dans la liste - les coordonnées seront récupérées automatiquement.",
-    aboutCheckUvLink: "Consulter l'indice UV",
-    aboutGuidesLink: "Guides & Conseils",
-    aboutGuidesTitle: "Brillez intelligemment : Guides de protection UV",
-    aboutBackLink: "Revenir à la liste des guides & conseils",
+    about: {
+        description: "Ce site web à but non lucratif fournit des données UV (via l'API open source <openuvLink>OpenUV</openuvLink>) pour la zone géographique de votre choix. Vous pouvez accéder aux informations UV de deux manières :",
+        descriptionCoords: "<strong>Par coordonnées :</strong> saisissez la latitude et la longitude (en degrés décimaux), ainsi que l'altitude (facultative, en mètres). Vous pouvez facilement trouver vos coordonnées sur <gpsLink>Coordonnées GPS</gpsLink> et vérifier votre altitude à l'aide de <elevationLink>FreeMapTools</elevationLink>.",
+        descriptionCity: "<strong>Par ville :</strong> Commencez à taper le nom d'une ville (au moins 3 lettres), affinez si besoin, puis choisissez-la dans la liste - les coordonnées seront récupérées automatiquement.",
+        descriptionAccount: "Vous pouvez également créer votre compte pour enregistrer vos localisations favorites. Une fois connecté, vous pourrez accéder aux données UV de ces emplacements sans avoir à ressaisir les coordonnées à chaque fois.",
+        checkUvLink: "Consulter l'indice UV",
+        guidesLink: "Guides & Conseils",
+        guidesTitle: "Brillez intelligemment : Guides de protection UV",
+        backLink: "Revenir à la liste des guides & conseils",
+    },
     card: {
-        Link: "En savoir plus ",
+        link: "En savoir plus ",
         understand: {
             title: "Comprendre l'indice UV",
             description: "Découvrez ce que mesure l'indice UV, comment il est catégorisé, et pourquoi il est essentiel pour votre sécurité au soleil.",
