@@ -79,4 +79,3 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
 }
 
 // 1 - SEO/UX: Urls en EN/FR (Hreflang, Canonicalisation .. ?), siteMap ?
-// 2 - Modifier StaggeredFadeIn pour pas wrapper à chaque fois l'élément dans une div pour alléger le DOM ? (et mettre ces divs directement dans le JSX via motion.div)

@@ -1,13 +1,11 @@
-<p align="center">
-    <span style="display: inline-flex; align-items: center;">
-        <img src="/favicon.ico" alt="UVibes logo" width="32" style="margin-right: 8px;" />
-        <strong>UVibes</strong>
-    </span>
-</p>
+<h1 align="center">
+    <img src="readme-images/logo.png" alt="UVibes logo" width="48" style="vertical-align: middle; margin-right: 8px;" />
+    UVibes
+</h1>
 
 ### Accédez facilement aux données UV pour n’importe quelle localisation et protégez-vous efficacement du soleil.
 
-UVibes est un site web non lucratif qui fournit des données UV via l’API open-source [OpenUV](https://www.openuv.io/).  
+UVibes est un site web non lucratif qui fournit des données UV via l’API open-source <a href="https://www.openuv.io/" target="_blank" rel="noopener noreferrer">OpenUV</a>.  
 Vous pouvez consulter les informations UV par coordonnées GPS ou par ville, et créer un compte pour enregistrer vos localisations favorites afin d’y accéder facilement sans ressaisir les coordonnées.
 
 ---
@@ -16,11 +14,9 @@ Vous pouvez consulter les informations UV par coordonnées GPS ou par ville, et 
 
 Ci-dessous, un aperçu du fonctionnement de UVibes : saisie d’une ville et consultation des résultats UV.
 
-<p align="center">
-  <img src="/screenshots/uv-cityform.png" alt="UVibes – Recherche UV par ville" width="800"/>
-  <br>
-  <img src="/screenshots/uv-results.png" alt="UVibes – Résultats UV" width="800"/>
-</p>
+![UVibes – Recherche UV par ville](readme-images/uv-cityform.png)
+
+![UVibes – Résultats UV](readme-images/uv-results.png)
 
 ---
 
@@ -49,4 +45,4 @@ Le projet utilise également plusieurs APIs secondaires pour améliorer l’exp�
 
 ## Voir le projet
 
-Vous pouvez accéder à UVibes en ligne ici : [UVibes](https://u-vibes.vercel.app/)
+Vous pouvez accéder à UVibes en ligne ici : <a href="https://u-vibes.vercel.app/" target="_blank" rel="noopener noreferrer">UVibes</a>
