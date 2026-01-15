@@ -35,11 +35,11 @@ export async function POST(req: NextRequest) {
 
         if (!user) return NextResponse.json({ code: "INVALID_OR_EXPIRED_TOKEN" }, { status: 400 });
 
-        const tokenIndex = user.resetPasswordTokens.findIndex(t => t.token === hashedToken && t.expiresAt.getTime() > Date.now());
+        const isTokenValid = user.resetPasswordTokens.some(t => t.token === hashedToken && t.expiresAt.getTime() > Date.now());
 
-        if (tokenIndex === -1) return NextResponse.json({ code: "INVALID_OR_EXPIRED_TOKEN" }, { status: 400 });
+        if (!isTokenValid) return NextResponse.json({ code: "INVALID_OR_EXPIRED_TOKEN" }, { status: 400 });
 
-        user.resetPasswordTokens.splice(tokenIndex, 1);
+        user.resetPasswordTokens = user.resetPasswordTokens.filter(t => t.token !== hashedToken && t.expiresAt.getTime() > Date.now());
 
         try {
             user.password = await bcrypt.hash(password, 10);
@@ -47,6 +47,8 @@ export async function POST(req: NextRequest) {
             console.error("[HASHING_ERROR]", hashError);
             return NextResponse.json({ code: "HASHING_ERROR" }, { status: 500 });
         }
+
+        user.refreshTokens = [];
 
         await user.save();
 

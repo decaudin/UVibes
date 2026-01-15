@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import crypto from "crypto";
 import { connectToDatabase } from "@/lib/mongodb";
 import User from "@/models/User";
 
@@ -10,9 +11,10 @@ export async function POST(req: NextRequest) {
         const refreshToken = req.cookies.get("refreshToken")?.value;
 
         if (refreshToken) {
+            const hashedRefreshToken = crypto.createHash("sha256").update(refreshToken).digest("hex");
             await User.updateOne(
-                { "refreshTokens.token": refreshToken },
-                { $pull: { refreshTokens: { token: refreshToken } } }
+                { "refreshTokens.token": hashedRefreshToken },
+                { $pull: { refreshTokens: { token: hashedRefreshToken } } }
             )
         }
 

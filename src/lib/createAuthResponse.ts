@@ -11,11 +11,12 @@ export const createAuthResponse = async (user: IUser, isRememberMe = false, isPo
     const jwtExpiry = isRememberMe ? 60 * 60 * 24 * 7 : 60 * 60;
     const cookieMaxAge = isRememberMe ? 60 * 60 * 24 * 30 : 60 * 60 * 24 * 7;
     
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: jwtExpiry });
+    const accessToken = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: jwtExpiry });
     const refreshToken = crypto.randomBytes(64).toString("hex");
+    const hashedRefreshToken = crypto.createHash("sha256").update(refreshToken).digest("hex");
 
     user.refreshTokens.push({
-        token: refreshToken,
+        token: hashedRefreshToken,
         expiresAt: new Date(Date.now() + cookieMaxAge * 1000),
         isRememberMe
     });
@@ -48,7 +49,7 @@ export const createAuthResponse = async (user: IUser, isRememberMe = false, isPo
         response = NextResponse.json({ code: "SUCCESS" });
     }
 
-    response.cookies.set("token", token, cookieOptions);
+    response.cookies.set("token", accessToken, cookieOptions);
     response.cookies.set("refreshToken", refreshToken, cookieOptions);
 
     return response

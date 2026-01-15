@@ -17,27 +17,30 @@ export async function POST(req: NextRequest) {
         
         if (!oldRefreshToken) return NextResponse.json({ code: "INVALID_TOKEN" }, { status: 401 });
 
+        const hashedOldRefreshToken = crypto.createHash("sha256").update(oldRefreshToken).digest("hex");
+
         const user = await User.findOne({
-            "refreshTokens.token": oldRefreshToken,
+            "refreshTokens.token": hashedOldRefreshToken,
             "refreshTokens.expiresAt": { $gt: new Date() }
         })as IUser | null;
 
         if (!user) return NextResponse.json({ code: "INVALID_TOKEN" }, { status: 401 });
 
-        const oldTokenData = user.refreshTokens.find(rt => rt.token === oldRefreshToken);
+        const oldTokenData = user.refreshTokens.find(rt => rt.token === hashedOldRefreshToken);
         const isRememberMe = oldTokenData?.isRememberMe ?? false;
 
         const refreshTokenExpiry = isRememberMe ? 60 * 60 * 24 * 30 : 60 * 60 * 24 * 7;
         const jwtExpiry = isRememberMe ? 60 * 60 * 24 * 7 : 60 * 60;
 
         const newRefreshToken = crypto.randomBytes(64).toString("hex");
+        const hashedNewRefreshToken = crypto.createHash("sha256").update(newRefreshToken).digest("hex");
         const newRefreshExpiresAt = new Date(Date.now() + refreshTokenExpiry * 1000);
 
-        user.refreshTokens = user.refreshTokens.filter(rt => rt.expiresAt > new Date() && rt.token !== oldRefreshToken);
-        user.refreshTokens.push({ token: newRefreshToken, expiresAt: newRefreshExpiresAt, isRememberMe });
+        user.refreshTokens = user.refreshTokens.filter(rt => rt.expiresAt > new Date() && rt.token !== hashedOldRefreshToken);
+        user.refreshTokens.push({ token: hashedNewRefreshToken, expiresAt: newRefreshExpiresAt, isRememberMe });
         await user.save();
 
-        const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: jwtExpiry });
+        const accessToken = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: jwtExpiry });
 
         const cookieOptions = {
             httpOnly: true,
@@ -48,7 +51,7 @@ export async function POST(req: NextRequest) {
         };
 
         const response = NextResponse.json({ code: "SUCCESS" });
-        response.cookies.set("token", token, cookieOptions);
+        response.cookies.set("token", accessToken, cookieOptions);
         response.cookies.set("refreshToken", newRefreshToken, cookieOptions);
 
         return response;
