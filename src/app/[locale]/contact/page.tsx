@@ -1,8 +1,8 @@
 import { getTranslations } from "next-intl/server";
-import { generateMetadataForIndexedPage } from "@/lib/metadata/indexed";
+import { generateMetadataForNonIndexedPage } from "@/lib/metadata/nonIndexed";
 import ContactForm from "@/components/features/contact";
 
-export async function generateMetadata() { return generateMetadataForIndexedPage("contact") }
+export async function generateMetadata() { return generateMetadataForNonIndexedPage("contact") }
 
 export default async function Contact() {
 

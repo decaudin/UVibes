@@ -10,6 +10,6 @@ export const generateMetadataForNonIndexedPage = async (pageKey: SeoNonIndexedPa
         suffix: t("suffix"),
         title: t(`${pageKey}.title`),
         description: t(`${pageKey}.description`),
-        robots: t(`${pageKey}.robots`),
+        robots: "noindex, follow",
     })
 }

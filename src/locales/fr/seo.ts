@@ -13,14 +13,9 @@ export default {
             "type": "website",
             "url": "https://u-vibes.vercel.app/fr"
         },
-        "dashboard": {
-            "title": "Tableau de bord",
-            "description": "Gérez vos lieux enregistrés et consultez en temps réel l’indice UV adapté à vos localisations.",
-            "robots": "noindex, nofollow"
-        },
         "about": {
             "title": "À propos",
-            "description": "Découvrez UVibes, une plateforme à but non lucratif qui fournit des données précises sur l'indice UV grâce à l'API OpenUV. Apprenez comment nous vous aidons à planifier votre exposition au soleil de manière fiable et sécurisée.",
+            "description": "Découvrez UVibes, une plateforme à but non lucratif qui fournit des données précises sur l'indice UV grâce à l'API OpenUV. Apprenez comment planifier votre exposition au soleil de manière fiable et sécurisée.",
             "keywords": "à propos de UVibes, API UV, données UV open source, fonctionnement de UVibes, source de données UV",
             "type": "website",
             "url": "https://u-vibes.vercel.app/fr/about"
@@ -90,51 +85,42 @@ export default {
         },
         "checkUv": {
             "title": "Vérifier l'indice UV - Obtenez les informations UV",
-            "description": "Entrez votre position (latitude, longitude, altitude) pour connaître l'indice UV et d'autres informations utiles dans votre zone.",
-            "keywords": "vérification UV, indice UV, UV par localisation, géolocalisation, latitude, longitude, altitude",
+            "description": "Entrez une position ou sélectionnez une ville de votre choix pour connaître l'indice UV et d'autres informations utiles dans la zone.",
+            "keywords": "UV, indice UV, UV par localisation, ville",
             "type": "website",
             "url": "https://u-vibes.vercel.app/fr/check-uv"
         },
         "results": {
             "title": "Résultats UV pour votre emplacement",
             "description": "Obtenez l'indice UV actuel, le temps d'exposition solaire sans danger et les heures de pointe UV pour vos coordonnées. Restez protégé avec des données UV personnalisées.",
-            "robots": "noindex, nofollow"
         },
         "contact": {
             "title": "Contactez-nous",
             "description": "Des questions, suggestions ou retours ? Contactez-nous facilement ici et nous vous répondrons rapidement.",
-            "keywords": "contact, retours, questions, suggestions, support, UVibes",
-            "type": "website",
-            "url": "https://u-vibes.vercel.app/fr/contact"
         },
         "signIn": {
             "title": "Connexion",
             "description": "Accédez à votre compte pour profiter de toutes nos fonctionnalités et services.",
-            "keywords": "connexion, se connecter, authentification, accès au compte",
-            "type": "website",
-            "url": "https://u-vibes.vercel.app/fr/sign-in"
         },
         "signUp": {
             "title": "Inscription",
             "description": "Créez votre compte pour commencer à utiliser nos services.",
-            "keywords": "inscription, s'inscrire, créer un compte, authentification",
-            "type": "website",
-            "url": "https://u-vibes.vercel.app/fr/sign-up"
+        },
+        "dashboard": {
+            "title": "Tableau de bord",
+            "description": "Gérez vos lieux enregistrés et consultez en temps réel l’indice UV adapté à vos localisations.",
         },
         "resetPassword": {
             "title": "Réinitialiser le mot de passe",
             "description": "Réinitialisez votre mot de passe pour accéder à votre compte en toute sécurité. Entrez votre email pour recevoir un lien de réinitialisation.",
-            "robots": "noindex, nofollow"
         },
         "resetPasswordToken": {
             "title": "Réinitialiser votre mot de passe",
             "description": "Définissez un nouveau mot de passe pour votre compte UVibes et sécurisez votre accès.",
-            "robots": "noindex, nofollow"
         },
         "notFound": {
             "title": "404 - Page non trouvée",
             "description": "Cette page n'existe pas. Retrouvez des informations sur l'indice UV, des conseils d'exposition au soleil et les outils UVibes sur notre page d'accueil.",
-            "robots": "noindex, nofollow"
         }
     }
 } as const

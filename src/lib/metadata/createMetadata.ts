@@ -8,15 +8,18 @@ type MetadataProps = {
     robots?: string;
     type?: "website" | "article";
     url?: string;
+    canonical?: string;
+    languages?: Record<string, string>;
 }
 
-export const createMetadata = ({ title, suffix, description, keywords, robots, type, url }: MetadataProps): Metadata => {
+export const createMetadata = ({ title, suffix, description, keywords, robots, type, url, canonical, languages }: MetadataProps): Metadata => {
     const fullTitle = `${title} | UVibes - ${suffix}`
     return {
         title: fullTitle,
         description,
         keywords,
         ...(robots && { robots }),
+        ...(canonical || languages ? { alternates: { canonical, languages } } : {}),
         openGraph: {
             title: fullTitle,
             description,

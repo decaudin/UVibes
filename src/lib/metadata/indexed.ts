@@ -11,12 +11,25 @@ export const generateMetadataForIndexedPage = async (pageKey: SeoIndexedPageKey)
 
     const t = await getTranslations("seo");
 
+    const url = t(`${pageKey}.url`);
+
+    const path = url.replace(/^https?:\/\/[^/]+/, "");
+
+    const isFr = path === "/fr" || path.startsWith("/fr/");
+
+    const languages = {
+        en: isFr ? `https://u-vibes.vercel.app${path.replace(/^\/fr(\/|$)/, "/en$1")}` : url,
+        fr: isFr ? url : `https://u-vibes.vercel.app${path.replace(/^\/en(\/|$)/, "/fr$1")}`,
+    };
+
     return createMetadata({
         suffix: t("suffix"),
         title: t(`${pageKey}.title`),
         description: t(`${pageKey}.description`),
         keywords: t(`${pageKey}.keywords`).split(",").map(k => k.trim()),
         type: parseOpenGraphType(t(`${pageKey}.type`)),
-        url: t(`${pageKey}.url`),
+        url,
+        canonical: url,
+        languages,
     })
 }

@@ -13,14 +13,9 @@ export default {
             "type": "website",
             "url": "https://u-vibes.vercel.app/en",
         },
-        "dashboard": {
-            "title": "Dashboard",
-            "description": "Manage your saved locations and view real-time UV index data tailored to your spots.",
-            "robots": "noindex, nofollow"
-        },
         "about": {
             "title": "About",
-            "description": "Discover UVibes, a non-profit platform that offers accurate UV index data using the OpenUV API. Learn how we help you plan safe sun exposure with reliable, open-source information.",
+            "description": "Discover UVibes, a non-profit platform that offers accurate UV index data using the OpenUV API. Learn how to plan safe sun exposure with reliable, open-source information.",
             "keywords": "about UVibes, UV API, open source UV data, how UVibes works, UV data source",
             "type": "website",
             "url": "https://u-vibes.vercel.app/en/about"
@@ -90,51 +85,42 @@ export default {
         },
         "checkUv": {
             "title": "Check UV- Get UV Information",
-            "description": "Enter your location details (latitude, longitude, altitude) to get the UV index and other relevant UV information for that area.",
-            "keywords": "UV check, UV index, location UV, geolocation, latitude, longitude, altitude",
+            "description": "Enter a location or select a city of your choice to get the UV index and other relevant UV information for that area.",
+            "keywords": "UV, UV index, UV by location, city",
             "type": "website",
             "url": "https://u-vibes.vercel.app/en/check-uv"
         },
         "results": {
             "title": "UV Results for Your Location",
             "description": "Get the latest UV index, safe sun exposure time, and peak UV hours for your selected coordinates. Stay sun safe with personalized UV data.",
-            "robots": "noindex, nofollow"
         },
         "contact": {
             "title": "Contact Us",
             "description": "Got questions, suggestions, or feedback? Reach out to us easily here and we'll get back to you.",
-            "keywords": "contact, feedback, questions, suggestions, support, UVibes",
-            "type": "website",
-            "url": "https://u-vibes.vercel.app/en/contact"
         },
         "signIn": {
             "title": "Sign In",
             "description": "Access your account to enjoy all our features and services.",
-            "keywords": "sign in, login, auth, account access",
-            "type": "website",
-            "url": "https://u-vibes.vercel.app/en/sign-in"
         },
         "signUp": {
             "title": "Sign Up",
             "description": "Create your account to start using our services.",
-            "keywords": "sign up, register, create account, auth",
-            "type": "website",
-            "url": "https://u-vibes.vercel.app/en/sign-up"
+        },
+        "dashboard": {
+            "title": "Dashboard",
+            "description": "Manage your saved locations and view real-time UV index data tailored to your spots.",
         },
         "resetPassword": {
             "title": "Reset Password",
             "description": "Reset your password to securely access your account. Enter your email to receive a password reset link.",
-            "robots": "noindex, nofollow",
         },
         "resetPasswordToken": {
             "title": "Reset Your Password",
             "description": "Set a new password for your UVibes account to secure your access.",
-            "robots": "noindex, nofollow"
         },
         "notFound": {
             "title": "404 - Page Not Found",
             "description": "This page doesn't exist. Find UV index information, sun exposure tips, and UVibes tools on our homepage.",
-            "robots": "noindex, nofollow",
         }
     }
 } as const

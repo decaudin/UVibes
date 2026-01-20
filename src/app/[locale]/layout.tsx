@@ -78,4 +78,4 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     )
 }
 
-// 1 - SEO/UX: Urls en EN/FR (Hreflang, Canonicalisation .. ?), siteMap ?
+// 1 - SEO/UX: Urls en EN/FR
