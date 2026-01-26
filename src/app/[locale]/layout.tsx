@@ -78,4 +78,5 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     )
 }
 
-// 1 - SEO/UX: Urls en EN/FR
+// 1 - functions trim des inputs
+// 2 - Check-uv --> useUvCheckStore

@@ -1,4 +1,5 @@
 "use client"
+import type { SignUpFormData } from "@/schemas/authSchema";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from 'next-intl';
@@ -9,7 +10,7 @@ import { useLocale } from "@/hooks/locales";
 import { useZodErrorMessage } from "@/hooks/zod";
 import { useSignUpStore } from "@/stores/forms/signUpStore";
 import { useResetOnPageLeave } from "@/hooks/lifecycle";
-import { SignUpFormData, signUpSchema } from "@/schemas/authSchema";
+import { signUpSchema } from "@/schemas/authSchema";
 import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";
 import { handleEmailTrimOnBlur } from "@/utils/functions/input/handleEmailTrimOnBlur";
 import FormWrapper from "@/components/ui/auth/FormWrapper";
@@ -55,18 +56,14 @@ export default function SignUpForm() {
         if (formValues.password !== password) setPassword(formValues.password ?? "");
     }, [formValues.name, formValues.email, formValues.password, name, email, password, setName, setEmail, setPassword]);
 
-    const isValid = !!(
-        formValues.name &&
+    const isValid =
         formValues.name.length >= 2 &&
         /^[a-zA-ZÀ-ÿ0-9]+([\- ][a-zA-ZÀ-ÿ0-9]+)*$/.test(formValues.name) &&
     
-        formValues.email &&
         /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(formValues.email) &&
     
-        formValues.password &&
         formValues.password.length >= 8 &&
-        /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=.]).{8,}$/.test(formValues.password)
-    );
+        /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=.]).{8,}$/.test(formValues.password);
 
     const onSubmit = async (data: SignUpFormData) => {
         setIsLoading(true); 

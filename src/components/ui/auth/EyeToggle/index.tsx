@@ -12,4 +12,3 @@ export default function EyeToggle({ isVisible, onToggle }: EyeToggleProps) {
         <FontAwesomeIcon icon={isVisible ? faEye : faEyeSlash} onClick={onToggle} className="absolute top-[36px] right-[4%] text-black cursor-pointer" />
     )
 }
-

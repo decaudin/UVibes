@@ -42,7 +42,7 @@ export default function ResetPasswordForm() {
         if (formValues.email !== email) setEmail(formValues.email ?? "");
     }, [formValues.email, email, setEmail]);
 
-    const isValid = !!(formValues.email && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(formValues.email));
+    const isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(formValues.email);
 
     const onSubmit: SubmitHandler<ResetPasswordSchema> = async (data) => {
         setIsLoading(true);

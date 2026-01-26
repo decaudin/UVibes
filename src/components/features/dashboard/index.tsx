@@ -18,6 +18,7 @@ import ToggleButtons from "@/components/ui/ToggleButtons";
 import PointsList from "./PointsList";
 import PointsMap from "./PointsMap";
 import PointModal from "@/components/ui/Modal/PointModal";
+import DeleteAccountModal from "./DeleteAccountModal";
 
 export default function DashboardClient() {
 
@@ -33,6 +34,7 @@ export default function DashboardClient() {
     const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+    const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false);
 
     const { register, handleSubmit, reset, formState: { errors }, watch } = useForm<PointFormData>({
         resolver: zodResolver(PointSchema),
@@ -176,7 +178,7 @@ export default function DashboardClient() {
     };
 
     return (
-         <div className="flex flex-col items-center w-full p-4 max-w-6xl mx-auto">
+        <div className="flex flex-col items-center w-full p-4 max-w-6xl mx-auto">
             <h1 className="text-4xl font-bold mt-8 mb-12">👋 {t("welcome")} {user?.name} !</h1>
 
             <SkinTypeSetting t={t} onSave={updateSkinType} isSaving={isLoading} skinType={user.skinType} />
@@ -213,10 +215,17 @@ export default function DashboardClient() {
             </div>
 
             <button 
-                className="mt-10 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 fixed md:static bottom-4 z-50 shadow-lg transition"
+                className="my-10 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 fixed md:static bottom-4 z-50 shadow-lg transition"
                 onClick={() => setIsAddModalOpen(true)}
             >
                 {t("addPoint")}
+            </button>
+
+            <button 
+                className="mt-16 mb-4 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 shadow-lg transition md:mt-0"
+                onClick={() => setIsDeleteAccountModalOpen(true)}
+            >
+                {t("deleteAccount")}
             </button>
 
             <PointModal 
@@ -242,6 +251,13 @@ export default function DashboardClient() {
                 title={t("updatePoint")}
                 actionLabel={t("updateModal")}
             />
+
+            <DeleteAccountModal
+                isOpen={isDeleteAccountModalOpen}
+                isLoading={isLoading}
+                onClose={() => setIsDeleteAccountModalOpen(false)}
+                hasPassword={user.hasPassword}
+            />   
         </div>
     )
 }

@@ -12,11 +12,16 @@ export async function GET(req: NextRequest) {
         
         if (result.error) return result.error;
 
-        const user = await User.findById(result.userId).select("name skinType");
+        const user = await User.findById(result.userId).select("name skinType password");
 
         if (!user) return NextResponse.json({ code: "USER_NOT_FOUND" }, { status: 404 });
 
-        return NextResponse.json({ user });
+        const userObj = user.toObject();
+
+        userObj.hasPassword = Boolean(userObj.password);
+        delete userObj.password;
+
+        return NextResponse.json({ user: userObj });
 
     } catch (error) {
         console.error("[USER_ME_ERROR]", error);

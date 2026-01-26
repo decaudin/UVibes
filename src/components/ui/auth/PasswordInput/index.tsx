@@ -14,11 +14,12 @@ interface PasswordInputProps<T extends FieldValues> {
     register: UseFormRegister<T>;
     error?: FieldError;
     onBlur?: React.FocusEventHandler<HTMLInputElement>;
+    containerClassName?: string;
     wrapperClassName?: string;
 }
 
-export default function PasswordInput<T extends FieldValues>({ name, label, placeholder, autoComplete, register, error, onBlur, wrapperClassName }: PasswordInputProps<T>) {
-
+export default function PasswordInput<T extends FieldValues>({ name, label, placeholder, autoComplete, register, error, onBlur, containerClassName, wrapperClassName }: PasswordInputProps<T>) {
+    
     const getErrorMessage = useZodErrorMessage();
 
     const { isPasswordVisible, togglePasswordVisibility } = usePasswordToggle();
@@ -31,9 +32,9 @@ export default function PasswordInput<T extends FieldValues>({ name, label, plac
     };
 
     return (
-        <div className="relative">
+        <div className={`relative ${containerClassName}`}>
             <Input 
-                id={name} type={isPasswordVisible ? "text" : "password"} label={label} 
+                id={name} type={isPasswordVisible ? "text" : "password"} label={label}
                 placeholder={placeholder} autoComplete={autoComplete} errorMessage={getErrorMessage(error)} 
                 wrapperClassName={`${wrapperBaseStyles} ${wrapperClassName}`} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
                 ref={ref} {...rest} onBlur={handleBlur}

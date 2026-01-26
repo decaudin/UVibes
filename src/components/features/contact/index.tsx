@@ -1,4 +1,5 @@
 "use client"
+import type { ContactFormData } from "@/schemas/contactSchema";
 import { useState, useEffect } from "react";
 import { useTranslations } from 'next-intl';
 import { useForm } from "react-hook-form";
@@ -8,7 +9,7 @@ import { useZodErrorMessage } from "@/hooks/zod";
 import { usePost } from "@/hooks/api/usePost";
 import { useContactStore } from "@/stores/forms/contactStore";
 import { useResetOnPageLeave } from "@/hooks/lifecycle";
-import { ContactFormData, contactSchema } from "@/schemas/contactSchema";
+import { contactSchema } from "@/schemas/contactSchema";
 import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";
 import { handleEmailTrimOnBlur } from "@/utils/functions/input/handleEmailTrimOnBlur";
 import { Input } from "@/components/ui/Input"
@@ -55,17 +56,14 @@ export default function ContactForm() {
 
     const validateName = (name: string) => typeof name === "string" && name.trim().length >= 2;
 
-    const isValid = !!(
+    const isValid =
         validateName(formValues.firstName) &&
         validateName(formValues.lastName) &&
 
-        formValues.email && 
         /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formValues.email) &&
 
-        formValues.message &&
         formValues.message.trim().length >= 10 &&
-        formValues.message.trim().length <= 1000
-    );
+        formValues.message.trim().length <= 1000;
 
     const onSubmit = async (formData: ContactFormData) => {
         setIsLoading(true);

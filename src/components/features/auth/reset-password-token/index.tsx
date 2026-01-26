@@ -78,12 +78,9 @@ export default function ResetPasswordTokenForm() {
         checkToken();
     }, [token, router, t]);
     
-    const isValid = !!(
-        formValues.password &&
-        formValues.confirmPassword &&
+    const isValid =
         formValues.password === formValues.confirmPassword &&
-        /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=.]).{8,}$/.test(formValues.password)
-    );
+        /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=.]).{8,}$/.test(formValues.password);
 
     const onSubmit = async (data: ResetPasswordFormSchema) => {
         setIsLoading(true);

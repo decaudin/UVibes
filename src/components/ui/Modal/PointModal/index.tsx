@@ -27,15 +27,14 @@ export default function PointModal({ isOpen, isLoading, onClose, handleSubmit, r
 
     const formValues = watch();
 
-    const isValid = !!(
+    const isValid =
         !!formValues.name?.trim()&&
 
         formValues.latitude && !isNaN(Number(formValues.latitude)) &&
         Number(formValues.latitude) >= -90 && Number(formValues.latitude) <= 90 &&
 
         formValues.longitude && !isNaN(Number(formValues.longitude)) &&
-        Number(formValues.longitude) >= -180 && Number(formValues.longitude) <= 180
-    )
+        Number(formValues.longitude) >= -180 && Number(formValues.longitude) <= 180;
 
     const fields: { id: "name" | "latitude" | "longitude" | "altitude" ; labelKey: string }[] = [
         { id: "name", labelKey: "namePlaceholder" },

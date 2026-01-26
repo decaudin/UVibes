@@ -1,5 +1,6 @@
 "use client"
 import type { City } from "@/types/city";
+import type { FormDataWithCity } from "@/schemas/uvCheckSchema";
 import { useState, useEffect } from "react";
 import { useTranslations } from 'next-intl';
 import { useForm } from "react-hook-form";
@@ -9,7 +10,7 @@ import { useLocale } from '@/hooks/locales';
 import { useZodErrorMessage } from "@/hooks/zod";
 import { useUvCheckStore } from '@/stores/forms/uvCheckStore';
 import { useResetOnPageLeave } from '@/hooks/lifecycle';
-import { UvCheckSchema, FormDataWithCity } from "@/schemas/uvCheckSchema";
+import { UvCheckSchema } from "@/schemas/uvCheckSchema";
 import ToggleForm from './ToggleForm';
 import SubmitButton from "@/components/ui/SubmitButton";
 import SkinTypeForm from "@/components/ui/SkinTypeForm";
@@ -53,7 +54,7 @@ export default function CheckUVForm() {
         if (formValues.skinType !== skinType) setField("skinType", formValues.skinType ?? null);
     }, [formValues, mode, latitude, longitude, altitude, city, cityLatitude, cityLongitude, skinType, setField]);
 
-    const isValid = !!(
+    const isValid =
         (formValues.mode === "coords" &&
             formValues.latitude && !isNaN(Number(formValues.latitude)) &&
             Number(formValues.latitude) >= -90 && Number(formValues.latitude) <= 90 &&
@@ -61,8 +62,7 @@ export default function CheckUVForm() {
             formValues.longitude && !isNaN(Number(formValues.longitude)) &&
             Number(formValues.longitude) >= -180 && Number(formValues.longitude) <= 180
         ) ||
-        (formValues.mode === "city" && selectedCity !== null)
-    );
+        (formValues.mode === "city" && selectedCity !== null);
 
     const radioTitle = t("radioTitle");
 
