@@ -21,5 +21,7 @@ export default {
     HASHING_ERROR: "An error occurred while processing your password. Please try again.",
     RESET_PASSWORD_TOKEN_ERROR: "An error occurred while resetting your password. Please try again.",
     MISSING_TOKEN: "The reset link is missing.",
-    CHECK_RESET_TOKEN_ERROR: "An error occurred while checking the link. Please try again."
+    CHECK_RESET_TOKEN_ERROR: "An error occurred while checking the link. Please try again.",
+    PASSWORD_NOT_SET: "You must set a password to delete your account.",
+    INVALID_PASSWORD: "Incorrect password.",
 } as const

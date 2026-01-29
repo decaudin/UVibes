@@ -22,19 +22,19 @@ import DeleteAccountModal from "./DeleteAccountModal";
 
 export default function DashboardClient() {
 
-    const [isLoading, setIsLoading] = useState(false);
+    const [view, setView] = useState<'list' | 'map'>('list');
+    const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+    const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false);
+    const [isSkinTypeSaving, setIsSkinTypeSaving] = useState(false);
+    const [isDeletingAccount, setIsDeletingAccount] = useState(false);
 
     const router = useRouter();
 
     const t = useTranslations();
     
     const user = useUserStore((state) => state.user);
-
-    const [view, setView] = useState<'list' | 'map'>('list');
-    const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
-    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
-    const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false);
 
     const { register, handleSubmit, reset, formState: { errors }, watch } = useForm<PointFormData>({
         resolver: zodResolver(PointSchema),
@@ -80,7 +80,7 @@ export default function DashboardClient() {
     };
 
     const updateSkinType = async (skinType: number | null, showToast = true) => {
-        setIsLoading(true);
+        setIsSkinTypeSaving(true);
 
         try {
             const res = await authFetch('/api/user/skinType', {
@@ -128,7 +128,7 @@ export default function DashboardClient() {
             }
             return false;
         } finally {
-            setIsLoading(false);
+            setIsSkinTypeSaving(false);
         }
     };
 
@@ -181,7 +181,7 @@ export default function DashboardClient() {
         <div className="flex flex-col items-center w-full p-4 max-w-6xl mx-auto">
             <h1 className="text-4xl font-bold mt-8 mb-12">👋 {t("welcome")} {user?.name} !</h1>
 
-            <SkinTypeSetting t={t} onSave={updateSkinType} isSaving={isLoading} skinType={user.skinType} />
+            <SkinTypeSetting t={t} onSave={updateSkinType} isSaving={isSkinTypeSaving} skinType={user.skinType} />
             
             <ToggleButtons
                 options={[
@@ -254,7 +254,8 @@ export default function DashboardClient() {
 
             <DeleteAccountModal
                 isOpen={isDeleteAccountModalOpen}
-                isLoading={isLoading}
+                isLoading={isDeletingAccount}
+                setIsLoading={setIsDeletingAccount}
                 onClose={() => setIsDeleteAccountModalOpen(false)}
                 hasPassword={user.hasPassword}
             />   

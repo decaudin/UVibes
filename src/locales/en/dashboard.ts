@@ -43,6 +43,8 @@ export default {
     duplicatePointCoords: "A point already exists at these coordinates",
     unknownError: "An unknown error occurred.",
     errorWhileSaving: "An error occurred while saving.",
+    deleteAccountSuccess: "Your account has been successfully deleted.",
+    deleteAccountError: "An error occurred while deleting the account.",
     cancelModal: "Cancel",
     undo: "Undo",
 } as const

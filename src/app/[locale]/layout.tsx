@@ -80,3 +80,8 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
 
 // 1 - functions trim des inputs
 // 2 - Check-uv --> useUvCheckStore
+
+// Commit messages:
+
+// feat(account): add Google re-auth flow for account deletion
+// refactor(store): remove unused/unnecessary state and simplify logic

@@ -21,5 +21,7 @@ export default {
     HASHING_ERROR: "Une erreur est survenue lors du traitement de votre mot de passe. Merci de réessayer.",
     RESET_PASSWORD_TOKEN_ERROR: "Une erreur est survenue lors de la réinitialisation de votre mot de passe. Merci de réessayer.",
     MISSING_TOKEN: "Le lien de réinitialisation est manquant.",
-    CHECK_RESET_TOKEN_ERROR: "Une erreur est survenue lors de la vérification du lien. Merci de réessayer."
+    CHECK_RESET_TOKEN_ERROR: "Une erreur est survenue lors de la vérification du lien. Merci de réessayer.",
+    PASSWORD_NOT_SET: "Vous devez définir un mot de passe pour supprimer le compte.",
+    INVALID_PASSWORD: "Mot de passe incorrect.",
 } as const

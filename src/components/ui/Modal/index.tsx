@@ -77,7 +77,7 @@ export default function Modal({ isOpen, onClose, title, children, actionLabel, o
                     <div className="flex justify-end gap-3 mt-6">
                             <button
                                 type="button"
-                                className="min-w-[100px] px-4 py-2 bg-gray-200 text-black rounded hover:bg-gray-300"
+                                className="min-w-[106px] px-4 py-2 bg-gray-200 text-black rounded hover:bg-gray-300"
                                 onClick={onClose}
                             >
                                 {t("cancelModal")}
@@ -85,7 +85,7 @@ export default function Modal({ isOpen, onClose, title, children, actionLabel, o
                             <button
                                 type="submit"
                                 disabled={isDisabled}
-                                className={`flex items-center justify-center min-w-[100px] px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 ${isDisabled ? "opacity-50 cursor-not-allowed" : ""}`}
+                                className={`flex items-center justify-center min-w-[106px] px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 ${isDisabled ? "opacity-50 cursor-not-allowed" : ""}`}
                             >
                                 {actionLabel}
                             </button>
