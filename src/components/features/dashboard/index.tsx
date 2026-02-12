@@ -61,6 +61,26 @@ export default function DashboardClient() {
         }
     }, [isUpdateModalOpen, isAddModalOpen, selectedPoint, reset]);
 
+    useEffect(() => {
+        const handleMessage = (event: MessageEvent) => {
+            if (event.origin !== window.location.origin) return;
+
+            const { code, success } = event.data ?? {};
+            if (!code) return;
+
+            if (success) {
+                toast.success(t(code), { className: "sonner-toast" });
+                useUserStore.getState().clearUser();
+                router.push("/sign-in");
+                return;
+            }
+            toast.error(t(code), { className: "sonner-toast" });
+        };
+
+        window.addEventListener("message", handleMessage);
+        return () => window.removeEventListener("message", handleMessage);
+    }, [router, t]);
+
     const { pointsGPS, isLoading : isPointLoading, addPoint, addPointAtIndex, updatePoint, deletePoint } = usePoints();
 
     if(!user) return <Loader />

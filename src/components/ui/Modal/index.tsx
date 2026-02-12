@@ -9,20 +9,21 @@ interface ModalProps {
     title: string;
     children: React.ReactNode;
     actionLabel: React.ReactNode;
-    onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     isDisabled: boolean;
+    onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
     formClassName?: string;
+    actionButtons?: React.ReactNode;
 }
 
-export default function Modal({ isOpen, onClose, title, children, actionLabel, onSubmit, isDisabled, formClassName }: ModalProps) {
+export default function Modal({ isOpen, onClose, title, children, actionLabel, isDisabled, onSubmit, formClassName, actionButtons }: ModalProps) {
 
     const t = useTranslations();
-
+    
     const closeButtonRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
         document.body.style.overflow = isOpen ? "hidden" : "auto";
-        return () => {
+        return () => { 
             document.body.style.overflow = "auto"
         }
     }, [isOpen]);
@@ -32,7 +33,6 @@ export default function Modal({ isOpen, onClose, title, children, actionLabel, o
             closeButtonRef.current?.focus();
         }
     }, [isOpen]);
-
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -71,10 +71,11 @@ export default function Modal({ isOpen, onClose, title, children, actionLabel, o
 
                 <h2 className="text-2xl text-black mb-6">{title}</h2>
 
-                <form onSubmit={onSubmit} className={formClassName}>
-                    {children}
+                {onSubmit ? (
+                    <form onSubmit={onSubmit} className={formClassName}>
+                        {children}
 
-                    <div className="flex justify-end gap-3 mt-6">
+                        <div className="flex justify-end gap-3 mt-6">
                             <button
                                 type="button"
                                 className="min-w-[106px] px-4 py-2 bg-gray-200 text-black rounded hover:bg-gray-300"
@@ -82,6 +83,7 @@ export default function Modal({ isOpen, onClose, title, children, actionLabel, o
                             >
                                 {t("cancelModal")}
                             </button>
+                            
                             <button
                                 type="submit"
                                 disabled={isDisabled}
@@ -90,7 +92,22 @@ export default function Modal({ isOpen, onClose, title, children, actionLabel, o
                                 {actionLabel}
                             </button>
                         </div>
-                </form>
+                    </form>
+                ) : (
+                    <>
+                        {children}
+                        <div className="flex justify-end gap-3 mt-6">
+                            <button
+                                type="button"
+                                className="min-w-[106px] px-4 py-2 bg-gray-200 text-black rounded hover:bg-gray-300"
+                                onClick={onClose}
+                            >
+                                {t("cancelModal")}
+                            </button>
+                            {actionButtons}
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     )

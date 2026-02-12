@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { deleteAccountSchema } from "@/schemas/deleteAccountSchema";
 import { useUserStore } from "@/stores/userStore";
+import { openGooglePopup } from "@/utils/functions/google";
 import Modal from "@/components/ui/Modal";
 import ButtonSpinner from "@/components/ui/animations/ButtonSpinner";
 import GoogleLogo from "@/components/ui/auth/GoogleLogo";
@@ -46,8 +47,9 @@ export default function DeleteAccountModal({ isOpen, isLoading, setIsLoading, on
                 body: JSON.stringify(data),
             });
 
+            const { code } = await res.json();
+
             if (!res.ok) {
-                const { code } = await res.json();
                 const fallbackMsg = t("deleteAccountError");
                 const translatedMsg = code ? t(code) : fallbackMsg;
 
@@ -60,7 +62,7 @@ export default function DeleteAccountModal({ isOpen, isLoading, setIsLoading, on
                 throw new Error(translatedMsg);
             }
 
-            toast.success(t("deleteAccountSuccess"), { className: "sonner-toast" });
+            toast.success(t(code), { className: "sonner-toast" });
 
             onClose();
             useUserStore.getState().clearUser();
@@ -75,43 +77,40 @@ export default function DeleteAccountModal({ isOpen, isLoading, setIsLoading, on
         }
     };
 
-    const deleteWithGoogle = async () => {
-        console.log("in progress")
-    };
-
-    const onSubmit = async (data: DeleteAccountFormData) => {
-
-        if (!hasPassword) {
-            await deleteWithGoogle();
-            return;
-        }
-
-        await deleteWithPassword(data);
+    const deleteWithGoogle = () => {
+        openGooglePopup("/api/google", t, "delete");
     };
 
     return (
         <Modal
             isOpen={isOpen}
-            onClose={onClose}    
+            onClose={onClose}
             title={"⚠️ " + t("deleteAccount")}
-            onSubmit={handleSubmit(onSubmit)}
-            actionLabel={isLoading ? <ButtonSpinner /> : hasPassword ? t("deleteWithPassword") :
-                <span className="inline-flex items-center gap-4">
-                    <GoogleLogo />
-                    {t("reconnectWithGoogle")}
-                </span>
-            }
+            onSubmit={hasPassword ? handleSubmit(deleteWithPassword) : undefined}
+            actionLabel={isLoading ? <ButtonSpinner /> : t("deleteWithPassword")}
             isDisabled={isLoading || (hasPassword && !isValid)}
+            actionButtons={
+                !hasPassword && (
+                    <button
+                        type="button"
+                        onClick={deleteWithGoogle}
+                        className="flex items-center gap-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                    >
+                        <GoogleLogo />
+                        {t("reconnectWithGoogle")}
+                    </button>
+                )
+            }
         >
             <p className="text-gray-700 mb-8">{t("deleteAccountWarning")}</p>
             <p className="text-gray-700 mb-12">{hasPassword ? t("deleteAccountPasswordRequired") : t("deleteAccountNoPasswordRequired")}</p>
-            {hasPassword &&
+            {hasPassword && (
                 <PasswordInput
                     name="password" label={t("label.password")} placeholder={t("authPlaceholders.password")}
                     register={register} autoComplete="new-password" error={errors.password}
-                    containerClassName= "w-64 xxs:w-80 mx-auto text-gray-700" wrapperClassName="mb-16"
+                    containerClassName="w-64 xxs:w-80 mx-auto text-gray-700" wrapperClassName="mb-16"
                 />
-            }
+            )}
         </Modal>
     )
 }

@@ -24,4 +24,7 @@ export default {
     CHECK_RESET_TOKEN_ERROR: "Une erreur est survenue lors de la vérification du lien. Merci de réessayer.",
     PASSWORD_NOT_SET: "Vous devez définir un mot de passe pour supprimer le compte.",
     INVALID_PASSWORD: "Mot de passe incorrect.",
+    ACCOUNT_DELETED:"Votre compte a été supprimé avec succès.",
+    ACCOUNT_DELETE_FAILED: "Échec de la suppression du compte.",
+    OAUTH_CALLBACK_ERROR: "Une erreur est survenue lors de la connexion Google. Merci de réessayer.",
 } as const

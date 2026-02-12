@@ -16,6 +16,7 @@ import { useResetOnPageLeave } from "@/hooks/lifecycle";
 import { signInSchema } from "@/schemas/authSchema";
 import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";
 import { handleEmailTrimOnBlur } from "@/utils/functions/input/handleEmailTrimOnBlur";
+import { openGooglePopup } from "@/utils/functions/google";
 import FormWrapper from "@/components/ui/auth/FormWrapper";
 import { Input } from "@/components/ui/Input";
 import PasswordInput from "@/components/ui/auth/PasswordInput";
@@ -129,26 +130,6 @@ export default function SignInForm() {
 
     const onEmailBlur = handleEmailTrimOnBlur({ setValue, onBlurRHF: emailOnBlurRHF, fieldName: "email" });
 
-    const handleGoogleSignIn = async () => {
-        try {
-            const width = 600;
-            const height = 700;
-            const left = (window.innerWidth - width) / 2;
-            const top = (window.innerHeight - height) / 2;
-
-            const googleWindow = window.open(
-                '/api/google',
-                'Google Sign In',
-                `width=${width},height=${height},top=${top},left=${left}`
-            );
-
-            if (!googleWindow) throw new Error("Google OAuth window blocked");
-
-        } catch {
-            toast.error(t("signInGoogleErrorToast"));
-        }
-    };
-
     useEffect(() => {
         const handleMessage = async (e: MessageEvent) => {
             if (e.origin !== process.env.NEXT_PUBLIC_BASE_URL) return;
@@ -202,7 +183,7 @@ export default function SignInForm() {
                     </div>
 
                     <button
-                        onClick={handleGoogleSignIn}
+                        onClick={() => openGooglePopup('/api/google', t)}
                         className="flex items-center justify-center gap-4 px-8 py-2 mt-8 rounded-md bg-white border border-gray-300 shadow-md hover:shadow-lg transition duration-200"
                     >
                         <GoogleLogo />

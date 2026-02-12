@@ -3,9 +3,9 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { connectToDatabase } from "@/lib/mongodb";
 import { getUserIdFromRequest } from "@/lib/auth";
+import { deleteUserAccount } from "@/lib/deleteAccount";
 import { deleteAccountSchema } from "@/schemas/deleteAccountSchema";
 import User from "@/models/User";
-import Point from "@/models/Point";
 
 export async function POST(req: NextRequest) {
     try {
@@ -30,18 +30,8 @@ export async function POST(req: NextRequest) {
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
         if (!isPasswordValid) return NextResponse.json({ code: "INVALID_PASSWORD" }, { status: 400 });
-
-        user.refreshTokens = [];
-
-        try {
-            await Point.deleteMany({ userId });
-        } catch (pointsError) {
-            console.error("[DELETE_POINTS_ERROR]", pointsError);
-        }
-
-        await user.deleteOne();
-
-        return NextResponse.json({ code: "ACCOUNT_DELETED" });
+        
+        return await deleteUserAccount(user);
 
     } catch (error) {
         console.error("[DELETE_ACCOUNT_ERROR]", error);

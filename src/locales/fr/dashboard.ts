@@ -43,7 +43,6 @@ export default {
     duplicatePointCoords: "Il existe déjà un point à ces coordonnées",
     unknownError: "Une erreur inconnue est survenue.",
     errorWhileSaving: "Une erreur est survenue lors de l'enregistrement.",
-    deleteAccountSuccess: "Votre compte a été supprimé avec succès.",
     deleteAccountError: "Une erreur est survenue lors de la suppression du compte.",
     cancelModal: "Annuler",
     undo: "Annuler",

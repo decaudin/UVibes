@@ -2,6 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import { createAuthResponse } from "@/lib/createAuthResponse";
+import { deleteUserAccount } from "@/lib/deleteAccount";
 import User from "@/models/User";
 
 export async function GET(req: NextRequest) {
@@ -16,9 +17,12 @@ export async function GET(req: NextRequest) {
         }
 
         const url = new URL(req.url);
+
         const code = url.searchParams.get("code");
 
         if (!code) return NextResponse.json({ code: "MISSING_CODE" }, { status: 400 });
+
+        const state = url.searchParams.get("state");
 
         const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
             method: "POST",
@@ -55,6 +59,38 @@ export async function GET(req: NextRequest) {
         } else {
             user.name = name;
             await user.save();
+        };
+
+        if (state === "delete") {
+            if (!user) {
+                const html = `
+                    <script>
+                        window.opener.postMessage({ code: "USER_NOT_FOUND", success: false }, "${baseUrl}");
+                        window.close();
+                    </script>
+                `;
+                return new Response(html, { headers: { "Content-Type": "text/html" } });
+            }
+
+            try {
+                await deleteUserAccount(user);
+                const html = `
+                    <script>
+                        window.opener.postMessage({ code: "ACCOUNT_DELETED", success: true }, "${baseUrl}");
+                        window.close();
+                    </script>
+                `;
+                return new Response(html, { headers: { "Content-Type": "text/html" } });
+            } catch (error) {
+                console.error("Failed to delete user:", error);
+                const html = `
+                    <script>
+                        window.opener.postMessage({ code: "ACCOUNT_DELETE_FAILED", success: false }, "${baseUrl}");
+                        window.close();
+                    </script>
+                `;
+                return new Response(html, { headers: { "Content-Type": "text/html" } });
+            }
         }
 
         return createAuthResponse(user, true, true, baseUrl);

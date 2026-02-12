@@ -24,4 +24,7 @@ export default {
     CHECK_RESET_TOKEN_ERROR: "An error occurred while checking the link. Please try again.",
     PASSWORD_NOT_SET: "You must set a password to delete your account.",
     INVALID_PASSWORD: "Incorrect password.",
+    ACCOUNT_DELETED:"Your account has been successfully deleted.",
+    ACCOUNT_DELETE_FAILED: "Failed to delete the account.",
+    OAUTH_CALLBACK_ERROR: "An error occurred during Google login. Please try again.",
 } as const
