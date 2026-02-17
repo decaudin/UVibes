@@ -26,29 +26,32 @@ export default function UVResultsClient() {
     const latitude = Number(searchParams.get("latitude"));
     const longitude = Number(searchParams.get("longitude"));
     const altitude = searchParams.get("altitude") ? Number(searchParams.get("altitude")) : undefined;
-    const skinType = searchParams.get("skinType") ? Number(searchParams.get("skinType")) : undefined; 
+    const skinType = searchParams.get("skinType") ? Number(searchParams.get("skinType")) : undefined;
 
     useEffect(() => {
-        if (uvData || latitude == null || longitude == null || mode == null) return;
+        if ((uvData && localTime && timeZone) || mode == null) return;
 
         const fetchAllData = async () => {
             try {
                 let apiUrl = `/api/uv?mode=${mode}&latitude=${latitude}&longitude=${longitude}`;
                 if (altitude != null) apiUrl += `&altitude=${altitude}`;
 
-                const data = await fetchData(apiUrl);
+                const [data, timeZoneRes] = await Promise.all([
+                    fetchData(apiUrl),
+                    fetch(`/api/timezone?latitude=${latitude}&longitude=${longitude}`)
+                ]);
+
                 if (!data) return;
 
-                const exposureTime = (skinType && data?.result?.safe_exposure_time) ? data.result.safe_exposure_time[`st${skinType}`] : undefined;
-
-                const timeZoneRes = await fetch(`/api/timezone?latitude=${latitude}&longitude=${longitude}`);
                 const timeZoneData = await timeZoneRes.json();
+
+                const exposureTime = (skinType && data?.result?.safe_exposure_time) ? data.result.safe_exposure_time[`st${skinType}`] : undefined;                
 
                 setResults({
                     uvData: data,
-                    localTime: timeZoneData.localTime ?? null,
-                    timeZone: timeZoneData.timeZone ?? null,
-                    filteredExposureTime: exposureTime,
+                    localTime: timeZoneData.localTime,
+                    timeZone: timeZoneData.timeZone,
+                    filteredExposureTime: exposureTime
                 });
             } catch {
                 setFetchError(t("uvFetchError"))
@@ -56,7 +59,7 @@ export default function UVResultsClient() {
         };
 
         fetchAllData();
-    }, [uvData, fetchData, latitude, longitude, altitude, skinType, mode, setResults, setFetchError, t]);
+    }, [uvData, mode, latitude, longitude, altitude, skinType, fetchData, setResults, localTime, timeZone, setFetchError, t]);
 
     if (error || fetchError) {
         const message = error?.code === "UV_QUOTA_EXCEEDED" ? t(error.code) : t("uvFetchError");

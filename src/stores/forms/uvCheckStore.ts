@@ -2,15 +2,10 @@ import { create } from "zustand";
 import type { UvCheckStore, UvCheckState } from "@/types/uvCheckStore";
 
 const initialState: UvCheckState = {
-    mode: "coords",
-
     latitude: undefined,
     longitude: undefined,
     altitude: undefined,
 
-    city: undefined,
-    cityLatitude: undefined,
-    cityLongitude: undefined,
     cityQuery: undefined,
     citySelected: null,
 

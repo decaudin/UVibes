@@ -8,10 +8,10 @@ type UvResultsState = {
     filteredExposureTime?: number;
 
     setResults: (data: {
-        uvData: UvApiResponse | null;
-        localTime: string | null;
-        timeZone: string | null;
-        filteredExposureTime?: number;
+        uvData: UvApiResponse;
+        localTime: string;
+        timeZone: string;
+        filteredExposureTime?: number
     }) => void;
 
     reset: () => void;
@@ -24,8 +24,9 @@ export const useUvResultsStore = create<UvResultsState>(
         timeZone: null,
         filteredExposureTime: undefined,
 
-        setResults: ({ uvData, localTime, timeZone, filteredExposureTime }) => set({ uvData, localTime, timeZone, filteredExposureTime}),
+        setResults: ({ uvData, localTime, timeZone, filteredExposureTime }) =>
+            set({ uvData, localTime, timeZone, filteredExposureTime }),
 
-        reset: () => set({ uvData: null, localTime: null, timeZone: null, filteredExposureTime: undefined}),
+        reset: () => set({ uvData: null, localTime: null, timeZone: null, filteredExposureTime: undefined })
     })
 )

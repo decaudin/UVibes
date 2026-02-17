@@ -1,15 +1,10 @@
 import type { City } from "@/types/city";
 
 export type UvCheckState = {
-    mode: "coords" | "city";
-
     latitude?: number;
     longitude?: number;
     altitude?: number;
 
-    city?: string;
-    cityLatitude?: number;
-    cityLongitude?: number;
     cityQuery?: string;
     citySelected?: City | null;
 

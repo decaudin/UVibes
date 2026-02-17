@@ -27,7 +27,7 @@ export default function CheckUVForm() {
 
     const getZodErrorMessage = useZodErrorMessage();
 
-    const { mode, latitude, longitude, altitude, city, cityLatitude, cityLongitude, skinType, setField, reset } = useUvCheckStore();
+    const { latitude, longitude, altitude, skinType, setField, reset } = useUvCheckStore();
     useResetOnPageLeave(reset);
 
     const { register, handleSubmit, setValue, formState: { errors }, watch } = useForm<FormDataWithCity>({
@@ -35,7 +35,7 @@ export default function CheckUVForm() {
         mode: "onBlur",
         shouldFocusError: false,
         shouldUnregister: false,
-        defaultValues: { mode, latitude, longitude, altitude/*, city, cityLatitude, cityLongitude*/, skinType }
+        defaultValues: { latitude, longitude, altitude, skinType }
     });
 
     const formValues = watch();
@@ -45,14 +45,10 @@ export default function CheckUVForm() {
             if (formValues.latitude !== latitude) setField("latitude", formValues.latitude);
             if (formValues.longitude !== longitude) setField("longitude", formValues.longitude);
             if (formValues.altitude !== altitude) setField("altitude", formValues.altitude);
-        } else if (formValues.mode === "city") {
-            if (formValues.city !== city) setField("city", formValues.city);
-            if (formValues.cityLatitude !== cityLatitude) setField("cityLatitude", formValues.cityLatitude);
-            if (formValues.cityLongitude !== cityLongitude) setField("cityLongitude", formValues.cityLongitude);
         }
 
         if (formValues.skinType !== skinType) setField("skinType", formValues.skinType ?? null);
-    }, [formValues, mode, latitude, longitude, altitude, city, cityLatitude, cityLongitude, skinType, setField]);
+    }, [formValues, latitude, longitude, altitude, skinType, setField]);
 
     const isValid =
         (formValues.mode === "coords" &&
