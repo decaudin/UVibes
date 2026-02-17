@@ -17,7 +17,8 @@ export default function Footer() {
     
     const toggleLang = () => {
         localStorage.setItem("locale", newLocale);
-        const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
+        const searchParams = new URLSearchParams(window.location.search).toString();
+        const newPath = pathname.replace(`/${locale}`, `/${newLocale}`) + (searchParams ? `?${searchParams}` : "");
         router.push(newPath);
     };
 
