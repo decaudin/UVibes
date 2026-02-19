@@ -43,7 +43,7 @@ export default function SignUpForm() {
     });
 
     const blurHandlers = createBlurHandlers<SignUpFormData>({
-        fieldNames: ["name", "email", "password"],
+        fieldNames: ["name", "email"],
         watch,
         setValue,
     });
@@ -124,7 +124,7 @@ export default function SignUpForm() {
                         <PasswordInput
                             name="password" label={t("label.password")} placeholder={t("authPlaceholders.password")}
                             register={register} autoComplete="new-password"
-                            error={errors.password}  onBlur={blurHandlers.password} wrapperClassName="mb-12"
+                            error={errors.password} wrapperClassName="mb-12"
                         />
                         <SubmitButton isFormValid={isValid} isLoading={isLoading}>{t("signUp")}</SubmitButton>
                     </form>

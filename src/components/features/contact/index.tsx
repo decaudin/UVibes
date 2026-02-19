@@ -109,7 +109,7 @@ export default function ContactForm() {
                     {...lastNameRest}
                 />
                 <Input 
-                    id="email" type="text" label={t("contact.email")} placeholder={t("contact.email")} autoComplete="email"
+                    id="email" type="email" label={t("contact.email")} placeholder={t("contact.email")} autoComplete="email"
                     ref={emailRef} onBlur={onEmailBlur} errorMessage={getZodErrorMessage(errors.email)}
                     wrapperClassName={wrapperContactStyles} labelClassName="sr-only" inputClassName={inputContactStyles} errorMessageClassName={errorMessageContactStyles}
                     {...emailRest}

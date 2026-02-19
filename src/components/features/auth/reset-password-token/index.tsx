@@ -10,7 +10,6 @@ import { toast } from 'sonner';
 import { useResetPasswordTokenStore } from "@/stores/forms/resetPasswordTokenStore";
 import { useResetOnPageLeave } from "@/hooks/lifecycle";
 import { resetPasswordFormSchema } from "@/schemas/resetPasswordFormSchema";
-import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";
 import FormWrapper from "@/components/ui/auth/FormWrapper";
 import PasswordInput from "@/components/ui/auth/PasswordInput";
 import SubmitButton from "@/components/ui/SubmitButton";
@@ -29,7 +28,7 @@ export default function ResetPasswordTokenForm() {
     const { password, confirmPassword, setPassword, setConfirmPassword, reset } = useResetPasswordTokenStore();
     useResetOnPageLeave(reset);
 
-    const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm<ResetPasswordFormSchema>({
+    const { register, handleSubmit, formState: { errors }, watch } = useForm<ResetPasswordFormSchema>({
         resolver: zodResolver(resetPasswordFormSchema),
         mode: "onBlur",
         shouldFocusError: false,
@@ -37,12 +36,6 @@ export default function ResetPasswordTokenForm() {
     });
 
     const formValues = watch();
-
-    const blurHandlers = createBlurHandlers<ResetPasswordFormSchema>({
-        fieldNames: ["password", "confirmPassword"],
-        watch,
-        setValue,
-    });
 
     useEffect(() => {
         if (formValues.password !== password) setPassword(formValues.password ?? "");
@@ -120,12 +113,12 @@ export default function ResetPasswordTokenForm() {
                         <PasswordInput
                             name="password" label={t("label.password")} placeholder={t("authPlaceholders.password")}
                             register={register} autoComplete="new-password"
-                            error={errors.password} onBlur={blurHandlers.password} wrapperClassName="mb-12"
+                            error={errors.password} wrapperClassName="mb-12"
                         />
                         <PasswordInput
                             name="confirmPassword" label={t("label.confirmPassword")} placeholder={t("authPlaceholders.confirmPassword")}
                             register={register} autoComplete="new-password"
-                            error={errors.confirmPassword} onBlur={blurHandlers.confirmPassword} wrapperClassName="mb-4"
+                            error={errors.confirmPassword} wrapperClassName="mb-4"
                         />
                         <SubmitButton isFormValid={isValid} isLoading={isLoading} className="relative mt-16">
                             <span className={isLoading ? "opacity-0" : "opacity-100"}>{t("resetPasswordToken.submit")}</span>

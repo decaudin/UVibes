@@ -13,23 +13,17 @@ interface PasswordInputProps<T extends FieldValues> {
     autoComplete: string;
     register: UseFormRegister<T>;
     error?: FieldError;
-    onBlur?: React.FocusEventHandler<HTMLInputElement>;
     containerClassName?: string;
     wrapperClassName?: string;
 }
 
-export default function PasswordInput<T extends FieldValues>({ name, label, placeholder, autoComplete, register, error, onBlur, containerClassName, wrapperClassName }: PasswordInputProps<T>) {
+export default function PasswordInput<T extends FieldValues>({ name, label, placeholder, autoComplete, register, error, containerClassName, wrapperClassName }: PasswordInputProps<T>) {
     
     const getErrorMessage = useZodErrorMessage();
 
     const { isPasswordVisible, togglePasswordVisibility } = usePasswordToggle();
 
-    const { ref, onBlur: onBlurRHF, ...rest } = register(name);
-
-    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-        if (onBlur) onBlur(e);
-        onBlurRHF(e);
-    };
+    const { ref, ...rest } = register(name);
 
     return (
         <div className={`relative ${containerClassName}`}>
@@ -37,7 +31,7 @@ export default function PasswordInput<T extends FieldValues>({ name, label, plac
                 id={name} type={isPasswordVisible ? "text" : "password"} label={label}
                 placeholder={placeholder} autoComplete={autoComplete} errorMessage={getErrorMessage(error)} 
                 wrapperClassName={`${wrapperBaseStyles} ${wrapperClassName}`} inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
-                ref={ref} {...rest} onBlur={handleBlur}
+                ref={ref} {...rest}
             />
             <EyeToggle isVisible={isPasswordVisible} onToggle={togglePasswordVisibility} />
         </div>

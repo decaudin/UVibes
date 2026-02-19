@@ -14,7 +14,6 @@ import { useUserStore } from '@/stores/userStore';
 import { useSignInStore } from "@/stores/forms/signInStore";
 import { useResetOnPageLeave } from "@/hooks/lifecycle";
 import { signInSchema } from "@/schemas/authSchema";
-import { createBlurHandlers } from "@/utils/functions/input/createBlurHandlers";
 import { handleEmailTrimOnBlur } from "@/utils/functions/input/handleEmailTrimOnBlur";
 import { openGooglePopup } from "@/utils/functions/google";
 import FormWrapper from "@/components/ui/auth/FormWrapper";
@@ -49,12 +48,6 @@ export default function SignInForm() {
         mode: "onBlur",
         shouldFocusError: false,
         defaultValues: { email, password, isRememberMe }
-    });
-
-    const blurHandlers = createBlurHandlers<SignInFormData>({
-        fieldNames: ["email", "password"],
-        watch,
-        setValue,
     });
 
     const formValues = watch();
@@ -163,7 +156,7 @@ export default function SignInForm() {
                         <PasswordInput
                             name="password" label={t("label.password")} placeholder={t("authPlaceholders.password")}
                             register={register} autoComplete="current-password"
-                            error={errors.password} onBlur={blurHandlers.password} wrapperClassName="mb-4"
+                            error={errors.password} wrapperClassName="mb-4"
                         />
                         <Link className="block text-right mt-0 mb-8 text-sm text-red-500 hover:text-red-700" href={`/${locale}/reset-password`}>
                             {t("forgotPassword")}

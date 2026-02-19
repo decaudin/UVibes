@@ -13,7 +13,6 @@ export const createIdentitySchema = (fieldKey: string) =>
         .regex(nameRegex, `${fieldKey}Invalid`);
 
 export const passwordSchema = z.string()
-    .trim()
     .min(1, 'passwordRequired')
     .min(8, 'passwordTooShort')
     .max(64, 'passwordTooLong')

@@ -77,5 +77,3 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         </html>
     )
 }
-
-// 1 - functions trim des inputs

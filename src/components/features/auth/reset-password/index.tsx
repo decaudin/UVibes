@@ -10,6 +10,7 @@ import { useZodErrorMessage } from "@/hooks/zod";
 import { useResetPasswordStore } from "@/stores/forms/resetPasswordStore";
 import { useResetOnPageLeave } from "@/hooks/lifecycle";
 import { resetPasswordSchema } from "@/schemas/resetPasswordSchema";
+import { handleEmailTrimOnBlur } from "@/utils/functions/input/handleEmailTrimOnBlur";
 import FormWrapper from "@/components/ui/auth/FormWrapper";
 import { Input } from "@/components/ui/Input";
 import SubmitButton from "@/components/ui/SubmitButton";
@@ -29,7 +30,7 @@ export default function ResetPasswordForm() {
     const { email, setEmail, reset } = useResetPasswordStore();
     useResetOnPageLeave(reset);
 
-    const { register, handleSubmit, formState: { errors }, watch } = useForm<ResetPasswordSchema>({
+    const { register, setValue, handleSubmit, formState: { errors }, watch } = useForm<ResetPasswordSchema>({
         resolver: zodResolver(resetPasswordSchema),
         mode: "onBlur",
         shouldFocusError: false,
@@ -69,15 +70,19 @@ export default function ResetPasswordForm() {
         }
     };
 
+    const { ref: emailRef, onBlur: emailOnBlurRHF, ...emailRest } = register("email");
+
+    const onEmailBlur = handleEmailTrimOnBlur({ setValue, onBlurRHF: emailOnBlurRHF, fieldName: "email" });
+
     return (
         <FormWrapper title={t("resetPassword.title")} content={t("resetPassword.sendResetLink")} className="!mb-16">
             <form onSubmit={handleSubmit(onSubmit)} className="my-8">
                 <input type="hidden" value={locale} {...register("locale")} />
                 <Input  
                     id="email" type="email" label={t("label.email")} placeholder={t("authPlaceholders.email")}
-                    autoComplete="email" errorMessage={getZodErrorMessage(errors.email)}
+                    autoComplete="email" onBlur={onEmailBlur} errorMessage={getZodErrorMessage(errors.email)}
                     wrapperClassName={wrapperStyles} labelClassName="sr-only" inputClassName={inputStyles} errorMessageClassName={errorMessageStyles}
-                    {...register("email")}
+                    ref={emailRef} {...emailRest}
                 />
                 <SubmitButton isFormValid={isValid} isLoading={isLoading} className="relative mt-16">
                     <span className={isLoading ? "opacity-0" : "opacity-100"}>{t("resetPassword.buttonText")}</span>
