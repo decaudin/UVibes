@@ -1,9 +1,9 @@
 import type { Point, PointFormData } from "@/schemas/pointSchema";
+import { useState } from "react";
 import { toast } from "sonner";
 import { useLocale } from '@/hooks/locales';
 import { useRedirectToUvResults } from "@/hooks/uv"; 
 import { toDMS } from "@/utils/functions/pointsGPS/toDMS";
-
 
 interface PointsListProps {
     points: Point[];
@@ -16,6 +16,8 @@ interface PointsListProps {
 }
 
 export default function PointsList({ points, deletePoint, addPointAtIndex, setIsModalOpen, setSelectedPoint, skinType, t }: PointsListProps) {
+
+    const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
     
     const { locale } = useLocale();
 
@@ -59,6 +61,10 @@ export default function PointsList({ points, deletePoint, addPointAtIndex, setIs
             { className: "sonner-toast toast-delete-point justify-center items-center text-center", style: { backgroundColor: "#f5f5f5" } }
         )
     };
+    
+    const handlePointClick = (id: string) => { 
+        setActiveTooltip((prev) => (prev === id ? null : id)); 
+    };
 
     return (
         <div className="flex-1 border p-6 rounded shadow-md max-h-[50vh] md:max-h-[60vh] overflow-y-auto">
@@ -69,36 +75,51 @@ export default function PointsList({ points, deletePoint, addPointAtIndex, setIs
                         const title = `Latitude: ${coords.lat}, Longitude: ${coords.lng}${altitude ? `, Altitude: ${Math.round(altitude)} m` : ''}`;
 
                         return (
-                            <li  key={id} className="p-3 border rounded flex justify-between items-center hover:bg-gray-50 transition">
-                                <span title={title}>
-                                    📍<span className="ml-4">{name}</span>
-                                </span>
-                                <div className="w-[100px] flex justify-between">
-                                    <button
-                                        title={t("uv")}
-                                        onClick={() => redirectToUvResults({ mode: 'coords', latitude: point.latitude, longitude: point.longitude, altitude: point.altitude, skinType, locale })}
-                                        className="hover:bg-gray-200 p-1 rounded transition"
+                            <li key={id} className="p-3 border rounded hover:bg-gray-50 transition">
+                                <div className="flex justify-between items-center">
+                                    <div
+                                        title={title}
+                                        className="flex items-center"
+                                        onClick={() => handlePointClick(id)}
                                     >
-                                        👁️
-                                    </button>
-                                    <button
-                                        title={t("update")}
-                                        onClick={() => {
-                                            setSelectedPoint(point);
-                                            setIsModalOpen(true)
-                                        }}
-                                        className="hover:bg-gray-200 p-1 rounded transition"
-                                    >
-                                        ✏️
-                                    </button>
-                                    <button 
-                                        title={t("delete")} 
-                                        onClick={() => handleDelete(id)}
-                                        className="hover:bg-gray-200 p-1 rounded transition"
-                                    >
-                                        🗑️
-                                    </button>
+                                        📍
+                                        <span className="ml-4">{name}</span>
+                                    </div>
+
+                                    <div className="w-[100px] flex justify-between">
+                                        <button
+                                            title={t("uv")}
+                                            onClick={() => redirectToUvResults({ mode: 'coords', latitude: point.latitude, longitude: point.longitude, altitude: point.altitude, skinType, locale })}
+                                            className="hover:bg-gray-200 p-1 rounded transition"
+                                        >
+                                            👁️
+                                        </button>
+                                        <button
+                                            title={t("update")}
+                                            onClick={() => {
+                                                setSelectedPoint(point);
+                                                setIsModalOpen(true)
+                                            }}
+                                            className="hover:bg-gray-200 p-1 rounded transition"
+                                        >
+                                            ✏️
+                                        </button>
+                                        <button 
+                                            title={t("delete")} 
+                                            onClick={() => handleDelete(id)}
+                                            className="hover:bg-gray-200 p-1 rounded transition"
+                                        >
+                                            🗑️
+                                        </button>
+                                    </div>
                                 </div>
+                                {activeTooltip === id && (
+                                    <div className="mt-2 ml-10 text-sm text-gray-600 md:hidden space-y-1">
+                                        <div>Latitude: {coords.lat}</div>
+                                        <div>Longitude: {coords.lng}</div>
+                                        {altitude ? <div>Altitude: {Math.round(altitude)} m</div> : ''}
+                                    </div>
+                                )}
                             </li>
                         )
                     })}

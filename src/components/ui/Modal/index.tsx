@@ -12,10 +12,11 @@ interface ModalProps {
     isDisabled: boolean;
     onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
     formClassName?: string;
+    isDanger?: boolean;
     actionButtons?: React.ReactNode;
 }
 
-export default function Modal({ isOpen, onClose, title, children, actionLabel, isDisabled, onSubmit, formClassName, actionButtons }: ModalProps) {
+export default function Modal({ isOpen, onClose, title, children, actionLabel, isDisabled, onSubmit, formClassName, isDanger, actionButtons }: ModalProps) {
 
     const t = useTranslations();
     
@@ -46,6 +47,19 @@ export default function Modal({ isOpen, onClose, title, children, actionLabel, i
 
     if (!isOpen) return null;
 
+    const ModalActions = ({ children }: { children: React.ReactNode }) => (
+        <div className="flex justify-end gap-3 mt-6">
+            <button
+                type="button"
+                className="min-w-[106px] px-4 py-2 bg-gray-200 text-black rounded hover:bg-gray-300"
+                onClick={onClose}
+            >
+                {t("cancelModal")}
+            </button>
+            {children}
+        </div>
+    );
+
     return (
         <div
             aria-modal="true"
@@ -75,37 +89,24 @@ export default function Modal({ isOpen, onClose, title, children, actionLabel, i
                     <form onSubmit={onSubmit} className={formClassName}>
                         {children}
 
-                        <div className="flex justify-end gap-3 mt-6">
-                            <button
-                                type="button"
-                                className="min-w-[106px] px-4 py-2 bg-gray-200 text-black rounded hover:bg-gray-300"
-                                onClick={onClose}
-                            >
-                                {t("cancelModal")}
-                            </button>
-                            
+                        <ModalActions>
                             <button
                                 type="submit"
                                 disabled={isDisabled}
-                                className={`flex items-center justify-center min-w-[106px] px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 ${isDisabled ? "opacity-50 cursor-not-allowed" : ""}`}
+                                className={`flex items-center justify-center min-w-[106px] px-4 py-2 rounded text-white
+                                    ${isDanger ? "bg-red-600 hover:bg-red-700" : "bg-blue-600 hover:bg-blue-700"}
+                                    ${isDisabled ? "opacity-50 cursor-not-allowed" : ""}`}
                             >
                                 {actionLabel}
                             </button>
-                        </div>
+                        </ModalActions>
                     </form>
                 ) : (
                     <>
                         {children}
-                        <div className="flex justify-end gap-3 mt-6">
-                            <button
-                                type="button"
-                                className="min-w-[106px] px-4 py-2 bg-gray-200 text-black rounded hover:bg-gray-300"
-                                onClick={onClose}
-                            >
-                                {t("cancelModal")}
-                            </button>
+                        <ModalActions>
                             {actionButtons}
-                        </div>
+                        </ModalActions>
                     </>
                 )}
             </div>

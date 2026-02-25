@@ -59,6 +59,8 @@ export default function DeleteAccountModal({ isOpen, isLoading, setIsLoading, on
                     router.push("/sign-in");
                     return false;
                 }
+                const passwordInput = document.getElementById("password");
+                passwordInput?.focus();
                 throw new Error(translatedMsg);
             }
 
@@ -89,6 +91,7 @@ export default function DeleteAccountModal({ isOpen, isLoading, setIsLoading, on
             onSubmit={hasPassword ? handleSubmit(deleteWithPassword) : undefined}
             actionLabel={isLoading ? <ButtonSpinner /> : t("deleteWithPassword")}
             isDisabled={isLoading || (hasPassword && !isValid)}
+            isDanger={true}
             actionButtons={
                 !hasPassword && (
                     <button
@@ -108,7 +111,7 @@ export default function DeleteAccountModal({ isOpen, isLoading, setIsLoading, on
                 <PasswordInput
                     name="password" label={t("label.password")} placeholder={t("authPlaceholders.password")}
                     register={register} autoComplete="new-password" error={errors.password}
-                    containerClassName="w-64 xxs:w-80 mx-auto text-gray-700" wrapperClassName="mb-16"
+                    containerClassName="w-64 min-[370px]:w-72 min-[400px]:w-80 mx-auto text-gray-700" wrapperClassName="mb-16 min-[350px]:w-64 min-[370px]:w-72 min-[400px]:w-80"
                 />
             )}
         </Modal>
