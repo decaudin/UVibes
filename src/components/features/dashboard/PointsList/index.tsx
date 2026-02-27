@@ -78,48 +78,59 @@ export default function PointsList({ points, deletePoint, addPointAtIndex, setIs
                             <li key={id} className="p-3 border rounded hover:bg-gray-50 transition">
                                 <div className="flex justify-between items-center">
                                     <div
+                                        onClick={() => handlePointClick(id)}
                                         title={title}
                                         className="flex items-center"
-                                        onClick={() => handlePointClick(id)}
                                     >
-                                        📍
+                                        <span
+                                            className={`
+                                                transition-transform duration-300
+                                                ${activeTooltip === id ? "rotate-90 md:rotate-0" : "rotate-0"}
+                                            `}
+                                        >
+                                            📍
+                                        </span>
                                         <span className="ml-4">{name}</span>
                                     </div>
 
                                     <div className="w-[100px] flex justify-between">
                                         <button
-                                            title={t("uv")}
                                             onClick={() => redirectToUvResults({ mode: 'coords', latitude: point.latitude, longitude: point.longitude, altitude: point.altitude, skinType, locale })}
+                                            title={t("uv")}
                                             className="hover:bg-gray-200 p-1 rounded transition"
                                         >
                                             👁️
                                         </button>
-                                        <button
-                                            title={t("update")}
+                                        <button                                        
                                             onClick={() => {
                                                 setSelectedPoint(point);
                                                 setIsModalOpen(true)
                                             }}
+                                            title={t("update")}
                                             className="hover:bg-gray-200 p-1 rounded transition"
                                         >
                                             ✏️
                                         </button>
-                                        <button 
-                                            title={t("delete")} 
+                                        <button                                            
                                             onClick={() => handleDelete(id)}
+                                            title={t("delete")}
                                             className="hover:bg-gray-200 p-1 rounded transition"
                                         >
                                             🗑️
                                         </button>
                                     </div>
                                 </div>
-                                {activeTooltip === id && (
-                                    <div className="mt-2 ml-10 text-sm text-gray-600 md:hidden space-y-1">
-                                        <div>Latitude: {coords.lat}</div>
-                                        <div>Longitude: {coords.lng}</div>
-                                        {altitude ? <div>Altitude: {Math.round(altitude)} m</div> : ''}
-                                    </div>
-                                )}
+                                <div
+                                    className={`
+                                        ml-10 text-sm leading-tight text-gray-600 md:hidden space-y-1
+                                        overflow-hidden transition-[max-height,opacity] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]
+                                        ${activeTooltip === id ? "max-h-40 opacity-100 mt-2" : "max-h-0 opacity-0"}
+                                    `}
+                                >
+                                    <div>Latitude: {coords.lat}</div>
+                                    <div>Longitude: {coords.lng}</div>
+                                    {altitude ? <div>Altitude: {Math.round(altitude)} m</div> : null}
+                                </div>
                             </li>
                         )
                     })}
