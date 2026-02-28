@@ -212,7 +212,7 @@ export default function DashboardClient() {
                 onSelect={setView}
             />
 
-            <p className="text-sm text-gray-500 mb-6">
+            <p className="text-sm text-gray-500 dark:text-white mb-6">
                 {pointsGPS.length > 0 ? (view === "list" ? t("toggleviewDescriptionList") : t("toggleviewDescriptionMap")) : t("noPoints")}
             </p>
 

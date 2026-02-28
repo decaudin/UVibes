@@ -10,7 +10,7 @@ export default async function CheckUV() {
 
     return (
         <div className="w-full my-20 ">
-            <h1 className="text-4xl font-bold text-sky-700 text-center">
+            <h1 className="text-4xl font-bold text-sky-700 dark:text-sky-400 text-center">
                 {t("checkUv.title")}
             </h1>
             <p className="text-center my-10">

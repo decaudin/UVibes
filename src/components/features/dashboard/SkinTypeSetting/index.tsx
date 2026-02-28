@@ -65,7 +65,7 @@ export default function SkinTypeSetting({ t, onSave, isSaving, skinType }: SkinT
 
     return (
         <div className="mb-12 text-gray-700">
-            <span>
+            <span className="dark:text-white">
                 👤 {t("skinType")} :{" "}
                 <span className={skinType ? "font-bold" : "italic"}>{skinTypeLabel}</span>
             </span>

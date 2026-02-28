@@ -170,9 +170,9 @@ export default function SignInForm() {
                     </form>
 
                     <div className="flex items-center w-64">
-                        <div className="border-gray-200 w-full border-t-2 border-solid"></div>
+                        <div className="border-gray-200 w-full border-t-2"></div>
                         <span className="mx-4">{t("or")}</span>
-                        <div className="border-gray-200 w-full border-t-2 border-solid"></div>
+                        <div className="border-gray-200 w-full border-t-2"></div>
                     </div>
 
                     <button

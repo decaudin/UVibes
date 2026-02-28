@@ -1,6 +1,7 @@
 import type { Point, PointFormData } from "@/schemas/pointSchema";
 import { useState } from "react";
 import { toast } from "sonner";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLocale } from '@/hooks/locales';
 import { useRedirectToUvResults } from "@/hooks/uv"; 
 import { toDMS } from "@/utils/functions/pointsGPS/toDMS";
@@ -75,7 +76,7 @@ export default function PointsList({ points, deletePoint, addPointAtIndex, setIs
                         const title = `Latitude: ${coords.lat}, Longitude: ${coords.lng}${altitude ? `, Altitude: ${Math.round(altitude)} m` : ''}`;
 
                         return (
-                            <li key={id} className="p-3 border rounded hover:bg-gray-50 transition">
+                            <li key={id} className="p-3 border rounded hover:bg-gray-50 dark:hover:text-black transition">
                                 <div className="flex justify-between items-center">
                                     <div
                                         onClick={() => handlePointClick(id)}
@@ -120,17 +121,21 @@ export default function PointsList({ points, deletePoint, addPointAtIndex, setIs
                                         </button>
                                     </div>
                                 </div>
-                                <div
-                                    className={`
-                                        ml-10 text-sm leading-tight text-gray-600 md:hidden space-y-1
-                                        overflow-hidden transition-[max-height,opacity] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]
-                                        ${activeTooltip === id ? "max-h-40 opacity-100 mt-2" : "max-h-0 opacity-0"}
-                                    `}
-                                >
-                                    <div>Latitude: {coords.lat}</div>
-                                    <div>Longitude: {coords.lng}</div>
-                                    {altitude ? <div>Altitude: {Math.round(altitude)} m</div> : null}
-                                </div>
+                                <AnimatePresence initial={false}>
+                                    {activeTooltip === id && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: "auto", opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                                            className="ml-10 text-sm leading-tight text-gray-600 md:hidden space-y-1 overflow-hidden mt-2"
+                                        >
+                                            <div>Latitude: {coords.lat}</div>
+                                            <div>Longitude: {coords.lng}</div>
+                                            {altitude ? <div>Altitude: {Math.round(altitude)} m</div> : null}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </li>
                         )
                     })}
