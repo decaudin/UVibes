@@ -39,7 +39,7 @@ export default {
             "description": "Learn what the UV index is, how it's measured, and why it matters for your health and sun exposure habits.",
             "keywords": "UV index, sun exposure, understanding UV, UV levels, UV radiation, UV measurement, sun protection",
             "type": "article",
-            "url": "https://u-vibes.vercel.app/about/guides/understanding-uv-index"
+            "url": "https://u-vibes.vercel.app/en/about/guides/understanding-uv-index"
         },
         "chooseSunscreen": {
             "title": "How to Choose the Right Sunscreen",
@@ -60,7 +60,7 @@ export default {
             "description": "Discover how sun exposure helps your body produce vitamin D, how much you need, and how to balance the benefits with safety.",
             "keywords": "vitamin D, sunlight and vitamin D, UV rays and health, vitamin D deficiency, sun exposure, UV index",
             "type": "article",
-            "url": "https://u-vibes.vercel.app/about/guides/vitamin-d-and-sunlight"
+            "url": "https://u-vibes.vercel.app/en/about/guides/vitamin-d-and-sunlight"
         },
         "yearRoundHighUvZones": {
             "title": "Year-Round High UV Zones",
